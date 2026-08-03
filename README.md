@@ -23,7 +23,24 @@ Claude Code / Codex 에이전트 세션 활동과 관련 저장소 git 커밋 �
 
 ## 갱신
 
-수치는 스냅샷입니다. 위 소스를 다시 집계해 `index.html`의 `AGG` / `COMMITS` / `SESS` 인라인 JSON을 교체하고 재배포하면 됩니다.
+`scripts/regenerate.js`(Node.js, 의존성 없음)가 위 소스를 다시 집계해 `index.html`의 `AGG` /
+`COMMITS` / `SESS` 인라인 JSON을 그대로 교체합니다.
+
+```
+node scripts/regenerate.js          # index.html만 갱신
+powershell -File scripts/regenerate.ps1   # 갱신 + 변경 있으면 커밋·푸시까지
+```
+
+원본 로그(`~/.claude/projects`, `~/.codex/session_index.jsonl`)는 이 컴퓨터에만 있는 로컬 파일이라
+**GitHub Actions 같은 클라우드 CI에서는 실행할 수 없습니다.** 정기 자동화가 필요하면 이 컴퓨터에서
+Windows 작업 스케줄러로 `regenerate.ps1`을 주기 실행하세요:
+
+```
+schtasks /create /tn "history_dashboard regenerate" /sc daily /st 09:00 ^
+  /tr "powershell -NoProfile -File \"C:\Users\cs930\Desktop\history_dashboard\scripts\regenerate.ps1\""
+```
+
+제거: `schtasks /delete /tn "history_dashboard regenerate" /f`
 
 ## Pages 설정
 

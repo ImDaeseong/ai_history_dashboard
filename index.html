@@ -350,6 +350,14 @@ tbody td.num { text-align: right; font-variant-numeric: tabular-nums; white-spac
 const AGG = {
  "daily": [
   {
+   "date": "2026-07-05",
+   "hermes-agents": 0,
+   "ai-workspace": 0,
+   "ai_prompt": 0,
+   "skills": 0,
+   "total": 0
+  },
+  {
    "date": "2026-07-06",
    "hermes-agents": 0,
    "ai-workspace": 3,
@@ -619,13 +627,37 @@ const AGG = {
  "busiest_date": "2026-07-28",
  "busiest_count": 79,
  "active_days": 23,
- "total_days": 29,
- "start_date": "2026-07-06",
+ "total_days": 30,
+ "start_date": "2026-07-05",
  "end_date": "2026-08-03"
 };
 const COMMITS = [
  {
-  "repo": "ai_prompt",
+  "repo": "hermes-agents",
+  "date": "2026-08-03",
+  "subject": "전체_시스템_가이드.md: fix internal contradiction and relative-time phrasing",
+  "ins": 3,
+  "del": 3,
+  "files": 1
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-08-03",
+  "subject": "scripts: fix guard scripts crashing on non-ASCII (Korean) filenames",
+  "ins": 17,
+  "del": 7,
+  "files": 3
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-08-03",
+  "subject": "AGENTS.md: add periodic ablation-test rule for instruction files",
+  "ins": 168,
+  "del": 0,
+  "files": 3
+ },
+ {
+  "repo": "ai-workspace",
   "date": "2026-08-03",
   "subject": "validate_links.ps1: skip inline code spans and fenced code blocks",
   "ins": 6,
@@ -641,39 +673,7 @@ const COMMITS = [
   "files": 4
  },
  {
-  "repo": "hermes-agents",
-  "date": "2026-08-03",
-  "subject": "전체_시스템_가이드.md: fix internal contradiction and relative-time phrasing",
-  "ins": 3,
-  "del": 3,
-  "files": 1
- },
- {
-  "repo": "skills",
-  "date": "2026-08-03",
-  "subject": "validate_links.ps1: fix regex runaway and encoding bugs",
-  "ins": 20,
-  "del": 3,
-  "files": 1
- },
- {
-  "repo": "hermes-agents",
-  "date": "2026-08-03",
-  "subject": "scripts: fix guard scripts crashing on non-ASCII (Korean) filenames",
-  "ins": 17,
-  "del": 7,
-  "files": 3
- },
- {
-  "repo": "skills",
-  "date": "2026-08-03",
-  "subject": "Add filing-analyst skill: cited public-filing decoder + reverse-DCF read",
-  "ins": 74,
-  "del": 6,
-  "files": 6
- },
- {
-  "repo": "ai-workspace",
+  "repo": "ai_prompt",
   "date": "2026-08-03",
   "subject": "validate_links.ps1: skip inline code spans and fenced code blocks",
   "ins": 6,
@@ -691,26 +691,42 @@ const COMMITS = [
  {
   "repo": "skills",
   "date": "2026-08-03",
+  "subject": "validate_links.ps1: skip inline code spans and fenced code blocks",
+  "ins": 9,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "skills",
+  "date": "2026-08-03",
+  "subject": "validate_links.ps1: fix regex runaway and encoding bugs",
+  "ins": 20,
+  "del": 3,
+  "files": 1
+ },
+ {
+  "repo": "skills",
+  "date": "2026-08-03",
   "subject": "design-report: add emilkowalski/skills animation craft-review standard",
   "ins": 3,
   "del": 1,
   "files": 1
  },
  {
-  "repo": "hermes-agents",
-  "date": "2026-08-03",
-  "subject": "AGENTS.md: add periodic ablation-test rule for instruction files",
-  "ins": 168,
-  "del": 0,
-  "files": 3
- },
- {
   "repo": "skills",
   "date": "2026-08-03",
-  "subject": "validate_links.ps1: skip inline code spans and fenced code blocks",
-  "ins": 9,
-  "del": 1,
-  "files": 1
+  "subject": "Add filing-analyst skill: cited public-filing decoder + reverse-DCF read",
+  "ins": 74,
+  "del": 6,
+  "files": 6
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-08-02",
+  "subject": "Add verify_repo.ps1 common entry point + GitHub Actions CI",
+  "ins": 102,
+  "del": 0,
+  "files": 3
  },
  {
   "repo": "ai-workspace",
@@ -719,6 +735,14 @@ const COMMITS = [
   "ins": 7,
   "del": 7,
   "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-08-02",
+  "subject": "Add verify_repo.ps1 + CI; HANDOFF hygiene gains --working-tree/--base-ref",
+  "ins": 209,
+  "del": 14,
+  "files": 6
  },
  {
   "repo": "ai-workspace",
@@ -738,24 +762,16 @@ const COMMITS = [
  },
  {
   "repo": "hermes-agents",
-  "date": "2026-08-02",
-  "subject": "Add verify_repo.ps1 common entry point + GitHub Actions CI",
-  "ins": 102,
+  "date": "2026-07-31",
+  "subject": "AGENTS.md: 팀 단위 AI 도입 시 증폭 효과 근거를 Review Discipline에 추가",
+  "ins": 2,
   "del": 0,
-  "files": 3
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-08-02",
-  "subject": "Add verify_repo.ps1 + CI; HANDOFF hygiene gains --working-tree/--base-ref",
-  "ins": 209,
-  "del": 14,
-  "files": 6
+  "files": 2
  },
  {
   "repo": "hermes-agents",
   "date": "2026-07-31",
-  "subject": "AGENTS.md: 팀 단위 AI 도입 시 증폭 효과 근거를 Review Discipline에 추가",
+  "subject": "AGENTS.md: explain-diff 스킬 검증 후 Debugging Discipline에 반영",
   "ins": 2,
   "del": 0,
   "files": 2
@@ -777,18 +793,298 @@ const COMMITS = [
   "files": 2
  },
  {
-  "repo": "hermes-agents",
+  "repo": "ai-workspace",
   "date": "2026-07-31",
-  "subject": "AGENTS.md: explain-diff 스킬 검증 후 Debugging Discipline에 반영",
+  "subject": "AI 환각·과신 검증 체크리스트 신규 추가",
+  "ins": 114,
+  "del": 0,
+  "files": 2
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-30",
+  "subject": "AGENTS.md: reviewer 서브에이전트의 과다 지적 경향 균형추 추가",
   "ins": 2,
   "del": 0,
   "files": 2
  },
  {
+  "repo": "hermes-agents",
+  "date": "2026-07-30",
+  "subject": "Drop star-count numbers from MCP_SERVERS citations; codify format in AGENTS.md",
+  "ins": 6,
+  "del": 5,
+  "files": 3
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-30",
+  "subject": "README.md: sync 2026-07-30 changelog with two uncovered commits",
+  "ins": 2,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-30",
+  "subject": "AGENTS.md: fix overstated causal claims in the AI-refactoring discipline bullets",
+  "ins": 4,
+  "del": 3,
+  "files": 2
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-30",
+  "subject": "AGENTS.md: ground AI-refactoring discipline (block-size, forced explanation) in research",
+  "ins": 3,
+  "del": 0,
+  "files": 2
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-30",
+  "subject": "install-git-hooks.ps1: create the hook's parent directory before writing",
+  "ins": 8,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-30",
+  "subject": "install-git-hooks.ps1: resolve real hook path, don't blindly overwrite existing hooks",
+  "ins": 23,
+  "del": 3,
+  "files": 1
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-30",
+  "subject": "AGENTS.md: separate Evidence Rule verification from deliverable citation style",
+  "ins": 2,
+  "del": 0,
+  "files": 2
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-30",
+  "subject": "CLAUDE.md: fix stale skill-policy conflict with README's dual-collection note",
+  "ins": 11,
+  "del": 5,
+  "files": 1
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-30",
+  "subject": "Fix duplicate/misdated changelog row for the Claude Skills warning",
+  "ins": 0,
+  "del": 2,
+  "files": 1
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-30",
+  "subject": "Cite arXiv:2607.17641 in Escalation Rules on repeated repair loops",
+  "ins": 2,
+  "del": 0,
+  "files": 2
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-30",
+  "subject": "Note committee.md's synthesis step is same-thread self-verification",
+  "ins": 3,
+  "del": 0,
+  "files": 2
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-30",
+  "subject": "Stop recording a fixed GitHub star count for better-harness",
+  "ins": 3,
+  "del": 2,
+  "files": 2
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-30",
+  "subject": "Record better-harness as a verified next-pilot candidate for TF_TEAM_WORKFLOW",
+  "ins": 8,
+  "del": 0,
+  "files": 2
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-30",
+  "subject": "Add race-condition/partial-write/idempotency check to Debugging Discipline",
+  "ins": 2,
+  "del": 0,
+  "files": 2
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-30",
+  "subject": "Generalize TF_TEAM_WORKFLOW.md verification and HOLD rules per project",
+  "ins": 7,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-30",
+  "subject": "Add Claude Skills supply-chain warning and a TF-team parallel-agent workflow",
+  "ins": 48,
+  "del": 0,
+  "files": 4
+ },
+ {
   "repo": "ai-workspace",
-  "date": "2026-07-31",
-  "subject": "AI 환각·과신 검증 체크리스트 신규 추가",
-  "ins": 114,
+  "date": "2026-07-30",
+  "subject": "HANDOFF.md: record two prior verification-loop gates; archive older entries under 200-line guard",
+  "ins": 81,
+  "del": 58,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-30",
+  "subject": "install-git-hooks.ps1: create the hook's parent directory before writing",
+  "ins": 20,
+  "del": 0,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-30",
+  "subject": "install-git-hooks.ps1: resolve real hook path, don't blindly overwrite existing hooks",
+  "ins": 70,
+  "del": 34,
+  "files": 3
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-30",
+  "subject": "MENTOR.md: restore source pointers dropped during citation-hygiene trimming",
+  "ins": 16,
+  "del": 4,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-30",
+  "subject": "Trim citation-hygiene clutter across business/ docs to actionable content",
+  "ins": 39,
+  "del": 69,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-30",
+  "subject": "MENTOR.md: trim the Lee Kyung-il principle to the actionable generalization",
+  "ins": 5,
+  "del": 14,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-30",
+  "subject": "MENTOR.md: fix sourcing issues in the Lee Kyung-il principle",
+  "ins": 25,
+  "del": 9,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-30",
+  "subject": "MENTOR.md: add Lee Kyung-il (Saltlux CEO)'s problem-before-technology principle",
+  "ins": 22,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-30",
+  "subject": "Record final independent verification of AX doc sourcing fix; fill missing gate",
+  "ins": 7,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-30",
+  "subject": "AX_CONSULTANT_MENTOR.md: replace secondhand citations with verified primary sources",
+  "ins": 50,
+  "del": 19,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-30",
+  "subject": "business/README.md: clarify stale \"three mentors\" wording after table grew to 5",
+  "ins": 3,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-30",
+  "subject": "Add fact-based AX consultant reference; fill a missing HANDOFF gate",
+  "ins": 90,
+  "del": 0,
+  "files": 3
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-30",
+  "subject": "Record marketplace off-by-one fix and reword a false-positive hygiene trigger",
+  "ins": 16,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-30",
+  "subject": "Archive older HANDOFF entries and record marketplace/CLAUDE.md HOLD resolution",
+  "ins": 154,
+  "del": 77,
+  "files": 2
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-07-30",
+  "subject": "Strip decorative GitHub star counts from citations, keep date/method/license",
+  "ins": 2,
+  "del": 2,
+  "files": 2
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-07-30",
+  "subject": "README.md: bump Last Updated and record new pre-commit hook",
+  "ins": 2,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-07-30",
+  "subject": "install-git-hooks.ps1: create the hook's parent directory before writing",
+  "ins": 33,
+  "del": 7,
+  "files": 2
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-07-30",
+  "subject": "install-git-hooks.ps1: resolve real hook path, don't blindly overwrite existing hooks",
+  "ins": 124,
+  "del": 6,
+  "files": 2
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-07-30",
+  "subject": "Add pre-commit hook running validate_skills.ps1",
+  "ins": 54,
   "del": 0,
   "files": 2
  },
@@ -803,34 +1099,18 @@ const COMMITS = [
  {
   "repo": "skills",
   "date": "2026-07-30",
-  "subject": "Fix marketplace.json missing prompt-craft/erp-fundamentals + add drift guard",
-  "ins": 28,
-  "del": 1,
-  "files": 2
+  "subject": "Add ai-adoption-scout skill: maps real AI-usage signal to user's own context",
+  "ins": 102,
+  "del": 7,
+  "files": 6
  },
  {
-  "repo": "hermes-agents",
+  "repo": "skills",
   "date": "2026-07-30",
-  "subject": "Drop star-count numbers from MCP_SERVERS citations; codify format in AGENTS.md",
-  "ins": 6,
-  "del": 5,
-  "files": 3
- },
- {
-  "repo": "hermes-agents",
-  "date": "2026-07-30",
-  "subject": "Record better-harness as a verified next-pilot candidate for TF_TEAM_WORKFLOW",
+  "subject": "install-git-hooks.ps1: create the hook's parent directory before writing",
   "ins": 8,
   "del": 0,
-  "files": 2
- },
- {
-  "repo": "hermes-agents",
-  "date": "2026-07-30",
-  "subject": "AGENTS.md: separate Evidence Rule verification from deliverable citation style",
-  "ins": 2,
-  "del": 0,
-  "files": 2
+  "files": 1
  },
  {
   "repo": "skills",
@@ -838,6 +1118,38 @@ const COMMITS = [
   "subject": "install-git-hooks.ps1: resolve real hook path, don't blindly overwrite existing hooks",
   "ins": 26,
   "del": 6,
+  "files": 1
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-30",
+  "subject": "Fix specialist-skill count off-by-one and two more stale-count files",
+  "ins": 4,
+  "del": 3,
+  "files": 3
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-30",
+  "subject": "Fix marketplace.json missing prompt-craft/erp-fundamentals + add drift guard",
+  "ins": 28,
+  "del": 1,
+  "files": 2
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-30",
+  "subject": "design-report: name a real code-scaffolding reference for actual site builds",
+  "ins": 2,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-30",
+  "subject": "agent-builder: record Dify evaluation (license-restricted) and correct a false Pi star-count claim",
+  "ins": 2,
+  "del": 1,
   "files": 1
  },
  {
@@ -849,409 +1161,9 @@ const COMMITS = [
   "files": 8
  },
  {
-  "repo": "ai-workspace",
-  "date": "2026-07-30",
-  "subject": "HANDOFF.md: record two prior verification-loop gates; archive older entries under 200-line guard",
-  "ins": 81,
-  "del": 58,
-  "files": 2
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-30",
-  "subject": "AX_CONSULTANT_MENTOR.md: replace secondhand citations with verified primary sources",
-  "ins": 50,
-  "del": 19,
-  "files": 2
- },
- {
-  "repo": "hermes-agents",
-  "date": "2026-07-30",
-  "subject": "Note committee.md's synthesis step is same-thread self-verification",
-  "ins": 3,
-  "del": 0,
-  "files": 2
- },
- {
-  "repo": "hermes-agents",
-  "date": "2026-07-30",
-  "subject": "AGENTS.md: reviewer 서브에이전트의 과다 지적 경향 균형추 추가",
-  "ins": 2,
-  "del": 0,
-  "files": 2
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-30",
-  "subject": "MENTOR.md: restore source pointers dropped during citation-hygiene trimming",
-  "ins": 16,
-  "del": 4,
-  "files": 2
- },
- {
-  "repo": "hermes-agents",
-  "date": "2026-07-30",
-  "subject": "Cite arXiv:2607.17641 in Escalation Rules on repeated repair loops",
-  "ins": 2,
-  "del": 0,
-  "files": 2
- },
- {
-  "repo": "hermes-agents",
-  "date": "2026-07-30",
-  "subject": "AGENTS.md: fix overstated causal claims in the AI-refactoring discipline bullets",
-  "ins": 4,
-  "del": 3,
-  "files": 2
- },
- {
-  "repo": "hermes-agents",
-  "date": "2026-07-30",
-  "subject": "Add Claude Skills supply-chain warning and a TF-team parallel-agent workflow",
-  "ins": 48,
-  "del": 0,
-  "files": 4
- },
- {
-  "repo": "hermes-agents",
-  "date": "2026-07-30",
-  "subject": "install-git-hooks.ps1: create the hook's parent directory before writing",
-  "ins": 8,
-  "del": 0,
-  "files": 1
- },
- {
-  "repo": "hermes-agents",
-  "date": "2026-07-30",
-  "subject": "README.md: sync 2026-07-30 changelog with two uncovered commits",
-  "ins": 2,
-  "del": 0,
-  "files": 1
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-30",
-  "subject": "MENTOR.md: trim the Lee Kyung-il principle to the actionable generalization",
-  "ins": 5,
-  "del": 14,
-  "files": 1
- },
- {
-  "repo": "ai_prompt",
-  "date": "2026-07-30",
-  "subject": "install-git-hooks.ps1: create the hook's parent directory before writing",
-  "ins": 33,
-  "del": 7,
-  "files": 2
- },
- {
-  "repo": "hermes-agents",
-  "date": "2026-07-30",
-  "subject": "Add race-condition/partial-write/idempotency check to Debugging Discipline",
-  "ins": 2,
-  "del": 0,
-  "files": 2
- },
- {
-  "repo": "hermes-agents",
-  "date": "2026-07-30",
-  "subject": "AGENTS.md: ground AI-refactoring discipline (block-size, forced explanation) in research",
-  "ins": 3,
-  "del": 0,
-  "files": 2
- },
- {
-  "repo": "ai_prompt",
-  "date": "2026-07-30",
-  "subject": "Add pre-commit hook running validate_skills.ps1",
-  "ins": 54,
-  "del": 0,
-  "files": 2
- },
- {
-  "repo": "skills",
-  "date": "2026-07-30",
-  "subject": "Add ai-adoption-scout skill: maps real AI-usage signal to user's own context",
-  "ins": 102,
-  "del": 7,
-  "files": 6
- },
- {
-  "repo": "ai_prompt",
-  "date": "2026-07-30",
-  "subject": "README.md: bump Last Updated and record new pre-commit hook",
-  "ins": 2,
-  "del": 1,
-  "files": 1
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-30",
-  "subject": "Record final independent verification of AX doc sourcing fix; fill missing gate",
-  "ins": 7,
-  "del": 0,
-  "files": 1
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-30",
-  "subject": "Record marketplace off-by-one fix and reword a false-positive hygiene trigger",
-  "ins": 16,
-  "del": 0,
-  "files": 1
- },
- {
-  "repo": "skills",
-  "date": "2026-07-30",
-  "subject": "install-git-hooks.ps1: create the hook's parent directory before writing",
-  "ins": 8,
-  "del": 0,
-  "files": 1
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-30",
-  "subject": "MENTOR.md: fix sourcing issues in the Lee Kyung-il principle",
-  "ins": 25,
-  "del": 9,
-  "files": 2
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-30",
-  "subject": "install-git-hooks.ps1: resolve real hook path, don't blindly overwrite existing hooks",
-  "ins": 70,
-  "del": 34,
-  "files": 3
- },
- {
-  "repo": "hermes-agents",
-  "date": "2026-07-30",
-  "subject": "CLAUDE.md: fix stale skill-policy conflict with README's dual-collection note",
-  "ins": 11,
-  "del": 5,
-  "files": 1
- },
- {
-  "repo": "ai_prompt",
-  "date": "2026-07-30",
-  "subject": "Strip decorative GitHub star counts from citations, keep date/method/license",
-  "ins": 2,
-  "del": 2,
-  "files": 2
- },
- {
-  "repo": "ai_prompt",
-  "date": "2026-07-30",
-  "subject": "install-git-hooks.ps1: resolve real hook path, don't blindly overwrite existing hooks",
-  "ins": 124,
-  "del": 6,
-  "files": 2
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-30",
-  "subject": "Archive older HANDOFF entries and record marketplace/CLAUDE.md HOLD resolution",
-  "ins": 154,
-  "del": 77,
-  "files": 2
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-30",
-  "subject": "Add fact-based AX consultant reference; fill a missing HANDOFF gate",
-  "ins": 90,
-  "del": 0,
-  "files": 3
- },
- {
-  "repo": "hermes-agents",
-  "date": "2026-07-30",
-  "subject": "Fix duplicate/misdated changelog row for the Claude Skills warning",
-  "ins": 0,
-  "del": 2,
-  "files": 1
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-30",
-  "subject": "business/README.md: clarify stale \"three mentors\" wording after table grew to 5",
-  "ins": 3,
-  "del": 1,
-  "files": 1
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-30",
-  "subject": "MENTOR.md: add Lee Kyung-il (Saltlux CEO)'s problem-before-technology principle",
-  "ins": 22,
-  "del": 0,
-  "files": 1
- },
- {
-  "repo": "hermes-agents",
-  "date": "2026-07-30",
-  "subject": "Generalize TF_TEAM_WORKFLOW.md verification and HOLD rules per project",
-  "ins": 7,
-  "del": 1,
-  "files": 1
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-30",
-  "subject": "Trim citation-hygiene clutter across business/ docs to actionable content",
-  "ins": 39,
-  "del": 69,
-  "files": 2
- },
- {
-  "repo": "hermes-agents",
-  "date": "2026-07-30",
-  "subject": "Stop recording a fixed GitHub star count for better-harness",
-  "ins": 3,
-  "del": 2,
-  "files": 2
- },
- {
-  "repo": "skills",
-  "date": "2026-07-30",
-  "subject": "agent-builder: record Dify evaluation (license-restricted) and correct a false Pi star-count claim",
-  "ins": 2,
-  "del": 1,
-  "files": 1
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-30",
-  "subject": "install-git-hooks.ps1: create the hook's parent directory before writing",
-  "ins": 20,
-  "del": 0,
-  "files": 2
- },
- {
-  "repo": "skills",
-  "date": "2026-07-30",
-  "subject": "Fix specialist-skill count off-by-one and two more stale-count files",
-  "ins": 4,
-  "del": 3,
-  "files": 3
- },
- {
-  "repo": "hermes-agents",
-  "date": "2026-07-30",
-  "subject": "install-git-hooks.ps1: resolve real hook path, don't blindly overwrite existing hooks",
-  "ins": 23,
-  "del": 3,
-  "files": 1
- },
- {
-  "repo": "skills",
-  "date": "2026-07-30",
-  "subject": "design-report: name a real code-scaffolding reference for actual site builds",
-  "ins": 2,
-  "del": 1,
-  "files": 1
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-29",
-  "subject": "Add LLM Wiki scaffold and log 2026-07-29 video-review session",
-  "ins": 26,
-  "del": 0,
-  "files": 6
- },
- {
-  "repo": "skills",
-  "date": "2026-07-29",
-  "subject": "Upgrade ERP and semiconductor citations to verified primary sources",
-  "ins": 3,
-  "del": 3,
-  "files": 1
- },
- {
   "repo": "hermes-agents",
   "date": "2026-07-29",
-  "subject": "Add Debugging Discipline section to AGENTS.md, grounded in 2026 research",
-  "ins": 16,
-  "del": 1,
-  "files": 2
- },
- {
-  "repo": "ai_prompt",
-  "date": "2026-07-29",
-  "subject": "Add office_automation_html_tools skill from verified YouTube walkthrough",
-  "ins": 73,
-  "del": 2,
-  "files": 3
- },
- {
-  "repo": "ai_prompt",
-  "date": "2026-07-29",
-  "subject": "Cross-link office_automation_html_tools and doc_coauthoring skills",
-  "ins": 8,
-  "del": 0,
-  "files": 2
- },
- {
-  "repo": "hermes-agents",
-  "date": "2026-07-29",
-  "subject": "Add pre-commit guard for .bat/.cmd bare-LF line endings",
-  "ins": 53,
-  "del": 0,
-  "files": 2
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-29",
-  "subject": "Log final confirmation of ai_Scenario HOLD resolution (100% pass)",
-  "ins": 8,
-  "del": 0,
-  "files": 1
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-29",
-  "subject": "Log progress gates for the full skills/hermes-agents verification loop",
-  "ins": 7,
-  "del": 0,
-  "files": 1
- },
- {
-  "repo": "hermes-agents",
-  "date": "2026-07-29",
-  "subject": "Correct METR follow-up citation in AGENTS.md Debugging Discipline",
-  "ins": 2,
-  "del": 1,
-  "files": 2
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-29",
-  "subject": "Record 2026-07-29 full verification loops (hermes-agents/skills, then 5-repo)",
-  "ins": 20,
-  "del": 0,
-  "files": 1
- },
- {
-  "repo": "skills",
-  "date": "2026-07-29",
-  "subject": "Research semiconductor, trade/customs, and confirm management/internet-co are non-gaps",
-  "ins": 6,
-  "del": 0,
-  "files": 1
- },
- {
-  "repo": "hermes-agents",
-  "date": "2026-07-29",
-  "subject": "Replace weak Debugging Discipline citations with a real methodology + empirical study",
-  "ins": 3,
-  "del": 2,
-  "files": 2
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-29",
-  "subject": "Exclude run_game's MFC build HOLD from verification scope per user decision",
+  "subject": "Document official Claude Code cost-reduction habits",
   "ins": 1,
   "del": 0,
   "files": 1
@@ -1265,139 +1177,35 @@ const COMMITS = [
   "files": 2
  },
  {
-  "repo": "skills",
+  "repo": "hermes-agents",
   "date": "2026-07-29",
-  "subject": "Re-search all 8 below-bar verticals for better candidates; record findings",
-  "ins": 7,
-  "del": 0,
-  "files": 1
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-29",
-  "subject": "Archive 2026-07-28~29 dated entries; log the archival loop itself",
-  "ins": 109,
-  "del": 88,
-  "files": 2
- },
- {
-  "repo": "skills",
-  "date": "2026-07-29",
-  "subject": "Strengthen AI memory-migration note with a direct primary-source fetch",
-  "ins": 1,
+  "subject": "Document hermes.cmd's real silent-failure cause precisely",
+  "ins": 4,
   "del": 1,
   "files": 1
  },
  {
-  "repo": "ai-workspace",
+  "repo": "hermes-agents",
   "date": "2026-07-29",
-  "subject": "Record run_game MFC HOLD re-verification (still unresolved)",
-  "ins": 5,
-  "del": 0,
-  "files": 1
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-29",
-  "subject": "Add Red Queen strategy principles to business/MENTOR.md",
-  "ins": 33,
+  "subject": "Add pre-commit guard for .bat/.cmd bare-LF line endings",
+  "ins": 53,
   "del": 0,
   "files": 2
  },
  {
-  "repo": "skills",
-  "date": "2026-07-29",
-  "subject": "Re-search and record ERP/SCM, medical, apparel, and B2B/B2C domain coverage",
-  "ins": 20,
-  "del": 0,
-  "files": 1
- },
- {
-  "repo": "skills",
-  "date": "2026-07-29",
-  "subject": "Research and record manufacturing, electronics, and accounting domain coverage",
-  "ins": 8,
-  "del": 0,
-  "files": 1
- },
- {
   "repo": "hermes-agents",
-  "date": "2026-07-29",
-  "subject": "Document official Claude Code cost-reduction habits",
-  "ins": 1,
-  "del": 0,
-  "files": 1
- },
- {
-  "repo": "hermes-agents",
-  "date": "2026-07-29",
-  "subject": "Stop logging Telegram message contents; add AST guard against regression",
-  "ins": 59,
-  "del": 4,
-  "files": 4
- },
- {
-  "repo": "skills",
-  "date": "2026-07-29",
-  "subject": "Make the regression test's own setup fail loudly instead of silently",
-  "ins": 2,
-  "del": 2,
-  "files": 1
- },
- {
-  "repo": "skills",
-  "date": "2026-07-29",
-  "subject": "Document cross-vendor AI memory/chat migration in personal-memory",
-  "ins": 4,
-  "del": 0,
-  "files": 1
- },
- {
-  "repo": "skills",
-  "date": "2026-07-29",
-  "subject": "Apply the pending buying-center check to biz-council Step 3a",
-  "ins": 3,
-  "del": 2,
-  "files": 2
- },
- {
-  "repo": "skills",
-  "date": "2026-07-29",
-  "subject": "Ground biz-council's solo-operator idea scoping in verified data",
-  "ins": 8,
-  "del": 0,
-  "files": 1
- },
- {
-  "repo": "ai-workspace",
   "date": "2026-07-29",
   "subject": "Fix install-git-hooks.ps1 resolving WSL bash instead of Git Bash",
-  "ins": 18,
-  "del": 9,
-  "files": 2
- },
- {
-  "repo": "skills",
-  "date": "2026-07-29",
-  "subject": "Add prompt-craft techniques from Utley and Lee Je-hyun; defer 3 manual-GUI creative tools",
-  "ins": 8,
-  "del": 1,
-  "files": 2
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-29",
-  "subject": "Log 3-repo re-verification loop and its independent re-check",
-  "ins": 8,
-  "del": 0,
+  "ins": 15,
+  "del": 6,
   "files": 1
  },
  {
-  "repo": "skills",
+  "repo": "hermes-agents",
   "date": "2026-07-29",
-  "subject": "Re-verify low-evidence attribution claims; correct one stale number",
-  "ins": 3,
-  "del": 3,
+  "subject": "Correct METR follow-up citation in AGENTS.md Debugging Discipline",
+  "ins": 2,
+  "del": 1,
   "files": 2
  },
  {
@@ -1417,36 +1225,28 @@ const COMMITS = [
   "files": 1
  },
  {
-  "repo": "ai-workspace",
+  "repo": "hermes-agents",
   "date": "2026-07-29",
-  "subject": "Log post-skill-addition 3-repo re-verification loop",
-  "ins": 8,
-  "del": 0,
-  "files": 1
+  "subject": "Stop logging Telegram message contents; add AST guard against regression",
+  "ins": 59,
+  "del": 4,
+  "files": 4
  },
  {
   "repo": "hermes-agents",
   "date": "2026-07-29",
-  "subject": "Fix install-git-hooks.ps1 resolving WSL bash instead of Git Bash",
-  "ins": 15,
-  "del": 6,
-  "files": 1
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-29",
-  "subject": "Log resolution of the ai_Scenario 90% HOLD from the pasted verification report",
-  "ins": 15,
-  "del": 0,
-  "files": 1
+  "subject": "Replace weak Debugging Discipline citations with a real methodology + empirical study",
+  "ins": 3,
+  "del": 2,
+  "files": 2
  },
  {
   "repo": "hermes-agents",
   "date": "2026-07-29",
-  "subject": "Document hermes.cmd's real silent-failure cause precisely",
-  "ins": 4,
+  "subject": "Add Debugging Discipline section to AGENTS.md, grounded in 2026 research",
+  "ins": 16,
   "del": 1,
-  "files": 1
+  "files": 2
  },
  {
   "repo": "hermes-agents",
@@ -1459,8 +1259,208 @@ const COMMITS = [
  {
   "repo": "ai-workspace",
   "date": "2026-07-29",
+  "subject": "Exclude run_game's MFC build HOLD from verification scope per user decision",
+  "ins": 1,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-29",
+  "subject": "Record run_game MFC HOLD re-verification (still unresolved)",
+  "ins": 5,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-29",
+  "subject": "Record 2026-07-29 full verification loops (hermes-agents/skills, then 5-repo)",
+  "ins": 20,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-29",
+  "subject": "Fix install-git-hooks.ps1 resolving WSL bash instead of Git Bash",
+  "ins": 18,
+  "del": 9,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-29",
+  "subject": "Add Red Queen strategy principles to business/MENTOR.md",
+  "ins": 33,
+  "del": 0,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-29",
+  "subject": "Archive 2026-07-28~29 dated entries; log the archival loop itself",
+  "ins": 109,
+  "del": 88,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-29",
+  "subject": "Log progress gates for the full skills/hermes-agents verification loop",
+  "ins": 7,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-29",
+  "subject": "Log final confirmation of ai_Scenario HOLD resolution (100% pass)",
+  "ins": 8,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-29",
+  "subject": "Log resolution of the ai_Scenario 90% HOLD from the pasted verification report",
+  "ins": 15,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-29",
+  "subject": "Log post-skill-addition 3-repo re-verification loop",
+  "ins": 8,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-29",
+  "subject": "Log 3-repo re-verification loop and its independent re-check",
+  "ins": 8,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-29",
   "subject": "Log closure of the Telegram privacy fix that was pending commit",
   "ins": 18,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-29",
+  "subject": "Add LLM Wiki scaffold and log 2026-07-29 video-review session",
+  "ins": 26,
+  "del": 0,
+  "files": 6
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-07-29",
+  "subject": "Cross-link office_automation_html_tools and doc_coauthoring skills",
+  "ins": 8,
+  "del": 0,
+  "files": 2
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-07-29",
+  "subject": "Add office_automation_html_tools skill from verified YouTube walkthrough",
+  "ins": 73,
+  "del": 2,
+  "files": 3
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-29",
+  "subject": "Apply the pending buying-center check to biz-council Step 3a",
+  "ins": 3,
+  "del": 2,
+  "files": 2
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-29",
+  "subject": "Upgrade ERP and semiconductor citations to verified primary sources",
+  "ins": 3,
+  "del": 3,
+  "files": 1
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-29",
+  "subject": "Re-search all 8 below-bar verticals for better candidates; record findings",
+  "ins": 7,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-29",
+  "subject": "Ground biz-council's solo-operator idea scoping in verified data",
+  "ins": 8,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-29",
+  "subject": "Research semiconductor, trade/customs, and confirm management/internet-co are non-gaps",
+  "ins": 6,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-29",
+  "subject": "Research and record manufacturing, electronics, and accounting domain coverage",
+  "ins": 8,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-29",
+  "subject": "Re-verify low-evidence attribution claims; correct one stale number",
+  "ins": 3,
+  "del": 3,
+  "files": 2
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-29",
+  "subject": "Re-search and record ERP/SCM, medical, apparel, and B2B/B2C domain coverage",
+  "ins": 20,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-29",
+  "subject": "Make the regression test's own setup fail loudly instead of silently",
+  "ins": 2,
+  "del": 2,
+  "files": 1
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-29",
+  "subject": "Strengthen AI memory-migration note with a direct primary-source fetch",
+  "ins": 1,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-29",
+  "subject": "Document cross-vendor AI memory/chat migration in personal-memory",
+  "ins": 4,
   "del": 0,
   "files": 1
  },
@@ -1473,212 +1473,12 @@ const COMMITS = [
   "files": 1
  },
  {
-  "repo": "ai-workspace",
-  "date": "2026-07-28",
-  "subject": "Log ai_test1 doc-drift resolution and extended consistency guard",
-  "ins": 9,
-  "del": 0,
-  "files": 1
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-28",
-  "subject": "Log validate_skills.ps1 NOTICE.md-deletion fix to HANDOFF",
-  "ins": 8,
-  "del": 2,
-  "files": 1
- },
- {
-  "repo": "ai_prompt",
-  "date": "2026-07-28",
-  "subject": "Fix ScheduleWakeup mischaracterization in antigravity_usage_guide.md",
-  "ins": 1,
-  "del": 1,
-  "files": 1
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-28",
-  "subject": "Fix 2 remaining hardcoded absolute paths flagged by independent validation",
-  "ins": 7,
-  "del": 3,
-  "files": 3
- },
- {
-  "repo": "ai_prompt",
-  "date": "2026-07-28",
-  "subject": "Tighten llm_evaluation.md's self-preference-bias wording to match the research",
-  "ins": 1,
-  "del": 1,
-  "files": 1
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-28",
-  "subject": "Log hermes-agents/skills README cleanup and 4-skill rewrite to HANDOFF",
-  "ins": 3,
-  "del": 1,
-  "files": 1
- },
- {
-  "repo": "ai_prompt",
-  "date": "2026-07-28",
-  "subject": "Fix 8 dead references links in caio_advisor.md/vpe_advisor.md",
-  "ins": 12,
-  "del": 8,
-  "files": 2
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-28",
-  "subject": "Log AGENTS.md Independent Verification Rule addition",
-  "ins": 1,
-  "del": 0,
-  "files": 1
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-28",
-  "subject": "Log MIT attribution and dead-routing fixes for ai_prompt's 4 sourced skills",
-  "ins": 5,
-  "del": 0,
-  "files": 1
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-28",
-  "subject": "Log validate_skills.ps1 frontmatter-routing check to HANDOFF",
-  "ins": 8,
-  "del": 2,
-  "files": 1
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-28",
-  "subject": "Log Antigravity guide accuracy fix and README cleanup to HANDOFF",
-  "ins": 8,
-  "del": 1,
-  "files": 1
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-28",
-  "subject": "Log skills validator 3rd re-verification pass and Hermes CLI skill/curator investigation",
-  "ins": 5,
-  "del": 0,
-  "files": 1
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-28",
-  "subject": "Log ScheduleWakeup correction to HANDOFF (ai_prompt@f21a38f)",
-  "ins": 7,
-  "del": 2,
-  "files": 1
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-28",
-  "subject": "Log npm audit remediation for ai_test3/CareerDiff and ai_test's three Node projects",
-  "ins": 5,
-  "del": 0,
-  "files": 1
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-28",
-  "subject": "Archive re-accumulated ai_prompt saga history; add gate-by-gate evidence",
-  "ins": 112,
-  "del": 78,
-  "files": 2
- },
- {
-  "repo": "hermes-agents",
-  "date": "2026-07-28",
-  "subject": "Add Currency Rule and plan-divergence guidance to AGENTS.md",
-  "ins": 7,
-  "del": 0,
-  "files": 2
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-28",
-  "subject": "Log full ai_prompt + ai-workspace verification loop — both clean, no drift",
-  "ins": 5,
-  "del": 0,
-  "files": 1
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-28",
-  "subject": "Log independent re-verification pass confirming all HOLDs resolved",
-  "ins": 4,
-  "del": 0,
-  "files": 1
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-28",
-  "subject": "Log final npm audit cleanup: extension deps fixed, music_insight_studio venv restored",
-  "ins": 5,
-  "del": 0,
-  "files": 1
- },
- {
   "repo": "skills",
-  "date": "2026-07-28",
-  "subject": "Stop workspace/link validators from entering ignored top-level dirs",
-  "ins": 42,
-  "del": 13,
-  "files": 2
- },
- {
-  "repo": "ai_prompt",
-  "date": "2026-07-28",
-  "subject": "Add validate_skills.ps1 regression guard; fix dead link + .md-extension consistency",
-  "ins": 98,
-  "del": 6,
-  "files": 6
- },
- {
-  "repo": "ai_prompt",
-  "date": "2026-07-28",
-  "subject": "Preserve MIT attribution for the 4 sourced skills; fix dead routing in marketing_psychology.md",
-  "ins": 72,
-  "del": 1,
-  "files": 6
- },
- {
-  "repo": "ai_prompt",
-  "date": "2026-07-28",
-  "subject": "Verification loop: fact-check the 4 rewritten skills' checkable claims",
-  "ins": 3,
-  "del": 3,
-  "files": 1
- },
- {
-  "repo": "hermes-agents",
-  "date": "2026-07-28",
-  "subject": "Fix missing Telegram bot requirements.txt referenced by SETUP.md",
-  "ins": 55,
-  "del": 5,
-  "files": 5
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-28",
-  "subject": "Log final confirmation that remaining npm audit HOLDs are genuinely upstream-blocked",
-  "ins": 5,
-  "del": 0,
-  "files": 1
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-28",
-  "subject": "Fix citation errors in HANDOFF's own verification-loop log",
+  "date": "2026-07-29",
+  "subject": "Add prompt-craft techniques from Utley and Lee Je-hyun; defer 3 manual-GUI creative tools",
   "ins": 8,
-  "del": 2,
-  "files": 1
+  "del": 1,
+  "files": 2
  },
  {
   "repo": "hermes-agents",
@@ -1691,330 +1491,18 @@ const COMMITS = [
  {
   "repo": "hermes-agents",
   "date": "2026-07-28",
-  "subject": "Mark agent-governance-kit as discontinued in CLAUDE.md",
-  "ins": 6,
-  "del": 8,
-  "files": 1
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-28",
-  "subject": "Add AI-threat-era security premise and imperfection differentiation note",
-  "ins": 21,
-  "del": 0,
-  "files": 2
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-28",
-  "subject": "Log HOLD resolution for validator regression test + last30days pytest scope",
-  "ins": 14,
-  "del": 0,
-  "files": 1
- },
- {
-  "repo": "hermes-agents",
-  "date": "2026-07-28",
-  "subject": "Add Independent Verification Rule to AGENTS.md, sourced from primary references",
-  "ins": 12,
-  "del": 0,
-  "files": 2
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-28",
-  "subject": "Log Telegram requirements parsing fix; archive older HANDOFF entries",
-  "ins": 100,
-  "del": 85,
-  "files": 2
- },
- {
-  "repo": "hermes-agents",
-  "date": "2026-07-28",
-  "subject": "Ground Review Discipline and Independent Verification Rule in Dex Horthy's AI Engineer 2026 talk",
-  "ins": 3,
-  "del": 0,
-  "files": 2
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-28",
-  "subject": "Fix remaining HANDOFF consistency issues: self-reference typo + dangling HOLD",
-  "ins": 2,
-  "del": 2,
-  "files": 1
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-28",
-  "subject": "Stop pinning per-repo commit hashes in Current State; fix root cause of recurring drift",
-  "ins": 9,
-  "del": 1,
-  "files": 1
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-28",
-  "subject": "Evaluate touched HANDOFF.md entries against full staged content, not diff fragment",
-  "ins": 39,
-  "del": 16,
-  "files": 2
- },
- {
-  "repo": "ai_prompt",
-  "date": "2026-07-28",
-  "subject": "Add official-source Antigravity content: Knowledge system, 2.0 features, Rules/Workflows verification",
-  "ins": 32,
-  "del": 1,
-  "files": 2
- },
- {
-  "repo": "hermes-agents",
-  "date": "2026-07-28",
-  "subject": "Ignore local Claude Code settings and .tmp-*/.tmp_* test-fixture dirs",
-  "ins": 5,
-  "del": 0,
-  "files": 1
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-28",
-  "subject": "Log ai_test2/ai_test3/ai_test full verification loop — all clean, no drift",
-  "ins": 5,
-  "del": 0,
-  "files": 1
- },
- {
-  "repo": "ai_prompt",
-  "date": "2026-07-28",
-  "subject": "Rewrite copywriting/marketing_psychology/rag_implementation/llm_evaluation from scratch",
-  "ins": 343,
-  "del": 505,
-  "files": 7
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-28",
-  "subject": "Fix per-entry bypass in HANDOFF.md gate-evidence guard",
-  "ins": 51,
-  "del": 23,
-  "files": 2
- },
- {
-  "repo": "ai_prompt",
-  "date": "2026-07-28",
-  "subject": "Add 4 skills: copywriting/marketing-psychology, rag-implementation/llm-evaluation",
-  "ins": 585,
-  "del": 1,
+  "subject": "Fix version-specifier parsing bug in check_telegram_requirements.py",
+  "ins": 71,
+  "del": 6,
   "files": 5
  },
  {
-  "repo": "ai-workspace",
+  "repo": "hermes-agents",
   "date": "2026-07-28",
-  "subject": "Log OWASP-grounded MCP supply-chain research pass",
-  "ins": 8,
-  "del": 0,
-  "files": 1
- },
- {
-  "repo": "ai_prompt",
-  "date": "2026-07-28",
-  "subject": "Remove hardcoded E:\\ai_test / E:\\ai_prompt path references from README.md",
-  "ins": 2,
-  "del": 2,
-  "files": 1
- },
- {
-  "repo": "ai_prompt",
-  "date": "2026-07-28",
-  "subject": "Remove hardcoded C:/Users/cs930 path from hermes_config_audit skill",
-  "ins": 1,
-  "del": 1,
-  "files": 1
- },
- {
-  "repo": "ai_prompt",
-  "date": "2026-07-28",
-  "subject": "Fix validate_skills.ps1's NOTICE.md-deletion blind spot",
-  "ins": 27,
-  "del": 3,
-  "files": 1
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-28",
-  "subject": "Fix remaining ai_img_video_prompt drift and AI_TEST_ROOT misuse in catalog-template.md",
-  "ins": 8,
-  "del": 4,
-  "files": 2
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-28",
-  "subject": "Complete remaining Open Items; fix preamble false-positive in hygiene guard",
-  "ins": 332,
-  "del": 9,
-  "files": 8
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-28",
-  "subject": "Log ScheduleWakeup final revalidation pass to HANDOFF",
-  "ins": 6,
-  "del": 0,
-  "files": 1
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-28",
-  "subject": "Log ai_prompt skill additions (copywriting/marketing-psychology/rag/llm-eval)",
-  "ins": 5,
-  "del": 1,
-  "files": 1
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-28",
-  "subject": "Log verification-loop fact-check results to HANDOFF (ai_prompt@ad15040)",
-  "ins": 2,
-  "del": 1,
-  "files": 1
- },
- {
-  "repo": "skills",
-  "date": "2026-07-28",
-  "subject": "Add regression test for the ignored-dir scan fix; document last30days as POSIX-scoped",
-  "ins": 62,
-  "del": 0,
-  "files": 3
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-28",
-  "subject": "Log 2nd follow-up audit resolution: guide accuracy + hermes-agents gitignore fix",
-  "ins": 9,
-  "del": 3,
-  "files": 1
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-28",
-  "subject": "Fix two more real bugs in check_handoff_hygiene.py: colon requirement, blank-line touch",
-  "ins": 27,
+  "subject": "Fix missing Telegram bot requirements.txt referenced by SETUP.md",
+  "ins": 55,
   "del": 5,
-  "files": 2
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-28",
-  "subject": "Fix stale/dead links in llm-service-market-strategy.md and ai_mv_capcut_design.md",
-  "ins": 10,
-  "del": 5,
-  "files": 3
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-28",
-  "subject": "Log imagevideo dev-server mitigation and an Edit-tool mixed-encoding corruption caught mid-session",
-  "ins": 5,
-  "del": 0,
-  "files": 1
- },
- {
-  "repo": "ai_prompt",
-  "date": "2026-07-28",
-  "subject": "Tidy README.md: fix broken path refs, remove stale/redundant content",
-  "ins": 13,
-  "del": 21,
-  "files": 1
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-28",
-  "subject": "Correct stale sibling-repo path name in prior HANDOFF log entry",
-  "ins": 2,
-  "del": 0,
-  "files": 1
- },
- {
-  "repo": "ai_prompt",
-  "date": "2026-07-28",
-  "subject": "Fix 2 accuracy issues in antigravity_usage_guide.md found by follow-up audit",
-  "ins": 3,
-  "del": 3,
-  "files": 1
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-28",
-  "subject": "Update Current State sync pointer to ai-workspace@89d2955",
-  "ins": 1,
-  "del": 1,
-  "files": 1
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-28",
-  "subject": "Update Current State sync pointer to ai-workspace@3828759",
-  "ins": 1,
-  "del": 1,
-  "files": 1
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-28",
-  "subject": "Add pre-commit guard for HANDOFF.md Progress Gate compliance",
-  "ins": 178,
-  "del": 0,
-  "files": 4
- },
- {
-  "repo": "ai_prompt",
-  "date": "2026-07-28",
-  "subject": "Close validate_skills.ps1's frontmatter-routing gap; backtick-ify marketing_psychology.md description",
-  "ins": 24,
-  "del": 13,
-  "files": 2
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-28",
-  "subject": "Log GitHub-research AGENTS.md additions",
-  "ins": 8,
-  "del": 0,
-  "files": 1
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-28",
-  "subject": "Backfill actual commit hash in Current State / gate log",
-  "ins": 3,
-  "del": 3,
-  "files": 1
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-28",
-  "subject": "Close the duplicate 90% HOLD entry in HANDOFF's audit trail",
-  "ins": 1,
-  "del": 0,
-  "files": 1
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-28",
-  "subject": "Log antigravity_usage_guide.md official-source expansion to HANDOFF",
-  "ins": 8,
-  "del": 1,
-  "files": 1
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-28",
-  "subject": "Backfill final commit hash in Current State",
-  "ins": 1,
-  "del": 1,
-  "files": 1
+  "files": 5
  },
  {
   "repo": "hermes-agents",
@@ -2033,12 +1521,28 @@ const COMMITS = [
   "files": 2
  },
  {
-  "repo": "ai_prompt",
+  "repo": "hermes-agents",
   "date": "2026-07-28",
-  "subject": "Fix 2 more accuracy issues in antigravity_usage_guide.md (2nd follow-up audit)",
-  "ins": 2,
-  "del": 2,
-  "files": 1
+  "subject": "Ground Review Discipline and Independent Verification Rule in Dex Horthy's AI Engineer 2026 talk",
+  "ins": 3,
+  "del": 0,
+  "files": 2
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-28",
+  "subject": "Add Currency Rule and plan-divergence guidance to AGENTS.md",
+  "ins": 7,
+  "del": 0,
+  "files": 2
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-28",
+  "subject": "Add Independent Verification Rule to AGENTS.md, sourced from primary references",
+  "ins": 12,
+  "del": 0,
+  "files": 2
  },
  {
   "repo": "hermes-agents",
@@ -2049,12 +1553,44 @@ const COMMITS = [
   "files": 1
  },
  {
+  "repo": "hermes-agents",
+  "date": "2026-07-28",
+  "subject": "Ignore local Claude Code settings and .tmp-*/.tmp_* test-fixture dirs",
+  "ins": 5,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-28",
+  "subject": "Mark agent-governance-kit as discontinued in CLAUDE.md",
+  "ins": 6,
+  "del": 8,
+  "files": 1
+ },
+ {
   "repo": "ai-workspace",
   "date": "2026-07-28",
-  "subject": "Archive HANDOFF.md's dated history; replace hardcoded E:\\ paths with Path Alias Policy aliases",
-  "ins": 170,
-  "del": 185,
-  "files": 5
+  "subject": "Log OWASP-grounded MCP supply-chain research pass",
+  "ins": 8,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Add AI-threat-era security premise and imperfection differentiation note",
+  "ins": 21,
+  "del": 0,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Log Telegram requirements parsing fix; archive older HANDOFF entries",
+  "ins": 100,
+  "del": 85,
+  "files": 2
  },
  {
   "repo": "ai-workspace",
@@ -2067,10 +1603,98 @@ const COMMITS = [
  {
   "repo": "ai-workspace",
   "date": "2026-07-28",
+  "subject": "Stop pinning per-repo commit hashes in Current State; fix root cause of recurring drift",
+  "ins": 9,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Correct stale sibling-repo path name in prior HANDOFF log entry",
+  "ins": 2,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Complete remaining Open Items; fix preamble false-positive in hygiene guard",
+  "ins": 332,
+  "del": 9,
+  "files": 8
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Log GitHub-research AGENTS.md additions",
+  "ins": 8,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Fix two more real bugs in check_handoff_hygiene.py: colon requirement, blank-line touch",
+  "ins": 27,
+  "del": 5,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
   "subject": "Log AGENTS.md Dex Horthy talk grounding",
   "ins": 8,
   "del": 0,
   "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Backfill final commit hash in Current State",
+  "ins": 1,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Evaluate touched HANDOFF.md entries against full staged content, not diff fragment",
+  "ins": 39,
+  "del": 16,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Fix per-entry bypass in HANDOFF.md gate-evidence guard",
+  "ins": 51,
+  "del": 23,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Backfill actual commit hash in Current State / gate log",
+  "ins": 3,
+  "del": 3,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Add pre-commit guard for HANDOFF.md Progress Gate compliance",
+  "ins": 178,
+  "del": 0,
+  "files": 4
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Archive re-accumulated ai_prompt saga history; add gate-by-gate evidence",
+  "ins": 112,
+  "del": 78,
+  "files": 2
  },
  {
   "repo": "ai-workspace",
@@ -2091,42 +1715,402 @@ const COMMITS = [
  {
   "repo": "ai-workspace",
   "date": "2026-07-28",
+  "subject": "Log AGENTS.md Independent Verification Rule addition",
+  "ins": 1,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Update Current State sync pointer to ai-workspace@89d2955",
+  "ins": 1,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Fix remaining HANDOFF consistency issues: self-reference typo + dangling HOLD",
+  "ins": 2,
+  "del": 2,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Update Current State sync pointer to ai-workspace@3828759",
+  "ins": 1,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Close the duplicate 90% HOLD entry in HANDOFF's audit trail",
+  "ins": 1,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Fix citation errors in HANDOFF's own verification-loop log",
+  "ins": 8,
+  "del": 2,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Log verification-loop fact-check results to HANDOFF (ai_prompt@ad15040)",
+  "ins": 2,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Log hermes-agents/skills README cleanup and 4-skill rewrite to HANDOFF",
+  "ins": 3,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Log ScheduleWakeup final revalidation pass to HANDOFF",
+  "ins": 6,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Log ScheduleWakeup correction to HANDOFF (ai_prompt@f21a38f)",
+  "ins": 7,
+  "del": 2,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Log 2nd follow-up audit resolution: guide accuracy + hermes-agents gitignore fix",
+  "ins": 9,
+  "del": 3,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Log Antigravity guide accuracy fix and README cleanup to HANDOFF",
+  "ins": 8,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Log antigravity_usage_guide.md official-source expansion to HANDOFF",
+  "ins": 8,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Log validate_skills.ps1 frontmatter-routing check to HANDOFF",
+  "ins": 8,
+  "del": 2,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Log validate_skills.ps1 NOTICE.md-deletion fix to HANDOFF",
+  "ins": 8,
+  "del": 2,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
   "subject": "Log ai_prompt regression-guard closure to HANDOFF",
   "ins": 6,
   "del": 1,
   "files": 1
  },
  {
-  "repo": "hermes-agents",
+  "repo": "ai-workspace",
   "date": "2026-07-28",
-  "subject": "Fix version-specifier parsing bug in check_telegram_requirements.py",
-  "ins": 71,
-  "del": 6,
+  "subject": "Log MIT attribution and dead-routing fixes for ai_prompt's 4 sourced skills",
+  "ins": 5,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Log ai_prompt skill additions (copywriting/marketing-psychology/rag/llm-eval)",
+  "ins": 5,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Fix remaining ai_img_video_prompt drift and AI_TEST_ROOT misuse in catalog-template.md",
+  "ins": 8,
+  "del": 4,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Fix 2 remaining hardcoded absolute paths flagged by independent validation",
+  "ins": 7,
+  "del": 3,
+  "files": 3
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Archive HANDOFF.md's dated history; replace hardcoded E:\\ paths with Path Alias Policy aliases",
+  "ins": 170,
+  "del": 185,
   "files": 5
  },
  {
-  "repo": "hermes-agents",
-  "date": "2026-07-27",
-  "subject": "Document /committee usage in the recommended-workflow table",
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Log imagevideo dev-server mitigation and an Edit-tool mixed-encoding corruption caught mid-session",
+  "ins": 5,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Log full ai_prompt + ai-workspace verification loop — both clean, no drift",
+  "ins": 5,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Log final confirmation that remaining npm audit HOLDs are genuinely upstream-blocked",
+  "ins": 5,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Log final npm audit cleanup: extension deps fixed, music_insight_studio venv restored",
+  "ins": 5,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Log npm audit remediation for ai_test3/CareerDiff and ai_test's three Node projects",
+  "ins": 5,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Log ai_test2/ai_test3/ai_test full verification loop — all clean, no drift",
+  "ins": 5,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Log ai_test1 doc-drift resolution and extended consistency guard",
+  "ins": 9,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Log independent re-verification pass confirming all HOLDs resolved",
+  "ins": 4,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Fix stale/dead links in llm-service-market-strategy.md and ai_mv_capcut_design.md",
+  "ins": 10,
+  "del": 5,
+  "files": 3
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Log skills validator 3rd re-verification pass and Hermes CLI skill/curator investigation",
+  "ins": 5,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Log HOLD resolution for validator regression test + last30days pytest scope",
+  "ins": 14,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-07-28",
+  "subject": "Tighten llm_evaluation.md's self-preference-bias wording to match the research",
   "ins": 1,
-  "del": 0,
+  "del": 1,
   "files": 1
  },
  {
-  "repo": "skills",
-  "date": "2026-07-27",
-  "subject": "Clarify what validate_workspace.ps1's PASS actually verifies",
-  "ins": 2,
-  "del": 0,
+  "repo": "ai_prompt",
+  "date": "2026-07-28",
+  "subject": "Verification loop: fact-check the 4 rewritten skills' checkable claims",
+  "ins": 3,
+  "del": 3,
   "files": 1
  },
  {
-  "repo": "skills",
-  "date": "2026-07-27",
-  "subject": "Evaluate 6 more YouTube-sourced videos, extend design-report + agent-builder",
-  "ins": 17,
-  "del": 9,
+  "repo": "ai_prompt",
+  "date": "2026-07-28",
+  "subject": "Rewrite copywriting/marketing_psychology/rag_implementation/llm_evaluation from scratch",
+  "ins": 343,
+  "del": 505,
   "files": 7
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-07-28",
+  "subject": "Fix ScheduleWakeup mischaracterization in antigravity_usage_guide.md",
+  "ins": 1,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-07-28",
+  "subject": "Fix 2 more accuracy issues in antigravity_usage_guide.md (2nd follow-up audit)",
+  "ins": 2,
+  "del": 2,
+  "files": 1
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-07-28",
+  "subject": "Fix 2 accuracy issues in antigravity_usage_guide.md found by follow-up audit",
+  "ins": 3,
+  "del": 3,
+  "files": 1
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-07-28",
+  "subject": "Tidy README.md: fix broken path refs, remove stale/redundant content",
+  "ins": 13,
+  "del": 21,
+  "files": 1
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-07-28",
+  "subject": "Add official-source Antigravity content: Knowledge system, 2.0 features, Rules/Workflows verification",
+  "ins": 32,
+  "del": 1,
+  "files": 2
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-07-28",
+  "subject": "Close validate_skills.ps1's frontmatter-routing gap; backtick-ify marketing_psychology.md description",
+  "ins": 24,
+  "del": 13,
+  "files": 2
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-07-28",
+  "subject": "Fix validate_skills.ps1's NOTICE.md-deletion blind spot",
+  "ins": 27,
+  "del": 3,
+  "files": 1
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-07-28",
+  "subject": "Add validate_skills.ps1 regression guard; fix dead link + .md-extension consistency",
+  "ins": 98,
+  "del": 6,
+  "files": 6
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-07-28",
+  "subject": "Preserve MIT attribution for the 4 sourced skills; fix dead routing in marketing_psychology.md",
+  "ins": 72,
+  "del": 1,
+  "files": 6
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-07-28",
+  "subject": "Add 4 skills: copywriting/marketing-psychology, rag-implementation/llm-evaluation",
+  "ins": 585,
+  "del": 1,
+  "files": 5
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-07-28",
+  "subject": "Remove hardcoded E:\\ai_test / E:\\ai_prompt path references from README.md",
+  "ins": 2,
+  "del": 2,
+  "files": 1
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-07-28",
+  "subject": "Remove hardcoded C:/Users/cs930 path from hermes_config_audit skill",
+  "ins": 1,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-07-28",
+  "subject": "Fix 8 dead references links in caio_advisor.md/vpe_advisor.md",
+  "ins": 12,
+  "del": 8,
+  "files": 2
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-28",
+  "subject": "Add regression test for the ignored-dir scan fix; document last30days as POSIX-scoped",
+  "ins": 62,
+  "del": 0,
+  "files": 3
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-28",
+  "subject": "Stop workspace/link validators from entering ignored top-level dirs",
+  "ins": 42,
+  "del": 13,
+  "files": 2
  },
  {
   "repo": "hermes-agents",
@@ -2137,42 +2121,18 @@ const COMMITS = [
   "files": 2
  },
  {
-  "repo": "ai-workspace",
+  "repo": "hermes-agents",
   "date": "2026-07-27",
-  "subject": "Log 5-project verification loop (ai_test through ai_test4) in HANDOFF",
-  "ins": 2,
-  "del": 0,
-  "files": 1
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-27",
-  "subject": "Log mechanical-vs-practice clarification pass in HANDOFF at gate-pass time",
-  "ins": 2,
-  "del": 0,
-  "files": 1
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-27",
-  "subject": "Backfill HANDOFF.md progress-gate entries for 2026-07-27 sessions",
-  "ins": 4,
-  "del": 0,
-  "files": 1
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-27",
-  "subject": "Log judgment-criteria improvement pass in HANDOFF at gate-pass time",
-  "ins": 2,
+  "subject": "Document agent-governance-kit as an external dependency needing manual sync",
+  "ins": 9,
   "del": 0,
   "files": 1
  },
  {
   "repo": "hermes-agents",
   "date": "2026-07-27",
-  "subject": "Document the example-secret pre-commit guard in CLAUDE.md",
-  "ins": 7,
+  "subject": "Document /committee usage in the recommended-workflow table",
+  "ins": 1,
   "del": 0,
   "files": 1
  },
@@ -2201,20 +2161,68 @@ const COMMITS = [
   "files": 2
  },
  {
-  "repo": "skills",
-  "date": "2026-07-27",
-  "subject": "Evaluate ComfyUI Agent Panel + Vrew agent update, split Not yet built into DEFERRED.md",
-  "ins": 28,
-  "del": 9,
-  "files": 6
- },
- {
   "repo": "hermes-agents",
   "date": "2026-07-27",
-  "subject": "Document agent-governance-kit as an external dependency needing manual sync",
-  "ins": 9,
+  "subject": "Document the example-secret pre-commit guard in CLAUDE.md",
+  "ins": 7,
   "del": 0,
   "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-27",
+  "subject": "Log 5-project verification loop (ai_test through ai_test4) in HANDOFF",
+  "ins": 2,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-27",
+  "subject": "Log mechanical-vs-practice clarification pass in HANDOFF at gate-pass time",
+  "ins": 2,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-27",
+  "subject": "Log judgment-criteria improvement pass in HANDOFF at gate-pass time",
+  "ins": 2,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-27",
+  "subject": "Backfill HANDOFF.md progress-gate entries for 2026-07-27 sessions",
+  "ins": 4,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-27",
+  "subject": "Clarify what validate_workspace.ps1's PASS actually verifies",
+  "ins": 2,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-27",
+  "subject": "Add evaluation-driven development to LAW 4, closing the Skill Creator v2 gap",
+  "ins": 1,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-27",
+  "subject": "Evaluate 6 more YouTube-sourced videos, extend design-report + agent-builder",
+  "ins": 17,
+  "del": 9,
+  "files": 7
  },
  {
   "repo": "skills",
@@ -2227,10 +2235,10 @@ const COMMITS = [
  {
   "repo": "skills",
   "date": "2026-07-27",
-  "subject": "Add evaluation-driven development to LAW 4, closing the Skill Creator v2 gap",
-  "ins": 1,
-  "del": 0,
-  "files": 1
+  "subject": "Evaluate ComfyUI Agent Panel + Vrew agent update, split Not yet built into DEFERRED.md",
+  "ins": 28,
+  "del": 9,
+  "files": 6
  },
  {
   "repo": "skills",
@@ -2243,26 +2251,10 @@ const COMMITS = [
  {
   "repo": "hermes-agents",
   "date": "2026-07-25",
-  "subject": "Log 2026-07-25 AGENTS.md add/revert/add cycle in README update history",
-  "ins": 5,
-  "del": 1,
-  "files": 1
- },
- {
-  "repo": "hermes-agents",
-  "date": "2026-07-25",
   "subject": "Add pre-commit guard checking AGENTS.md changes are logged in README",
   "ins": 88,
   "del": 0,
   "files": 4
- },
- {
-  "repo": "hermes-agents",
-  "date": "2026-07-25",
-  "subject": "Revert Boris Cherny review-judgment bullet from AGENTS.md",
-  "ins": 0,
-  "del": 1,
-  "files": 1
  },
  {
   "repo": "hermes-agents",
@@ -2275,9 +2267,17 @@ const COMMITS = [
  {
   "repo": "hermes-agents",
   "date": "2026-07-25",
-  "subject": "Add Boris Cherny review-judgment bullet to AGENTS.md Review Discipline",
-  "ins": 1,
+  "subject": "Add AGENTS_GUIDE.md — Korean explanation doc for AGENTS.md",
+  "ins": 88,
   "del": 0,
+  "files": 2
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-25",
+  "subject": "Log 2026-07-25 AGENTS.md add/revert/add cycle in README update history",
+  "ins": 5,
+  "del": 1,
   "files": 1
  },
  {
@@ -2291,10 +2291,18 @@ const COMMITS = [
  {
   "repo": "hermes-agents",
   "date": "2026-07-25",
-  "subject": "Add AGENTS_GUIDE.md — Korean explanation doc for AGENTS.md",
-  "ins": 88,
+  "subject": "Revert Boris Cherny review-judgment bullet from AGENTS.md",
+  "ins": 0,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-25",
+  "subject": "Add Boris Cherny review-judgment bullet to AGENTS.md Review Discipline",
+  "ins": 1,
   "del": 0,
-  "files": 2
+  "files": 1
  },
  {
   "repo": "skills",
@@ -2307,17 +2315,25 @@ const COMMITS = [
  {
   "repo": "hermes-agents",
   "date": "2026-07-23",
+  "subject": "Add safe single retry to hermes.ps1 for transient WSL_E_DISTRO_NOT_FOUND",
+  "ins": 17,
+  "del": 1,
+  "files": 3
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-23",
   "subject": "Log AGENTS.md Review Discipline change in README update history",
   "ins": 8,
   "del": 0,
   "files": 1
  },
  {
-  "repo": "ai-workspace",
+  "repo": "hermes-agents",
   "date": "2026-07-23",
-  "subject": "HANDOFF: log accumulated 2026-07-17~07-23 verification history, add WSL flaky-check retry rule",
-  "ins": 26,
-  "del": 0,
+  "subject": "Merge overlapping post-change summary bullets in AGENTS.md",
+  "ins": 1,
+  "del": 2,
   "files": 1
  },
  {
@@ -2331,48 +2347,8 @@ const COMMITS = [
  {
   "repo": "ai-workspace",
   "date": "2026-07-23",
-  "subject": "Add CHON CTO/PM first-pass brief, closing a 6-day-old untracked file",
-  "ins": 281,
-  "del": 0,
-  "files": 2
- },
- {
-  "repo": "hermes-agents",
-  "date": "2026-07-23",
-  "subject": "Add safe single retry to hermes.ps1 for transient WSL_E_DISTRO_NOT_FOUND",
-  "ins": 17,
-  "del": 1,
-  "files": 3
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-23",
   "subject": "HANDOFF: log HOLD rebuttal after re-running hermes.ps1/cmd 4x with exit 0",
   "ins": 2,
-  "del": 0,
-  "files": 1
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-23",
-  "subject": "HANDOFF: reverse earlier no-retry decision after reproducing WSL_E_DISTRO_NOT_FOUND",
-  "ins": 3,
-  "del": 1,
-  "files": 1
- },
- {
-  "repo": "hermes-agents",
-  "date": "2026-07-23",
-  "subject": "Merge overlapping post-change summary bullets in AGENTS.md",
-  "ins": 1,
-  "del": 2,
-  "files": 1
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-23",
-  "subject": "HANDOFF: log post-fix full verification/regression pass (no new defects)",
-  "ins": 1,
   "del": 0,
   "files": 1
  },
@@ -2385,6 +2361,38 @@ const COMMITS = [
   "files": 3
  },
  {
+  "repo": "ai-workspace",
+  "date": "2026-07-23",
+  "subject": "Add CHON CTO/PM first-pass brief, closing a 6-day-old untracked file",
+  "ins": 281,
+  "del": 0,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-23",
+  "subject": "HANDOFF: log post-fix full verification/regression pass (no new defects)",
+  "ins": 1,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-23",
+  "subject": "HANDOFF: reverse earlier no-retry decision after reproducing WSL_E_DISTRO_NOT_FOUND",
+  "ins": 3,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-23",
+  "subject": "HANDOFF: log accumulated 2026-07-17~07-23 verification history, add WSL flaky-check retry rule",
+  "ins": 26,
+  "del": 0,
+  "files": 1
+ },
+ {
   "repo": "skills",
   "date": "2026-07-22",
   "subject": "Document hooks/disallowed-tools/paths frontmatter in LAW 4",
@@ -2393,12 +2401,20 @@ const COMMITS = [
   "files": 1
  },
  {
+  "repo": "hermes-agents",
+  "date": "2026-07-21",
+  "subject": "Name Prompt Engineering and Loop Engineering in AGENTS.md's existing sections",
+  "ins": 2,
+  "del": 0,
+  "files": 1
+ },
+ {
   "repo": "skills",
   "date": "2026-07-21",
-  "subject": "Name Prompt/Loop Engineering at the points where they change behavior",
-  "ins": 3,
-  "del": 3,
-  "files": 2
+  "subject": "Add prompt-craft skill for model-agnostic prompt writing",
+  "ins": 90,
+  "del": 7,
+  "files": 6
  },
  {
   "repo": "skills",
@@ -2419,42 +2435,18 @@ const COMMITS = [
  {
   "repo": "skills",
   "date": "2026-07-21",
+  "subject": "Name Prompt/Loop Engineering at the points where they change behavior",
+  "ins": 3,
+  "del": 3,
+  "files": 2
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-21",
   "subject": "Add agent-SaaS pricing/distribution framing and loop-engineering term attribution",
   "ins": 12,
   "del": 1,
   "files": 4
- },
- {
-  "repo": "hermes-agents",
-  "date": "2026-07-21",
-  "subject": "Name Prompt Engineering and Loop Engineering in AGENTS.md's existing sections",
-  "ins": 2,
-  "del": 0,
-  "files": 1
- },
- {
-  "repo": "skills",
-  "date": "2026-07-21",
-  "subject": "Add prompt-craft skill for model-agnostic prompt writing",
-  "ins": 90,
-  "del": 7,
-  "files": 6
- },
- {
-  "repo": "skills",
-  "date": "2026-07-20",
-  "subject": "Exclude gitignored third-party clones from future-date validation",
-  "ins": 3,
-  "del": 0,
-  "files": 1
- },
- {
-  "repo": "skills",
-  "date": "2026-07-20",
-  "subject": "Add Karpathy's verifiability thesis: why taste/judgment resist automation",
-  "ins": 1,
-  "del": 0,
-  "files": 1
  },
  {
   "repo": "hermes-agents",
@@ -2467,10 +2459,10 @@ const COMMITS = [
  {
   "repo": "skills",
   "date": "2026-07-20",
-  "subject": "Fix skill-count drift and a duplicated star-count typo across docs",
-  "ins": 10,
-  "del": 3,
-  "files": 3
+  "subject": "Add Karpathy's verifiability thesis: why taste/judgment resist automation",
+  "ins": 1,
+  "del": 0,
+  "files": 1
  },
  {
   "repo": "skills",
@@ -2479,6 +2471,62 @@ const COMMITS = [
   "ins": 11,
   "del": 13,
   "files": 4
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-20",
+  "subject": "Fix skill-count drift and a duplicated star-count typo across docs",
+  "ins": 10,
+  "del": 3,
+  "files": 3
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-20",
+  "subject": "Exclude gitignored third-party clones from future-date validation",
+  "ins": 3,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-19",
+  "subject": "Add evidence-tag vocabulary and library/license verification rule to AGENTS.md",
+  "ins": 2,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-19",
+  "subject": "docs: clarify skills repo vs ai_prompt skills collection are separate",
+  "ins": 5,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-07-19",
+  "subject": "Condense both READMEs, fix a broken docs/mcp_setup_guide.md link",
+  "ins": 14,
+  "del": 45,
+  "files": 2
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-07-19",
+  "subject": "Add ai_tell_remover skill (English AI-writing tell removal)",
+  "ins": 69,
+  "del": 1,
+  "files": 3
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-07-19",
+  "subject": "Add story_scenario skill pair + antigravity usage guide, fix stale README links",
+  "ins": 251,
+  "del": 92,
+  "files": 5
  },
  {
   "repo": "ai_prompt",
@@ -2491,22 +2539,6 @@ const COMMITS = [
  {
   "repo": "skills",
   "date": "2026-07-19",
-  "subject": "Add social-carousel skill: trend research to carousel export",
-  "ins": 86,
-  "del": 4,
-  "files": 4
- },
- {
-  "repo": "ai_prompt",
-  "date": "2026-07-19",
-  "subject": "Condense both READMEs, fix a broken docs/mcp_setup_guide.md link",
-  "ins": 14,
-  "del": 45,
-  "files": 2
- },
- {
-  "repo": "skills",
-  "date": "2026-07-19",
   "subject": "Add plugin marketplace manifest; extend CORE-LAWS with skill-safety and script-vs-prose guidance",
   "ins": 103,
   "del": 0,
@@ -2515,26 +2547,10 @@ const COMMITS = [
  {
   "repo": "skills",
   "date": "2026-07-19",
-  "subject": "Apply LAW 0's canonical [LOW-EVIDENCE] tag to unbracketed vendor-benchmark claims",
-  "ins": 5,
-  "del": 5,
-  "files": 2
- },
- {
-  "repo": "ai_prompt",
-  "date": "2026-07-19",
-  "subject": "Add ai_tell_remover skill (English AI-writing tell removal)",
-  "ins": 69,
-  "del": 1,
-  "files": 3
- },
- {
-  "repo": "skills",
-  "date": "2026-07-19",
-  "subject": "Add real-workflow observation gate and OKF memory alternative",
-  "ins": 10,
-  "del": 1,
-  "files": 2
+  "subject": "Add social-carousel skill: trend research to carousel export",
+  "ins": 86,
+  "del": 4,
+  "files": 4
  },
  {
   "repo": "skills",
@@ -2545,18 +2561,10 @@ const COMMITS = [
   "files": 1
  },
  {
-  "repo": "hermes-agents",
-  "date": "2026-07-19",
-  "subject": "Add evidence-tag vocabulary and library/license verification rule to AGENTS.md",
-  "ins": 2,
-  "del": 0,
-  "files": 1
- },
- {
   "repo": "skills",
   "date": "2026-07-19",
-  "subject": "Update vibe-coder's Fable/mattpocock citations to v1.1; add game-dev design-doc gate",
-  "ins": 10,
+  "subject": "Apply LAW 0's canonical [LOW-EVIDENCE] tag to unbracketed vendor-benchmark claims",
+  "ins": 5,
   "del": 5,
   "files": 2
  },
@@ -2569,20 +2577,20 @@ const COMMITS = [
   "files": 5
  },
  {
-  "repo": "ai_prompt",
+  "repo": "skills",
   "date": "2026-07-19",
-  "subject": "Add story_scenario skill pair + antigravity usage guide, fix stale README links",
-  "ins": 251,
-  "del": 92,
-  "files": 5
+  "subject": "Add per-skill USAGE.md; fix validator scan of gitignored runtime clones",
+  "ins": 142,
+  "del": 5,
+  "files": 4
  },
  {
-  "repo": "hermes-agents",
+  "repo": "skills",
   "date": "2026-07-19",
-  "subject": "docs: clarify skills repo vs ai_prompt skills collection are separate",
-  "ins": 5,
-  "del": 0,
-  "files": 1
+  "subject": "Add real-workflow observation gate and OKF memory alternative",
+  "ins": 10,
+  "del": 1,
+  "files": 2
  },
  {
   "repo": "skills",
@@ -2595,34 +2603,10 @@ const COMMITS = [
  {
   "repo": "skills",
   "date": "2026-07-19",
-  "subject": "Add per-skill USAGE.md; fix validator scan of gitignored runtime clones",
-  "ins": 142,
+  "subject": "Update vibe-coder's Fable/mattpocock citations to v1.1; add game-dev design-doc gate",
+  "ins": 10,
   "del": 5,
-  "files": 4
- },
- {
-  "repo": "skills",
-  "date": "2026-07-18",
-  "subject": "agent-builder: add workflow-vs-agent gate (Step 1.0); defer planning domain",
-  "ins": 7,
-  "del": 2,
-  "files": 3
- },
- {
-  "repo": "skills",
-  "date": "2026-07-18",
-  "subject": "Fix future-dated verification labels (2026-07-19 -> 2026-07-18)",
-  "ins": 47,
-  "del": 47,
-  "files": 8
- },
- {
-  "repo": "skills",
-  "date": "2026-07-18",
-  "subject": "Harden distribution and financial agent safety",
-  "ins": 68,
-  "del": 15,
-  "files": 7
+  "files": 2
  },
  {
   "repo": "skills",
@@ -2635,26 +2619,18 @@ const COMMITS = [
  {
   "repo": "skills",
   "date": "2026-07-18",
-  "subject": "Document and enforce agent verification guards",
-  "ins": 49,
-  "del": 4,
-  "files": 5
- },
- {
-  "repo": "skills",
-  "date": "2026-07-18",
-  "subject": "curator: add brand-voice-file persistence (Step 3)",
-  "ins": 4,
-  "del": 0,
-  "files": 2
- },
- {
-  "repo": "skills",
-  "date": "2026-07-18",
   "subject": "Backfill README's Referenced-sites table for the 3 newest skills",
   "ins": 31,
   "del": 0,
   "files": 1
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-18",
+  "subject": "Add writing skill for AI-pattern removal and prose editing",
+  "ins": 62,
+  "del": 5,
+  "files": 4
  },
  {
   "repo": "skills",
@@ -2667,26 +2643,10 @@ const COMMITS = [
  {
   "repo": "skills",
   "date": "2026-07-18",
-  "subject": "Add personal-memory skill; correct scope-filtering pattern",
-  "ins": 72,
-  "del": 3,
-  "files": 3
- },
- {
-  "repo": "skills",
-  "date": "2026-07-18",
-  "subject": "Add video-producer skill, LAW 4 (skill-authoring), and harden remaining skills",
-  "ins": 193,
-  "del": 73,
-  "files": 9
- },
- {
-  "repo": "skills",
-  "date": "2026-07-18",
-  "subject": "Align CI with supported PowerShell runtime",
-  "ins": 3,
-  "del": 3,
-  "files": 2
+  "subject": "Add game-dev skill; refresh Attribution; defer money-skills and senior-income",
+  "ins": 62,
+  "del": 8,
+  "files": 6
  },
  {
   "repo": "skills",
@@ -2707,18 +2667,10 @@ const COMMITS = [
  {
   "repo": "skills",
   "date": "2026-07-18",
-  "subject": "Strengthen skill verification and safety guards",
-  "ins": 82,
-  "del": 24,
-  "files": 10
- },
- {
-  "repo": "skills",
-  "date": "2026-07-18",
-  "subject": "design-report: add awesome-design-md brand-token library; curator: add Korean-specific AI-tell removal (im-not-ai)",
-  "ins": 6,
-  "del": 2,
-  "files": 3
+  "subject": "Flag archived gsd-build reference, correct host-compat claim, trim descriptions",
+  "ins": 10,
+  "del": 10,
+  "files": 9
  },
  {
   "repo": "skills",
@@ -2731,22 +2683,6 @@ const COMMITS = [
  {
   "repo": "skills",
   "date": "2026-07-18",
-  "subject": "Add agent-builder, distribution, curator, vibe-coder skills; harden existing skills",
-  "ins": 453,
-  "del": 29,
-  "files": 10
- },
- {
-  "repo": "skills",
-  "date": "2026-07-18",
-  "subject": "biz-council: add delivery-shape check (1.5a), fix README LAW 0-3->0-4",
-  "ins": 10,
-  "del": 2,
-  "files": 2
- },
- {
-  "repo": "skills",
-  "date": "2026-07-18",
   "subject": "Strengthen trading evaluation guards",
   "ins": 9,
   "del": 3,
@@ -2755,50 +2691,10 @@ const COMMITS = [
  {
   "repo": "skills",
   "date": "2026-07-18",
-  "subject": "agent-builder: no-code/MCP boundary refinement (Zapier MCP explainer)",
+  "subject": "Align CI with supported PowerShell runtime",
   "ins": 3,
-  "del": 1,
+  "del": 3,
   "files": 2
- },
- {
-  "repo": "skills",
-  "date": "2026-07-18",
-  "subject": "Add writing skill for AI-pattern removal and prose editing",
-  "ins": 62,
-  "del": 5,
-  "files": 4
- },
- {
-  "repo": "skills",
-  "date": "2026-07-18",
-  "subject": "Wire up validate_workspace.ps1 as a pre-commit hook",
-  "ins": 42,
-  "del": 0,
-  "files": 2
- },
- {
-  "repo": "skills",
-  "date": "2026-07-18",
-  "subject": "Flag archived gsd-build reference, correct host-compat claim, trim descriptions",
-  "ins": 10,
-  "del": 10,
-  "files": 9
- },
- {
-  "repo": "skills",
-  "date": "2026-07-18",
-  "subject": "Harden skill verification loops",
-  "ins": 103,
-  "del": 35,
-  "files": 10
- },
- {
-  "repo": "skills",
-  "date": "2026-07-18",
-  "subject": "Add game-dev skill; refresh Attribution; defer money-skills and senior-income",
-  "ins": 62,
-  "del": 8,
-  "files": 6
  },
  {
   "repo": "skills",
@@ -2806,6 +2702,54 @@ const COMMITS = [
   "subject": "Fix validation date handling in CI",
   "ins": 13,
   "del": 3,
+  "files": 2
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-18",
+  "subject": "Harden distribution and financial agent safety",
+  "ins": 68,
+  "del": 15,
+  "files": 7
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-18",
+  "subject": "Document and enforce agent verification guards",
+  "ins": 49,
+  "del": 4,
+  "files": 5
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-18",
+  "subject": "Strengthen skill verification and safety guards",
+  "ins": 82,
+  "del": 24,
+  "files": 10
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-18",
+  "subject": "Add personal-memory skill; correct scope-filtering pattern",
+  "ins": 72,
+  "del": 3,
+  "files": 3
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-18",
+  "subject": "design-report: add awesome-design-md brand-token library; curator: add Korean-specific AI-tell removal (im-not-ai)",
+  "ins": 6,
+  "del": 2,
+  "files": 3
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-18",
+  "subject": "curator: add brand-voice-file persistence (Step 3)",
+  "ins": 4,
+  "del": 0,
   "files": 2
  },
  {
@@ -2819,18 +2763,74 @@ const COMMITS = [
  {
   "repo": "skills",
   "date": "2026-07-18",
+  "subject": "agent-builder: no-code/MCP boundary refinement (Zapier MCP explainer)",
+  "ins": 3,
+  "del": 1,
+  "files": 2
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-18",
+  "subject": "agent-builder: add workflow-vs-agent gate (Step 1.0); defer planning domain",
+  "ins": 7,
+  "del": 2,
+  "files": 3
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-18",
+  "subject": "Wire up validate_workspace.ps1 as a pre-commit hook",
+  "ins": 42,
+  "del": 0,
+  "files": 2
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-18",
+  "subject": "Fix future-dated verification labels (2026-07-19 -> 2026-07-18)",
+  "ins": 47,
+  "del": 47,
+  "files": 8
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-18",
+  "subject": "biz-council: add delivery-shape check (1.5a), fix README LAW 0-3->0-4",
+  "ins": 10,
+  "del": 2,
+  "files": 2
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-18",
+  "subject": "Add video-producer skill, LAW 4 (skill-authoring), and harden remaining skills",
+  "ins": 193,
+  "del": 73,
+  "files": 9
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-18",
   "subject": "Restore verification dates corrupted to [ASSUMPTION] tag",
   "ins": 32,
   "del": 32,
   "files": 6
  },
  {
-  "repo": "ai_prompt",
-  "date": "2026-07-17",
-  "subject": "Add hermes_config_audit skill: self-service audit for AGENTS.md/CLAUDE.md, permissions, MCP, cross-tool refs",
-  "ins": 179,
-  "del": 1,
-  "files": 3
+  "repo": "skills",
+  "date": "2026-07-18",
+  "subject": "Harden skill verification loops",
+  "ins": 103,
+  "del": 35,
+  "files": 10
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-18",
+  "subject": "Add agent-builder, distribution, curator, vibe-coder skills; harden existing skills",
+  "ins": 453,
+  "del": 29,
+  "files": 10
  },
  {
   "repo": "hermes-agents",
@@ -2841,12 +2841,12 @@ const COMMITS = [
   "files": 4
  },
  {
-  "repo": "skills",
+  "repo": "hermes-agents",
   "date": "2026-07-17",
-  "subject": "Correct license claims with folder-level verification, add .gitignore, soften genie to routing-only",
-  "ins": 22,
-  "del": 19,
-  "files": 5
+  "subject": "Align AGENTS.md with karpathy-skills v1 guidelines, add Cursor rule, prune dead permissions",
+  "ins": 40,
+  "del": 11,
+  "files": 4
  },
  {
   "repo": "ai-workspace",
@@ -2857,12 +2857,20 @@ const COMMITS = [
   "files": 1
  },
  {
-  "repo": "hermes-agents",
+  "repo": "ai_prompt",
   "date": "2026-07-17",
-  "subject": "Align AGENTS.md with karpathy-skills v1 guidelines, add Cursor rule, prune dead permissions",
-  "ins": 40,
-  "del": 11,
-  "files": 4
+  "subject": "Add hermes_config_audit skill: self-service audit for AGENTS.md/CLAUDE.md, permissions, MCP, cross-tool refs",
+  "ins": 179,
+  "del": 1,
+  "files": 3
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-17",
+  "subject": "Correct license claims with folder-level verification, add .gitignore, soften genie to routing-only",
+  "ins": 22,
+  "del": 19,
+  "files": 5
  },
  {
   "repo": "skills",
@@ -2875,25 +2883,9 @@ const COMMITS = [
  {
   "repo": "hermes-agents",
   "date": "2026-07-15",
-  "subject": "fix: remove overbroad/malformed permission patterns, add fail-closed to telegram bot",
-  "ins": 6,
-  "del": 2,
-  "files": 2
- },
- {
-  "repo": "hermes-agents",
-  "date": "2026-07-15",
   "subject": "fix: install-git-hooks.ps1 wrote a UTF-8 BOM that broke the shebang",
   "ins": 5,
   "del": 1,
-  "files": 1
- },
- {
-  "repo": "hermes-agents",
-  "date": "2026-07-15",
-  "subject": "fix: remove 2 more malformed permission entries missed in the first pass",
-  "ins": 0,
-  "del": 2,
   "files": 1
  },
  {
@@ -2907,6 +2899,30 @@ const COMMITS = [
  {
   "repo": "hermes-agents",
   "date": "2026-07-15",
+  "subject": "feat: add automated guard for malformed .claude/settings.json permission entries",
+  "ins": 80,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-15",
+  "subject": "fix: remove 2 more malformed permission entries missed in the first pass",
+  "ins": 0,
+  "del": 2,
+  "files": 1
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-15",
+  "subject": "fix: remove overbroad/malformed permission patterns, add fail-closed to telegram bot",
+  "ins": 6,
+  "del": 2,
+  "files": 2
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-15",
   "subject": "docs: add Regression Guard Rule to AGENTS.md verification loop",
   "ins": 7,
   "del": 0,
@@ -2914,24 +2930,16 @@ const COMMITS = [
  },
  {
   "repo": "hermes-agents",
-  "date": "2026-07-15",
-  "subject": "feat: add automated guard for malformed .claude/settings.json permission entries",
-  "ins": 80,
+  "date": "2026-07-13",
+  "subject": "gitignore: exclude leftover ai_test2 pytest basetemp scratch directory",
+  "ins": 1,
   "del": 0,
   "files": 1
  },
  {
   "repo": "ai-workspace",
   "date": "2026-07-13",
-  "subject": "HANDOFF: archive old changelog, backfill CareerDiff/audacity_editor gap, reopen LLM plan",
-  "ins": 796,
-  "del": 783,
-  "files": 2
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-13",
-  "subject": "HANDOFF: record independent re-verification and commit/push of ai_test2 + ai_test3 README",
+  "subject": "HANDOFF: log ai_multi_agent web-UI de-duplication and path-warning fix",
   "ins": 2,
   "del": 0,
   "files": 1
@@ -2947,17 +2955,25 @@ const COMMITS = [
  {
   "repo": "ai-workspace",
   "date": "2026-07-13",
-  "subject": "HANDOFF: log ai_multi_agent web-UI de-duplication and path-warning fix",
+  "subject": "HANDOFF: record independent re-verification and commit/push of ai_test2 + ai_test3 README",
   "ins": 2,
   "del": 0,
   "files": 1
  },
  {
-  "repo": "hermes-agents",
+  "repo": "ai-workspace",
   "date": "2026-07-13",
-  "subject": "gitignore: exclude leftover ai_test2 pytest basetemp scratch directory",
-  "ins": 1,
-  "del": 0,
+  "subject": "HANDOFF: archive old changelog, backfill CareerDiff/audacity_editor gap, reopen LLM plan",
+  "ins": 796,
+  "del": 783,
+  "files": 2
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-12",
+  "subject": "docs: sync README.md with current repo state",
+  "ins": 30,
+  "del": 4,
   "files": 1
  },
  {
@@ -2969,60 +2985,12 @@ const COMMITS = [
   "files": 1
  },
  {
-  "repo": "ai-workspace",
-  "date": "2026-07-12",
-  "subject": "docs: add missing core docs and hermes-agents to README.md",
-  "ins": 6,
-  "del": 0,
-  "files": 1
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-12",
-  "subject": "docs: log commit/push confirmation for pydantic-agent scaffold work",
-  "ins": 5,
-  "del": 0,
-  "files": 1
- },
- {
   "repo": "hermes-agents",
   "date": "2026-07-12",
-  "subject": "docs: sync README.md with current repo state",
-  "ins": 30,
-  "del": 4,
-  "files": 1
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-12",
-  "subject": "docs: log fifth verification pass and README.md count fix",
-  "ins": 2,
-  "del": 0,
-  "files": 1
- },
- {
-  "repo": "ai_prompt",
-  "date": "2026-07-12",
-  "subject": "Add skill_writing_quality skill (Matt Pocock writing-great-skills checklist)",
-  "ins": 41,
+  "subject": "feat: make pydantic-agent scaffold fail-closed and register it in .mcp.json",
+  "ins": 16,
   "del": 2,
-  "files": 3
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-12",
-  "subject": "docs: log full hermes-agents repo verification + critical secret-exposure finding",
-  "ins": 4,
-  "del": 0,
-  "files": 1
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-12",
-  "subject": "docs: close HOLD - .env.example real keys confirmed intentional (private repo)",
-  "ins": 2,
-  "del": 0,
-  "files": 1
+  "files": 4
  },
  {
   "repo": "hermes-agents",
@@ -3035,18 +3003,50 @@ const COMMITS = [
  {
   "repo": "ai-workspace",
   "date": "2026-07-12",
+  "subject": "docs: add missing core docs and hermes-agents to README.md",
+  "ins": 6,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-12",
+  "subject": "docs: close HOLD - .env.example real keys confirmed intentional (private repo)",
+  "ins": 2,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-12",
+  "subject": "docs: log full hermes-agents repo verification + critical secret-exposure finding",
+  "ins": 4,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-12",
+  "subject": "docs: log fifth verification pass and README.md count fix",
+  "ins": 2,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-12",
   "subject": "docs: record fail-closed pivot for pydantic-agent scaffold",
   "ins": 11,
   "del": 0,
   "files": 2
  },
  {
-  "repo": "hermes-agents",
+  "repo": "ai-workspace",
   "date": "2026-07-12",
-  "subject": "feat: make pydantic-agent scaffold fail-closed and register it in .mcp.json",
-  "ins": 16,
-  "del": 2,
-  "files": 4
+  "subject": "docs: log commit/push confirmation for pydantic-agent scaffold work",
+  "ins": 5,
+  "del": 0,
+  "files": 1
  },
  {
   "repo": "ai-workspace",
@@ -3057,12 +3057,20 @@ const COMMITS = [
   "files": 2
  },
  {
+  "repo": "ai_prompt",
+  "date": "2026-07-12",
+  "subject": "Add skill_writing_quality skill (Matt Pocock writing-great-skills checklist)",
+  "ins": 41,
+  "del": 2,
+  "files": 3
+ },
+ {
   "repo": "ai-workspace",
   "date": "2026-07-10",
-  "subject": "docs: 2026-07-08 음악 프롬프트 전체 감사 리포트 뒤늦은 커밋 (참조 끊김 수정)",
-  "ins": 1554,
+  "subject": "docs: ai_test3 audacity_editor 착수 상태 + wav 배치 검증 결과 기록 후 중단",
+  "ins": 2,
   "del": 0,
-  "files": 3
+  "files": 1
  },
  {
   "repo": "ai-workspace",
@@ -3075,10 +3083,10 @@ const COMMITS = [
  {
   "repo": "ai-workspace",
   "date": "2026-07-10",
-  "subject": "docs: ai_test3 audacity_editor 착수 상태 + wav 배치 검증 결과 기록 후 중단",
-  "ins": 2,
+  "subject": "docs: 2026-07-08 음악 프롬프트 전체 감사 리포트 뒤늦은 커밋 (참조 끊김 수정)",
+  "ins": 1554,
   "del": 0,
-  "files": 1
+  "files": 3
  },
  {
   "repo": "ai-workspace",
@@ -3123,12 +3131,6 @@ const COMMITS = [
 ];
 const SESS = {
  "daily": [
-  {
-   "date": "2026-07-04",
-   "claude-code": 1,
-   "codex": 0,
-   "total": 1
-  },
   {
    "date": "2026-07-05",
    "claude-code": 1,
@@ -3305,9 +3307,9 @@ const SESS = {
   },
   {
    "date": "2026-08-03",
-   "claude-code": 2,
+   "claude-code": 3,
    "codex": 0,
-   "total": 2
+   "total": 3
   }
  ],
  "tools": [
@@ -3329,12 +3331,12 @@ const SESS = {
  ],
  "dow_series": {
   "claude-code": [
-   14,
+   15,
    8,
    11,
    19,
    13,
-   13,
+   12,
    13
   ],
   "codex": [
@@ -3349,9 +3351,9 @@ const SESS = {
  },
  "busiest_date": "2026-07-29",
  "busiest_count": 11,
- "active_days": 30,
- "total_days": 31,
- "start_date": "2026-07-04",
+ "active_days": 29,
+ "total_days": 30,
+ "start_date": "2026-07-05",
  "end_date": "2026-08-03",
  "total_sessions": 126,
  "rows": [
@@ -3365,7 +3367,13 @@ const SESS = {
    "tool": "claude-code",
    "date": "2026-08-03",
    "label": "hermes-agents",
-   "lines": 167
+   "lines": 1043
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-08-03",
+   "label": "hermes-agents",
+   "lines": 538
   },
   {
    "tool": "claude-code",
@@ -4104,12 +4112,6 @@ const SESS = {
    "date": "2026-07-05",
    "label": "검증 루프 전체 확인",
    "lines": 0
-  },
-  {
-   "tool": "claude-code",
-   "date": "2026-07-04",
-   "label": "hermes-agents",
-   "lines": 1256
   }
  ]
 };
