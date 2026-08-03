@@ -1,3 +1,4 @@
+<meta charset="utf-8">
 <title>AI 에이전트 작업 이력 대시보드</title>
 <style>
 .viz-root {
@@ -236,6 +237,15 @@ tbody td.num { text-align: right; font-variant-numeric: tabular-nums; white-spac
     <p id="subtitle"></p>
   </header>
 
+  <div class="section-title">0. 요약</div>
+  <div class="stat-row" id="summaryStatRow"></div>
+
+  <div class="card">
+    <h2>일별 활동 히트맵</h2>
+    <p class="sub">세션 + 커밋 합계. 진할수록 그날 활동이 많았다는 뜻입니다.</p>
+    <div id="heatmap"></div>
+  </div>
+
   <div class="section-title">1. 에이전트 세션 활동 (Claude Code vs Codex)</div>
   <div class="stat-row" id="sessStatRow"></div>
 
@@ -257,6 +267,17 @@ tbody td.num { text-align: right; font-variant-numeric: tabular-nums; white-spac
       <p class="sub">월~일, 도구별 비교</p>
       <div class="dow-row" id="sessDowChart"></div>
     </div>
+  </div>
+
+  <div class="card" style="margin-top:20px;">
+    <h2>가장 긴 세션 TOP 5</h2>
+    <p class="sub">Claude Code 세션 로그 라인 수 기준(Codex 세션은 라인 수가 기록되지 않습니다).</p>
+    <table>
+      <thead>
+        <tr><th>날짜</th><th>도구</th><th>제목 / 프로젝트</th><th style="text-align:right">라인 수</th></tr>
+      </thead>
+      <tbody id="topSessBody"></tbody>
+    </table>
   </div>
 
   <div class="card" style="margin-top:20px;">
@@ -294,6 +315,17 @@ tbody td.num { text-align: right; font-variant-numeric: tabular-nums; white-spac
       <p class="sub">월~일 커밋 합계</p>
       <div class="dow-row" id="dowChart"></div>
     </div>
+  </div>
+
+  <div class="card" style="margin-top:20px;">
+    <h2>가장 큰 커밋 TOP 5</h2>
+    <p class="sub">추가+삭제 라인 합계 기준.</p>
+    <table>
+      <thead>
+        <tr><th>날짜</th><th>저장소</th><th>커밋 메시지</th><th style="text-align:right">+추가</th><th style="text-align:right">-삭제</th></tr>
+      </thead>
+      <tbody id="topCommitBody"></tbody>
+    </table>
   </div>
 
   <div class="card" style="margin-top:20px;">
@@ -4560,4 +4592,130 @@ renderLog();
 
 document.getElementById('subtitle').textContent =
   `${SESS.start_date} ~ ${SESS.end_date} · VS Code Claude Code/Codex 세션 로그 + 4개 저장소 git 커밋 로그 기반`;
+
+// ==== 0. 요약: 통합 지표 ====
+(function () {
+  const el = document.getElementById('summaryStatRow');
+  const totalIns = COMMITS.reduce((s, c) => s + c.ins, 0);
+  const totalDel = COMMITS.reduce((s, c) => s + c.del, 0);
+  const totalSessLines = SESS.rows.reduce((s, r) => s + r.lines, 0);
+  const ccCount = SESS.tool_totals['claude-code'] || 1;
+  const stats = [
+    { label: '총 세션 수', value: fmt(SESS.total_sessions), delta: `${SESS.start_date} ~ ${SESS.end_date}` },
+    { label: '총 커밋 수', value: fmt(COMMITS.length), delta: `저장소 ${AGG.repos.length}개` },
+    { label: '총 변경 라인 (커밋)', value: fmt(totalIns + totalDel), delta: `+${fmt(totalIns)} / -${fmt(totalDel)}` },
+    { label: 'Claude Code 세션 총 라인', value: fmt(totalSessLines), delta: `세션당 평균 ${fmt(Math.round(totalSessLines / ccCount))}줄` },
+  ];
+  el.innerHTML = stats.map(s => `
+    <div class="stat-tile">
+      <div class="label">${s.label}</div>
+      <div class="value">${s.value}</div>
+      <div class="delta">${s.delta}</div>
+    </div>
+  `).join('');
+})();
+
+// ==== 0. 요약: 일별 활동 히트맵 (세션 + 커밋) ====
+(function () {
+  const el = document.getElementById('heatmap');
+  const map = {};
+  SESS.daily.forEach(d => { map[d.date] = (map[d.date] || 0) + d.total; });
+  AGG.daily.forEach(d => { map[d.date] = (map[d.date] || 0) + d.total; });
+
+  const dates = Object.keys(map).sort();
+  if (!dates.length) return;
+  const firstDate = dates[0], lastDate = dates[dates.length - 1];
+  const start = new Date(firstDate + 'T00:00:00');
+  const end = new Date(lastDate + 'T00:00:00');
+  const gridStart = new Date(start);
+  gridStart.setDate(gridStart.getDate() - start.getDay());
+
+  const days = [];
+  const cur = new Date(gridStart);
+  while (cur <= end) {
+    const iso = cur.toISOString().slice(0, 10);
+    days.push({ date: iso, count: map[iso] || 0, inRange: iso >= firstDate && iso <= lastDate });
+    cur.setDate(cur.getDate() + 1);
+  }
+  const weeks = Math.ceil(days.length / 7);
+  const maxCount = Math.max(1, ...days.map(d => d.count));
+
+  const cell = 13, gap = 3, padL = 22;
+  const W = padL + weeks * (cell + gap), H = 7 * (cell + gap) + 4;
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  svg.setAttribute('width', '100%');
+  svg.setAttribute('height', H);
+
+  const seriesColor = getComputedStyle(document.querySelector('.viz-root')).getPropertyValue('--series-1').trim();
+  const gridColor = getComputedStyle(document.querySelector('.viz-root')).getPropertyValue('--grid').trim();
+
+  ['일', '월', '화', '수', '목', '금', '토'].forEach((l, i) => {
+    if (i % 2 === 1) return;
+    const t = document.createElementNS(svg.namespaceURI, 'text');
+    t.setAttribute('x', 0);
+    t.setAttribute('y', i * (cell + gap) + cell);
+    t.setAttribute('class', 'axis-label');
+    t.textContent = l;
+    svg.appendChild(t);
+  });
+
+  days.forEach((d, i) => {
+    const week = Math.floor(i / 7);
+    const dow = i % 7;
+    const x = padL + week * (cell + gap);
+    const y = dow * (cell + gap);
+    const rect = document.createElementNS(svg.namespaceURI, 'rect');
+    rect.setAttribute('x', x);
+    rect.setAttribute('y', y);
+    rect.setAttribute('width', cell);
+    rect.setAttribute('height', cell);
+    rect.setAttribute('rx', 3);
+    if (!d.inRange) {
+      rect.setAttribute('fill', 'transparent');
+    } else if (d.count === 0) {
+      rect.setAttribute('fill', gridColor);
+    } else {
+      rect.setAttribute('fill', seriesColor);
+      rect.setAttribute('fill-opacity', (0.2 + 0.8 * (d.count / maxCount)).toFixed(2));
+    }
+    if (d.inRange) {
+      rect.classList.add('bar-seg');
+      rect.addEventListener('mousemove', (e) => showTooltip(`<b>${d.date}</b><br>활동 ${d.count}건`, e.clientX, e.clientY));
+      rect.addEventListener('mouseleave', hideTooltip);
+    }
+    svg.appendChild(rect);
+  });
+
+  el.appendChild(svg);
+})();
+
+// ==== TOP 5: 가장 긴 세션 ====
+(function () {
+  const body = document.getElementById('topSessBody');
+  const top = SESS.rows.slice().sort((a, b) => b.lines - a.lines).slice(0, 5);
+  body.innerHTML = top.map(r => `
+    <tr>
+      <td>${r.date}</td>
+      <td><span class="repo-badge"><span class="repo-dot" style="background:${toolColor(r.tool)}"></span>${TOOL_LABELS[r.tool]}</span></td>
+      <td class="subject">${String(r.label).replace(/</g, '&lt;')}</td>
+      <td class="num">${fmt(r.lines)}</td>
+    </tr>
+  `).join('');
+})();
+
+// ==== TOP 5: 가장 큰 커밋 ====
+(function () {
+  const body = document.getElementById('topCommitBody');
+  const top = COMMITS.slice().sort((a, b) => (b.ins + b.del) - (a.ins + a.del)).slice(0, 5);
+  body.innerHTML = top.map(c => `
+    <tr>
+      <td>${c.date}</td>
+      <td><span class="repo-badge"><span class="repo-dot" style="background:${repoColor(c.repo)}"></span>${REPO_LABELS[c.repo]}</span></td>
+      <td class="subject">${String(c.subject).replace(/</g, '&lt;')}</td>
+      <td class="num ins">+${fmt(c.ins)}</td>
+      <td class="num del">-${fmt(c.del)}</td>
+    </tr>
+  `).join('');
+})();
 </script>
