@@ -17,23 +17,28 @@ Claude Code / Codex 에이전트 세션 활동과 관련 저장소 git 커밋 �
 
 ## 화면 구성
 
-- **0. 요약**: 총 세션/커밋/변경 라인 수 통합 카드 + 세션·커밋을 합산한 일별 활동 히트맵
-- **1. 에이전트 세션 활동**: 도구별 일별 추이, 총량, 요일 패턴, 가장 긴 세션 TOP 5, 세션 로그
-- **2. 커밋 결과물**: 저장소별 일별 추이, 총량, 요일 패턴, 가장 큰 커밋 TOP 5, 커밋 로그
+- **0. 요약**: 총 세션/커밋/변경 라인 수 통합 카드, 세션·커밋을 합산한 일별 활동 히트맵, 요일별 활동 리듬
+- **1. 에이전트 세션 활동**: 도구별 일별 추이, 가장 긴 세션 TOP 5, 세션 로그
+- **2. 커밋 결과물**: 저장소별 일별 추이, 가장 큰 커밋 TOP 5, 커밋 로그
+
+같은 숫자를 두 번 이상 다른 형태로 보여주는 차트는 넣지 않습니다(Stephen Few, *Information
+Dashboard Design*의 "의미 없는 다양성" 지적 참고).
 
 ## 갱신
 
 `scripts/regenerate.js`(Node.js, 의존성 없음)가 위 소스를 다시 집계해 `index.html`의 `AGG` /
 `COMMITS` / `SESS` 인라인 JSON을 그대로 교체합니다.
 
-```
-node scripts/regenerate.js          # index.html만 갱신
-powershell -File scripts/regenerate.ps1   # 갱신 + 변경 있으면 커밋·푸시까지
-```
+| 방법 | 하는 일 |
+|---|---|
+| `scripts\regenerate.bat` 더블클릭 | `index.html`만 갱신(git 조작 없음, 항상 안전) |
+| `scripts\publish.bat` 더블클릭 | 갱신 + 변경 있으면 커밋·푸시까지 |
+| `node scripts/regenerate.js` | 위 `regenerate.bat`과 동일, 터미널에서 직접 |
+| `powershell -File scripts/regenerate.ps1` | 위 `publish.bat`과 동일, 터미널에서 직접 |
 
 원본 로그(`~/.claude/projects`, `~/.codex/session_index.jsonl`)는 이 컴퓨터에만 있는 로컬 파일이라
 **GitHub Actions 같은 클라우드 CI에서는 실행할 수 없습니다.** 자동 스케줄 등록 없이, 갱신하고 싶을 때
-위 명령을 수동으로 실행하는 방식으로 운영합니다.
+위 방법 중 하나를 수동으로 실행하는 방식으로 운영합니다.
 
 ## Pages 설정
 
