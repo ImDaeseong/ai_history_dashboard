@@ -32,15 +32,8 @@ powershell -File scripts/regenerate.ps1   # 갱신 + 변경 있으면 커밋·�
 ```
 
 원본 로그(`~/.claude/projects`, `~/.codex/session_index.jsonl`)는 이 컴퓨터에만 있는 로컬 파일이라
-**GitHub Actions 같은 클라우드 CI에서는 실행할 수 없습니다.** 정기 자동화가 필요하면 이 컴퓨터에서
-Windows 작업 스케줄러로 `regenerate.ps1`을 주기 실행하세요:
-
-```
-schtasks /create /tn "history_dashboard regenerate" /sc daily /st 09:00 ^
-  /tr "powershell -NoProfile -File \"C:\Users\cs930\Desktop\history_dashboard\scripts\regenerate.ps1\""
-```
-
-제거: `schtasks /delete /tn "history_dashboard regenerate" /f`
+**GitHub Actions 같은 클라우드 CI에서는 실행할 수 없습니다.** 자동 스케줄 등록 없이, 갱신하고 싶을 때
+위 명령을 수동으로 실행하는 방식으로 운영합니다.
 
 ## Pages 설정
 
