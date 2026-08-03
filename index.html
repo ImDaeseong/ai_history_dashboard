@@ -246,27 +246,19 @@ tbody td.num { text-align: right; font-variant-numeric: tabular-nums; white-spac
     <div id="heatmap"></div>
   </div>
 
+  <div class="card">
+    <h2>요일별 활동 리듬</h2>
+    <p class="sub">세션 + 커밋 합계, 월~일 기준. 특정 날짜가 아니라 무슨 요일에 몰리는지 보는 차트입니다.</p>
+    <div class="dow-row" id="dowRhythmChart"></div>
+  </div>
+
   <div class="section-title">1. 에이전트 세션 활동 (Claude Code vs Codex)</div>
-  <div class="stat-row" id="sessStatRow"></div>
 
   <div class="card">
     <h2>일별 세션 수 (도구별)</h2>
-    <p class="sub">VS Code에서 실행한 Claude Code / Codex 세션 시작일 기준.</p>
+    <p class="sub">VS Code에서 실행한 Claude Code / Codex 세션 시작일 기준. 범례의 괄호 안 숫자가 도구별 누적 합계입니다.</p>
     <div class="legend" id="sessLegend"></div>
     <div id="sessDailyChart"></div>
-  </div>
-
-  <div style="display:grid; grid-template-columns: 1.1fr 0.9fr; gap:20px;">
-    <div class="card" style="margin-bottom:0;">
-      <h2>도구별 총 세션 수</h2>
-      <p class="sub">최근 30일 누적</p>
-      <div id="sessToolChart"></div>
-    </div>
-    <div class="card" style="margin-bottom:0;">
-      <h2>요일별 세션 패턴</h2>
-      <p class="sub">월~일, 도구별 비교</p>
-      <div class="dow-row" id="sessDowChart"></div>
-    </div>
   </div>
 
   <div class="card" style="margin-top:20px;">
@@ -295,26 +287,12 @@ tbody td.num { text-align: right; font-variant-numeric: tabular-nums; white-spac
   </div>
 
   <div class="section-title">2. 커밋 결과물 (Git 로그)</div>
-  <div class="stat-row" id="statRow"></div>
 
   <div class="card">
     <h2>일별 커밋 추이 (저장소별)</h2>
-    <p class="sub">막대 위에 마우스를 올리면 날짜별 상세 내역이 표시됩니다.</p>
+    <p class="sub">막대 위에 마우스를 올리면 날짜별 상세 내역이 표시됩니다. 범례의 괄호 안 숫자가 저장소별 누적 합계입니다.</p>
     <div class="legend" id="legend"></div>
     <div id="dailyChart"></div>
-  </div>
-
-  <div style="display:grid; grid-template-columns: 1.1fr 0.9fr; gap:20px;" id="twoCol">
-    <div class="card" style="margin-bottom:0;">
-      <h2>저장소별 총 커밋 수</h2>
-      <p class="sub">최근 30일 누적</p>
-      <div id="repoChart"></div>
-    </div>
-    <div class="card" style="margin-bottom:0;">
-      <h2>요일별 활동 패턴</h2>
-      <p class="sub">월~일 커밋 합계</p>
-      <div class="dow-row" id="dowChart"></div>
-    </div>
   </div>
 
   <div class="card" style="margin-top:20px;">
@@ -4152,25 +4130,6 @@ function toolColor(t) {
   return getComputedStyle(document.querySelector('.viz-root')).getPropertyValue(TOOL_COLOR_VAR[t]).trim();
 }
 
-// -- session stat tiles --
-(function () {
-  const el = document.getElementById('sessStatRow');
-  const cc = SESS.tool_totals['claude-code'], cx = SESS.tool_totals['codex'];
-  const stats = [
-    { label: '총 세션 수 (2개 도구)', value: fmt(SESS.total_sessions), delta: `${SESS.start_date} ~ ${SESS.end_date}` },
-    { label: 'Claude Code 세션', value: fmt(cc), delta: `전체의 ${Math.round(cc/SESS.total_sessions*100)}%` },
-    { label: 'Codex 세션', value: fmt(cx), delta: `전체의 ${Math.round(cx/SESS.total_sessions*100)}%` },
-    { label: '활동일 / 전체 기간', value: `${SESS.active_days} / ${SESS.total_days}일`, delta: `최다: ${SESS.busiest_date.slice(5)} (${SESS.busiest_count}건)` },
-  ];
-  el.innerHTML = stats.map(s => `
-    <div class="stat-tile">
-      <div class="label">${s.label}</div>
-      <div class="value">${s.value}</div>
-      <div class="delta">${s.delta}</div>
-    </div>
-  `).join('');
-})();
-
 // -- session legend --
 (function () {
   const el = document.getElementById('sessLegend');
@@ -4265,85 +4224,6 @@ function toolColor(t) {
   document.getElementById('sessDailyChart').appendChild(svg);
 })();
 
-// -- tool total horizontal bar chart --
-(function () {
-  const tools = SESS.tools.slice().sort((a, b) => SESS.tool_totals[b] - SESS.tool_totals[a]);
-  const max = Math.max(...tools.map(t => SESS.tool_totals[t]));
-  const W = 460, rowH = 44, padL = 110, padR = 46, padT = 6;
-  const H = padT + tools.length * rowH;
-
-  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
-  svg.setAttribute('width', '100%');
-  svg.setAttribute('height', H);
-
-  tools.forEach((t, i) => {
-    const v = SESS.tool_totals[t];
-    const barMaxW = W - padL - padR;
-    const barW = (v / max) * barMaxW;
-    const y = padT + i * rowH + 12;
-
-    const label = document.createElementNS(svg.namespaceURI, 'text');
-    label.setAttribute('x', padL - 10);
-    label.setAttribute('y', y + 10);
-    label.setAttribute('text-anchor', 'end');
-    label.setAttribute('class', 'axis-label');
-    label.setAttribute('fill', 'var(--text-secondary)');
-    label.style.fontSize = '12px';
-    label.textContent = TOOL_LABELS[t];
-    svg.appendChild(label);
-
-    const rect = document.createElementNS(svg.namespaceURI, 'rect');
-    rect.setAttribute('x', padL);
-    rect.setAttribute('y', y);
-    rect.setAttribute('width', Math.max(2, barW));
-    rect.setAttribute('height', 20);
-    rect.setAttribute('rx', 4);
-    rect.setAttribute('fill', toolColor(t));
-    rect.setAttribute('class', 'bar-seg');
-    rect.addEventListener('mousemove', (e) => {
-      showTooltip(`<b>${TOOL_LABELS[t]}</b><br>세션 ${v}건 (${Math.round(v/SESS.total_sessions*100)}%)`, e.clientX, e.clientY);
-    });
-    rect.addEventListener('mouseleave', hideTooltip);
-    svg.appendChild(rect);
-
-    const val = document.createElementNS(svg.namespaceURI, 'text');
-    val.setAttribute('x', padL + barW + 8);
-    val.setAttribute('y', y + 14);
-    val.setAttribute('class', 'axis-label');
-    val.style.fontSize = '12px';
-    val.style.fontWeight = '600';
-    val.setAttribute('fill', 'var(--text-primary)');
-    val.textContent = v;
-    svg.appendChild(val);
-  });
-
-  document.getElementById('sessToolChart').appendChild(svg);
-})();
-
-// -- day-of-week grouped bars (two series) --
-(function () {
-  const el = document.getElementById('sessDowChart');
-  const max = Math.max(...SESS.dow_series['claude-code'], ...SESS.dow_series['codex'], 1);
-  SESS.dow_names.forEach((name, i) => {
-    const cc = SESS.dow_series['claude-code'][i];
-    const cx = SESS.dow_series['codex'][i];
-    const hcc = Math.max(2, (cc / max) * 100);
-    const hcx = Math.max(2, (cx / max) * 100);
-    const col = document.createElement('div');
-    col.className = 'dow-col';
-    col.innerHTML = `
-      <div class="dow-val">${cc}/${cx}</div>
-      <div class="dow-bar-group">
-        <div class="dow-bar" style="height:${hcc}%; background:${toolColor('claude-code')}" title="Claude Code: ${cc}"></div>
-        <div class="dow-bar" style="height:${hcx}%; background:${toolColor('codex')}" title="Codex: ${cx}"></div>
-      </div>
-      <div class="dow-label">${name}</div>
-    `;
-    el.appendChild(col);
-  });
-})();
-
 // -- session log table --
 (function () {
   const filterRow = document.getElementById('sessFilterRow');
@@ -4375,22 +4255,7 @@ function toolColor(t) {
   render();
 })();
 
-// ---- Stat tiles ----
 function fmt(n) { return n.toLocaleString('en-US'); }
-const statRow = document.getElementById('statRow');
-const stats = [
-  { label: '총 커밋 수 (4개 저장소)', value: fmt(AGG.total_commits), delta: `${AGG.start_date} ~ ${AGG.end_date}` },
-  { label: '활동일 / 전체 기간', value: `${AGG.active_days} / ${AGG.total_days}일`, delta: `${Math.round(AGG.active_days/AGG.total_days*100)}% 가동률` },
-  { label: '변경 라인 (+/-)', value: `+${fmt(AGG.total_ins)}`, delta: `-${fmt(AGG.total_del)} · 파일 ${fmt(AGG.total_files)}개` },
-  { label: '최다 활동일', value: AGG.busiest_date.slice(5), delta: `커밋 ${AGG.busiest_count}건` },
-];
-statRow.innerHTML = stats.map(s => `
-  <div class="stat-tile">
-    <div class="label">${s.label}</div>
-    <div class="value">${s.value}</div>
-    <div class="delta">${s.delta}</div>
-  </div>
-`).join('');
 
 // ---- Legend ----
 const legend = document.getElementById('legend');
@@ -4487,80 +4352,6 @@ legend.innerHTML = AGG.repos.map(r => `
   document.getElementById('dailyChart').appendChild(svg);
 })();
 
-// ---- Repo total horizontal bar chart ----
-(function () {
-  const repos = AGG.repos.slice().sort((a, b) => AGG.repo_totals[b] - AGG.repo_totals[a]);
-  const max = Math.max(...repos.map(r => AGG.repo_totals[r]));
-  const W = 460, rowH = 40, padL = 100, padR = 46, padT = 6;
-  const H = padT + repos.length * rowH;
-
-  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
-  svg.setAttribute('width', '100%');
-  svg.setAttribute('height', H);
-
-  repos.forEach((r, i) => {
-    const v = AGG.repo_totals[r];
-    const barMaxW = W - padL - padR;
-    const barW = (v / max) * barMaxW;
-    const y = padT + i * rowH + 10;
-
-    const label = document.createElementNS(svg.namespaceURI, 'text');
-    label.setAttribute('x', padL - 10);
-    label.setAttribute('y', y + 10);
-    label.setAttribute('text-anchor', 'end');
-    label.setAttribute('class', 'axis-label');
-    label.setAttribute('fill', 'var(--text-secondary)');
-    label.style.fontSize = '12px';
-    label.textContent = REPO_LABELS[r];
-    svg.appendChild(label);
-
-    const rect = document.createElementNS(svg.namespaceURI, 'rect');
-    rect.setAttribute('x', padL);
-    rect.setAttribute('y', y);
-    rect.setAttribute('width', Math.max(2, barW));
-    rect.setAttribute('height', 20);
-    rect.setAttribute('rx', 4);
-    rect.setAttribute('fill', repoColor(r));
-    rect.setAttribute('class', 'bar-seg');
-    rect.addEventListener('mousemove', (e) => {
-      showTooltip(`<b>${REPO_LABELS[r]}</b><br>커밋 ${v}건 (${Math.round(v/AGG.total_commits*100)}%)`, e.clientX, e.clientY);
-    });
-    rect.addEventListener('mouseleave', hideTooltip);
-    svg.appendChild(rect);
-
-    const val = document.createElementNS(svg.namespaceURI, 'text');
-    val.setAttribute('x', padL + barW + 8);
-    val.setAttribute('y', y + 14);
-    val.setAttribute('class', 'axis-label');
-    val.style.fontSize = '12px';
-    val.style.fontWeight = '600';
-    val.setAttribute('fill', 'var(--text-primary)');
-    val.textContent = v;
-    svg.appendChild(val);
-  });
-
-  document.getElementById('repoChart').appendChild(svg);
-})();
-
-// ---- Day-of-week bars (plain HTML, single series) ----
-(function () {
-  const el = document.getElementById('dowChart');
-  const max = Math.max(...AGG.dow_series, 1);
-  AGG.dow_names.forEach((name, i) => {
-    const v = AGG.dow_series[i];
-    const h = Math.max(3, (v / max) * 100);
-    const col = document.createElement('div');
-    col.className = 'dow-col';
-    col.innerHTML = `
-      <div class="dow-val">${v}</div>
-      <div class="dow-bar-group"><div class="dow-bar" style="height:${h}%; background:var(--series-1)"></div></div>
-      <div class="dow-label">${name}</div>
-    `;
-    el.appendChild(col);
-  });
-})();
-
 // ---- Activity log table ----
 const filterRow = document.getElementById('filterRow');
 const logBody = document.getElementById('logBody');
@@ -4617,13 +4408,15 @@ document.getElementById('subtitle').textContent =
   `).join('');
 })();
 
+// -- combined daily activity map (sessions + commits), reused by heatmap and weekday rhythm chart --
+const DAILY_MAP = {};
+SESS.daily.forEach(d => { DAILY_MAP[d.date] = (DAILY_MAP[d.date] || 0) + d.total; });
+AGG.daily.forEach(d => { DAILY_MAP[d.date] = (DAILY_MAP[d.date] || 0) + d.total; });
+
 // ==== 0. 요약: 일별 활동 히트맵 (세션 + 커밋) ====
 (function () {
   const el = document.getElementById('heatmap');
-  const map = {};
-  SESS.daily.forEach(d => { map[d.date] = (map[d.date] || 0) + d.total; });
-  AGG.daily.forEach(d => { map[d.date] = (map[d.date] || 0) + d.total; });
-
+  const map = DAILY_MAP;
   const dates = Object.keys(map).sort();
   if (!dates.length) return;
   const firstDate = dates[0], lastDate = dates[dates.length - 1];
@@ -4690,6 +4483,31 @@ document.getElementById('subtitle').textContent =
   });
 
   el.appendChild(svg);
+})();
+
+// ==== 0. 요약: 요일별 활동 리듬 (세션 + 커밋 합계) ====
+(function () {
+  const el = document.getElementById('dowRhythmChart');
+  const DOW_NAMES = ['월', '화', '수', '목', '금', '토', '일'];
+  const totals = new Array(7).fill(0);
+  Object.entries(DAILY_MAP).forEach(([date, count]) => {
+    const jsDow = new Date(date + 'T00:00:00').getDay(); // 0=Sun..6=Sat
+    totals[(jsDow + 6) % 7] += count;
+  });
+  const max = Math.max(...totals, 1);
+  const seriesColor = getComputedStyle(document.querySelector('.viz-root')).getPropertyValue('--series-1').trim();
+  DOW_NAMES.forEach((name, i) => {
+    const v = totals[i];
+    const h = Math.max(3, (v / max) * 100);
+    const col = document.createElement('div');
+    col.className = 'dow-col';
+    col.innerHTML = `
+      <div class="dow-val">${v}</div>
+      <div class="dow-bar-group"><div class="dow-bar" style="height:${h}%; background:${seriesColor}"></div></div>
+      <div class="dow-label">${name}</div>
+    `;
+    el.appendChild(col);
+  });
 })();
 
 // ==== TOP 5: 가장 긴 세션 ====
