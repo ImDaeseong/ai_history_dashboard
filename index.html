@@ -1,0 +1,4563 @@
+<title>AI 에이전트 작업 이력 대시보드</title>
+<style>
+.viz-root {
+  color-scheme: light;
+  --surface-1:      #fcfcfb;
+  --surface-page:   #f9f9f7;
+  --text-primary:   #0b0b0b;
+  --text-secondary: #52514e;
+  --text-muted:     #898781;
+  --grid:           #e1e0d9;
+  --baseline:       #c3c2b7;
+  --border:         rgba(11,11,11,0.10);
+  --series-1: #2a78d6; /* hermes-agents */
+  --series-2: #eb6834; /* ai-workspace */
+  --series-3: #1baf7a; /* ai_prompt */
+  --series-4: #eda100; /* skills */
+}
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-theme="light"])) .viz-root {
+    color-scheme: dark;
+    --surface-1:      #1a1a19;
+    --surface-page:   #0d0d0d;
+    --text-primary:   #ffffff;
+    --text-secondary: #c3c2b7;
+    --text-muted:     #898781;
+    --grid:           #2c2c2a;
+    --baseline:       #383835;
+    --border:         rgba(255,255,255,0.10);
+    --series-1: #3987e5;
+    --series-2: #d95926;
+    --series-3: #199e70;
+    --series-4: #c98500;
+  }
+}
+:root[data-theme="dark"] .viz-root {
+  color-scheme: dark;
+  --surface-1:      #1a1a19;
+  --surface-page:   #0d0d0d;
+  --text-primary:   #ffffff;
+  --text-secondary: #c3c2b7;
+  --text-muted:     #898781;
+  --grid:           #2c2c2a;
+  --baseline:       #383835;
+  --border:         rgba(255,255,255,0.10);
+  --series-1: #3987e5;
+  --series-2: #d95926;
+  --series-3: #199e70;
+  --series-4: #c98500;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  background: var(--surface-page);
+  color: var(--text-primary);
+}
+.wrap {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 32px 20px 64px;
+}
+header h1 {
+  font-size: 22px;
+  margin: 0 0 4px;
+  letter-spacing: -0.01em;
+}
+header p {
+  margin: 0 0 28px;
+  color: var(--text-secondary);
+  font-size: 13.5px;
+}
+.card {
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  overflow-x: auto;
+}
+.card h2 {
+  font-size: 14px;
+  margin: 0 0 2px;
+  color: var(--text-primary);
+}
+.card .sub {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin: 0 0 16px;
+}
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 20px;
+}
+.stat-tile {
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px 18px;
+}
+.stat-tile .label {
+  font-size: 11.5px;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+.stat-tile .value {
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+.stat-tile .delta {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+@media (max-width: 720px) {
+  .stat-row { grid-template-columns: repeat(2, 1fr); }
+}
+
+svg { display: block; overflow: visible; }
+.axis-label { fill: var(--text-muted); font-size: 10.5px; }
+.gridline { stroke: var(--grid); stroke-width: 1; }
+.baseline { stroke: var(--baseline); stroke-width: 1; }
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 14px;
+  font-size: 12.5px;
+  color: var(--text-secondary);
+}
+.legend-item { display: flex; align-items: center; gap: 6px; }
+.legend-swatch { width: 10px; height: 10px; border-radius: 2px; flex: none; }
+
+.tooltip {
+  position: fixed;
+  pointer-events: none;
+  background: var(--text-primary);
+  color: var(--surface-1);
+  font-size: 12px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  line-height: 1.5;
+  z-index: 50;
+  opacity: 0;
+  transition: opacity 0.08s ease;
+  white-space: nowrap;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+}
+.tooltip.show { opacity: 1; }
+.tooltip b { font-weight: 600; }
+
+.bar-seg { cursor: pointer; }
+.bar-hit { fill: transparent; cursor: pointer; }
+
+.filter-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+.filter-chip {
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 12px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-family: inherit;
+}
+.filter-chip.active {
+  background: var(--text-primary);
+  color: var(--surface-1);
+  border-color: var(--text-primary);
+}
+
+table { border-collapse: collapse; width: 100%; font-size: 12.5px; }
+thead th {
+  text-align: left;
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 500;
+  padding: 6px 10px;
+  border-bottom: 1px solid var(--grid);
+  position: sticky;
+  top: 0;
+  background: var(--surface-1);
+}
+tbody td {
+  padding: 7px 10px;
+  border-bottom: 1px solid var(--grid);
+  color: var(--text-secondary);
+  vertical-align: top;
+}
+tbody td.subject { color: var(--text-primary); }
+tbody td.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.table-scroll { max-height: 480px; overflow-y: auto; border: 1px solid var(--border); border-radius: 8px; }
+.repo-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11.5px;
+  white-space: nowrap;
+}
+.repo-dot { width: 7px; height: 7px; border-radius: 50%; flex: none; }
+.ins { color: #0ca30c; }
+.del { color: #d03b3b; }
+
+.dow-row { display: flex; align-items: flex-end; gap: 10px; height: 140px; }
+.dow-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; height: 100%; justify-content: flex-end; }
+.dow-bar-group { width: 100%; max-width: 40px; display: flex; gap: 2px; align-items: flex-end; height: 100%; }
+.dow-bar { flex: 1; border-radius: 3px 3px 0 0; }
+.dow-label { font-size: 11px; color: var(--text-muted); }
+.dow-val { font-size: 11px; color: var(--text-secondary); font-variant-numeric: tabular-nums; }
+
+.section-title {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  margin: 32px 0 12px;
+}
+.section-title:first-of-type { margin-top: 0; }
+</style>
+
+<div class="viz-root">
+<div class="wrap">
+  <header>
+    <h1>AI 에이전트 작업 이력 대시보드</h1>
+    <p id="subtitle"></p>
+  </header>
+
+  <div class="section-title">1. 에이전트 세션 활동 (Claude Code vs Codex)</div>
+  <div class="stat-row" id="sessStatRow"></div>
+
+  <div class="card">
+    <h2>일별 세션 수 (도구별)</h2>
+    <p class="sub">VS Code에서 실행한 Claude Code / Codex 세션 시작일 기준.</p>
+    <div class="legend" id="sessLegend"></div>
+    <div id="sessDailyChart"></div>
+  </div>
+
+  <div style="display:grid; grid-template-columns: 1.1fr 0.9fr; gap:20px;">
+    <div class="card" style="margin-bottom:0;">
+      <h2>도구별 총 세션 수</h2>
+      <p class="sub">최근 30일 누적</p>
+      <div id="sessToolChart"></div>
+    </div>
+    <div class="card" style="margin-bottom:0;">
+      <h2>요일별 세션 패턴</h2>
+      <p class="sub">월~일, 도구별 비교</p>
+      <div class="dow-row" id="sessDowChart"></div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:20px;">
+    <h2>세션 로그</h2>
+    <p class="sub">도구 필터로 좁혀볼 수 있습니다. 최신순 정렬.</p>
+    <div class="filter-row" id="sessFilterRow"></div>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>날짜</th><th>도구</th><th>세션 제목 / 프로젝트</th></tr>
+        </thead>
+        <tbody id="sessLogBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section-title">2. 커밋 결과물 (Git 로그)</div>
+  <div class="stat-row" id="statRow"></div>
+
+  <div class="card">
+    <h2>일별 커밋 추이 (저장소별)</h2>
+    <p class="sub">막대 위에 마우스를 올리면 날짜별 상세 내역이 표시됩니다.</p>
+    <div class="legend" id="legend"></div>
+    <div id="dailyChart"></div>
+  </div>
+
+  <div style="display:grid; grid-template-columns: 1.1fr 0.9fr; gap:20px;" id="twoCol">
+    <div class="card" style="margin-bottom:0;">
+      <h2>저장소별 총 커밋 수</h2>
+      <p class="sub">최근 30일 누적</p>
+      <div id="repoChart"></div>
+    </div>
+    <div class="card" style="margin-bottom:0;">
+      <h2>요일별 활동 패턴</h2>
+      <p class="sub">월~일 커밋 합계</p>
+      <div class="dow-row" id="dowChart"></div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:20px;">
+    <h2>작업 로그 (전체 커밋)</h2>
+    <p class="sub">저장소 필터로 좁혀볼 수 있습니다. 최신순 정렬.</p>
+    <div class="filter-row" id="filterRow"></div>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>날짜</th><th>저장소</th><th>커밋 메시지</th><th style="text-align:right">+추가</th><th style="text-align:right">-삭제</th></tr>
+        </thead>
+        <tbody id="logBody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="tooltip" id="tooltip"></div>
+
+<script>
+const AGG = {
+ "daily": [
+  {
+   "date": "2026-07-06",
+   "hermes-agents": 0,
+   "ai-workspace": 3,
+   "ai_prompt": 0,
+   "skills": 0,
+   "total": 3
+  },
+  {
+   "date": "2026-07-07",
+   "hermes-agents": 0,
+   "ai-workspace": 0,
+   "ai_prompt": 0,
+   "skills": 0,
+   "total": 0
+  },
+  {
+   "date": "2026-07-08",
+   "hermes-agents": 0,
+   "ai-workspace": 0,
+   "ai_prompt": 0,
+   "skills": 0,
+   "total": 0
+  },
+  {
+   "date": "2026-07-09",
+   "hermes-agents": 1,
+   "ai-workspace": 0,
+   "ai_prompt": 0,
+   "skills": 0,
+   "total": 1
+  },
+  {
+   "date": "2026-07-10",
+   "hermes-agents": 0,
+   "ai-workspace": 4,
+   "ai_prompt": 0,
+   "skills": 0,
+   "total": 4
+  },
+  {
+   "date": "2026-07-11",
+   "hermes-agents": 0,
+   "ai-workspace": 0,
+   "ai_prompt": 0,
+   "skills": 0,
+   "total": 0
+  },
+  {
+   "date": "2026-07-12",
+   "hermes-agents": 4,
+   "ai-workspace": 7,
+   "ai_prompt": 1,
+   "skills": 0,
+   "total": 12
+  },
+  {
+   "date": "2026-07-13",
+   "hermes-agents": 1,
+   "ai-workspace": 4,
+   "ai_prompt": 0,
+   "skills": 0,
+   "total": 5
+  },
+  {
+   "date": "2026-07-14",
+   "hermes-agents": 0,
+   "ai-workspace": 0,
+   "ai_prompt": 0,
+   "skills": 0,
+   "total": 0
+  },
+  {
+   "date": "2026-07-15",
+   "hermes-agents": 6,
+   "ai-workspace": 0,
+   "ai_prompt": 0,
+   "skills": 0,
+   "total": 6
+  },
+  {
+   "date": "2026-07-16",
+   "hermes-agents": 0,
+   "ai-workspace": 0,
+   "ai_prompt": 0,
+   "skills": 0,
+   "total": 0
+  },
+  {
+   "date": "2026-07-17",
+   "hermes-agents": 2,
+   "ai-workspace": 1,
+   "ai_prompt": 1,
+   "skills": 2,
+   "total": 6
+  },
+  {
+   "date": "2026-07-18",
+   "hermes-agents": 0,
+   "ai-workspace": 0,
+   "ai_prompt": 0,
+   "skills": 28,
+   "total": 28
+  },
+  {
+   "date": "2026-07-19",
+   "hermes-agents": 2,
+   "ai-workspace": 0,
+   "ai_prompt": 4,
+   "skills": 9,
+   "total": 15
+  },
+  {
+   "date": "2026-07-20",
+   "hermes-agents": 1,
+   "ai-workspace": 0,
+   "ai_prompt": 0,
+   "skills": 4,
+   "total": 5
+  },
+  {
+   "date": "2026-07-21",
+   "hermes-agents": 1,
+   "ai-workspace": 0,
+   "ai_prompt": 0,
+   "skills": 5,
+   "total": 6
+  },
+  {
+   "date": "2026-07-22",
+   "hermes-agents": 0,
+   "ai-workspace": 0,
+   "ai_prompt": 0,
+   "skills": 1,
+   "total": 1
+  },
+  {
+   "date": "2026-07-23",
+   "hermes-agents": 4,
+   "ai-workspace": 6,
+   "ai_prompt": 0,
+   "skills": 0,
+   "total": 10
+  },
+  {
+   "date": "2026-07-24",
+   "hermes-agents": 0,
+   "ai-workspace": 0,
+   "ai_prompt": 0,
+   "skills": 1,
+   "total": 1
+  },
+  {
+   "date": "2026-07-25",
+   "hermes-agents": 7,
+   "ai-workspace": 0,
+   "ai_prompt": 0,
+   "skills": 0,
+   "total": 7
+  },
+  {
+   "date": "2026-07-26",
+   "hermes-agents": 0,
+   "ai-workspace": 0,
+   "ai_prompt": 0,
+   "skills": 1,
+   "total": 1
+  },
+  {
+   "date": "2026-07-27",
+   "hermes-agents": 7,
+   "ai-workspace": 4,
+   "ai_prompt": 0,
+   "skills": 5,
+   "total": 16
+  },
+  {
+   "date": "2026-07-28",
+   "hermes-agents": 11,
+   "ai-workspace": 50,
+   "ai_prompt": 16,
+   "skills": 2,
+   "total": 79
+  },
+  {
+   "date": "2026-07-29",
+   "hermes-agents": 12,
+   "ai-workspace": 13,
+   "ai_prompt": 2,
+   "skills": 13,
+   "total": 40
+  },
+  {
+   "date": "2026-07-30",
+   "hermes-agents": 17,
+   "ai-workspace": 14,
+   "ai_prompt": 5,
+   "skills": 9,
+   "total": 45
+  },
+  {
+   "date": "2026-07-31",
+   "hermes-agents": 4,
+   "ai-workspace": 1,
+   "ai_prompt": 0,
+   "skills": 0,
+   "total": 5
+  },
+  {
+   "date": "2026-08-01",
+   "hermes-agents": 0,
+   "ai-workspace": 0,
+   "ai_prompt": 0,
+   "skills": 0,
+   "total": 0
+  },
+  {
+   "date": "2026-08-02",
+   "hermes-agents": 1,
+   "ai-workspace": 3,
+   "ai_prompt": 1,
+   "skills": 0,
+   "total": 5
+  },
+  {
+   "date": "2026-08-03",
+   "hermes-agents": 3,
+   "ai-workspace": 2,
+   "ai_prompt": 2,
+   "skills": 4,
+   "total": 11
+  }
+ ],
+ "repos": [
+  "hermes-agents",
+  "ai-workspace",
+  "ai_prompt",
+  "skills"
+ ],
+ "total_commits": 312,
+ "total_ins": 13515,
+ "total_del": 3428,
+ "total_files": 705,
+ "repo_totals": {
+  "hermes-agents": 84,
+  "ai-workspace": 112,
+  "ai_prompt": 32,
+  "skills": 84
+ },
+ "dow_series": [
+  40,
+  85,
+  47,
+  56,
+  16,
+  35,
+  33
+ ],
+ "dow_names": [
+  "월",
+  "화",
+  "수",
+  "목",
+  "금",
+  "토",
+  "일"
+ ],
+ "busiest_date": "2026-07-28",
+ "busiest_count": 79,
+ "active_days": 23,
+ "total_days": 29,
+ "start_date": "2026-07-06",
+ "end_date": "2026-08-03"
+};
+const COMMITS = [
+ {
+  "repo": "ai_prompt",
+  "date": "2026-08-03",
+  "subject": "validate_links.ps1: skip inline code spans and fenced code blocks",
+  "ins": 6,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-08-03",
+  "subject": "Add validate_links.ps1: catch broken local Markdown links repo-wide",
+  "ins": 73,
+  "del": 3,
+  "files": 4
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-08-03",
+  "subject": "전체_시스템_가이드.md: fix internal contradiction and relative-time phrasing",
+  "ins": 3,
+  "del": 3,
+  "files": 1
+ },
+ {
+  "repo": "skills",
+  "date": "2026-08-03",
+  "subject": "validate_links.ps1: fix regex runaway and encoding bugs",
+  "ins": 20,
+  "del": 3,
+  "files": 1
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-08-03",
+  "subject": "scripts: fix guard scripts crashing on non-ASCII (Korean) filenames",
+  "ins": 17,
+  "del": 7,
+  "files": 3
+ },
+ {
+  "repo": "skills",
+  "date": "2026-08-03",
+  "subject": "Add filing-analyst skill: cited public-filing decoder + reverse-DCF read",
+  "ins": 74,
+  "del": 6,
+  "files": 6
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-08-03",
+  "subject": "validate_links.ps1: skip inline code spans and fenced code blocks",
+  "ins": 6,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-08-03",
+  "subject": "Add validate_links.ps1: catch broken local Markdown links repo-wide",
+  "ins": 73,
+  "del": 3,
+  "files": 3
+ },
+ {
+  "repo": "skills",
+  "date": "2026-08-03",
+  "subject": "design-report: add emilkowalski/skills animation craft-review standard",
+  "ins": 3,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-08-03",
+  "subject": "AGENTS.md: add periodic ablation-test rule for instruction files",
+  "ins": 168,
+  "del": 0,
+  "files": 3
+ },
+ {
+  "repo": "skills",
+  "date": "2026-08-03",
+  "subject": "validate_links.ps1: skip inline code spans and fenced code blocks",
+  "ins": 9,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-08-02",
+  "subject": "HANDOFF.md: 2026-08-02 3저장소 검증/회귀 루프 기록으로 최신화",
+  "ins": 7,
+  "del": 7,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-08-02",
+  "subject": "check_handoff_hygiene.py: --working-tree/--both 모드 추가",
+  "ins": 211,
+  "del": 31,
+  "files": 2
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-08-02",
+  "subject": "Add verify_repo.ps1 common entry point + GitHub Actions CI",
+  "ins": 102,
+  "del": 0,
+  "files": 3
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-08-02",
+  "subject": "Add verify_repo.ps1 common entry point + GitHub Actions CI",
+  "ins": 102,
+  "del": 0,
+  "files": 3
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-08-02",
+  "subject": "Add verify_repo.ps1 + CI; HANDOFF hygiene gains --working-tree/--base-ref",
+  "ins": 209,
+  "del": 14,
+  "files": 6
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-31",
+  "subject": "AGENTS.md: 팀 단위 AI 도입 시 증폭 효과 근거를 Review Discipline에 추가",
+  "ins": 2,
+  "del": 0,
+  "files": 2
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-31",
+  "subject": "AGENTS.md: Evidence Rule에 언어 무관 원칙 명시",
+  "ins": 2,
+  "del": 0,
+  "files": 2
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-31",
+  "subject": "Evidence Rule에 AI 검증 체크리스트 문서 포인터 추가",
+  "ins": 7,
+  "del": 0,
+  "files": 2
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-31",
+  "subject": "AGENTS.md: explain-diff 스킬 검증 후 Debugging Discipline에 반영",
+  "ins": 2,
+  "del": 0,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-31",
+  "subject": "AI 환각·과신 검증 체크리스트 신규 추가",
+  "ins": 114,
+  "del": 0,
+  "files": 2
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-30",
+  "subject": "Strip decorative GitHub star counts from citations, keep date/method/license",
+  "ins": 100,
+  "del": 100,
+  "files": 16
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-30",
+  "subject": "Fix marketplace.json missing prompt-craft/erp-fundamentals + add drift guard",
+  "ins": 28,
+  "del": 1,
+  "files": 2
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-30",
+  "subject": "Drop star-count numbers from MCP_SERVERS citations; codify format in AGENTS.md",
+  "ins": 6,
+  "del": 5,
+  "files": 3
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-30",
+  "subject": "Record better-harness as a verified next-pilot candidate for TF_TEAM_WORKFLOW",
+  "ins": 8,
+  "del": 0,
+  "files": 2
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-30",
+  "subject": "AGENTS.md: separate Evidence Rule verification from deliverable citation style",
+  "ins": 2,
+  "del": 0,
+  "files": 2
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-30",
+  "subject": "install-git-hooks.ps1: resolve real hook path, don't blindly overwrite existing hooks",
+  "ins": 26,
+  "del": 6,
+  "files": 1
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-30",
+  "subject": "Add erp-fundamentals: industry-agnostic ERP knowledge baseline",
+  "ins": 102,
+  "del": 25,
+  "files": 8
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-30",
+  "subject": "HANDOFF.md: record two prior verification-loop gates; archive older entries under 200-line guard",
+  "ins": 81,
+  "del": 58,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-30",
+  "subject": "AX_CONSULTANT_MENTOR.md: replace secondhand citations with verified primary sources",
+  "ins": 50,
+  "del": 19,
+  "files": 2
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-30",
+  "subject": "Note committee.md's synthesis step is same-thread self-verification",
+  "ins": 3,
+  "del": 0,
+  "files": 2
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-30",
+  "subject": "AGENTS.md: reviewer 서브에이전트의 과다 지적 경향 균형추 추가",
+  "ins": 2,
+  "del": 0,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-30",
+  "subject": "MENTOR.md: restore source pointers dropped during citation-hygiene trimming",
+  "ins": 16,
+  "del": 4,
+  "files": 2
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-30",
+  "subject": "Cite arXiv:2607.17641 in Escalation Rules on repeated repair loops",
+  "ins": 2,
+  "del": 0,
+  "files": 2
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-30",
+  "subject": "AGENTS.md: fix overstated causal claims in the AI-refactoring discipline bullets",
+  "ins": 4,
+  "del": 3,
+  "files": 2
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-30",
+  "subject": "Add Claude Skills supply-chain warning and a TF-team parallel-agent workflow",
+  "ins": 48,
+  "del": 0,
+  "files": 4
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-30",
+  "subject": "install-git-hooks.ps1: create the hook's parent directory before writing",
+  "ins": 8,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-30",
+  "subject": "README.md: sync 2026-07-30 changelog with two uncovered commits",
+  "ins": 2,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-30",
+  "subject": "MENTOR.md: trim the Lee Kyung-il principle to the actionable generalization",
+  "ins": 5,
+  "del": 14,
+  "files": 1
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-07-30",
+  "subject": "install-git-hooks.ps1: create the hook's parent directory before writing",
+  "ins": 33,
+  "del": 7,
+  "files": 2
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-30",
+  "subject": "Add race-condition/partial-write/idempotency check to Debugging Discipline",
+  "ins": 2,
+  "del": 0,
+  "files": 2
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-30",
+  "subject": "AGENTS.md: ground AI-refactoring discipline (block-size, forced explanation) in research",
+  "ins": 3,
+  "del": 0,
+  "files": 2
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-07-30",
+  "subject": "Add pre-commit hook running validate_skills.ps1",
+  "ins": 54,
+  "del": 0,
+  "files": 2
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-30",
+  "subject": "Add ai-adoption-scout skill: maps real AI-usage signal to user's own context",
+  "ins": 102,
+  "del": 7,
+  "files": 6
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-07-30",
+  "subject": "README.md: bump Last Updated and record new pre-commit hook",
+  "ins": 2,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-30",
+  "subject": "Record final independent verification of AX doc sourcing fix; fill missing gate",
+  "ins": 7,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-30",
+  "subject": "Record marketplace off-by-one fix and reword a false-positive hygiene trigger",
+  "ins": 16,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-30",
+  "subject": "install-git-hooks.ps1: create the hook's parent directory before writing",
+  "ins": 8,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-30",
+  "subject": "MENTOR.md: fix sourcing issues in the Lee Kyung-il principle",
+  "ins": 25,
+  "del": 9,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-30",
+  "subject": "install-git-hooks.ps1: resolve real hook path, don't blindly overwrite existing hooks",
+  "ins": 70,
+  "del": 34,
+  "files": 3
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-30",
+  "subject": "CLAUDE.md: fix stale skill-policy conflict with README's dual-collection note",
+  "ins": 11,
+  "del": 5,
+  "files": 1
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-07-30",
+  "subject": "Strip decorative GitHub star counts from citations, keep date/method/license",
+  "ins": 2,
+  "del": 2,
+  "files": 2
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-07-30",
+  "subject": "install-git-hooks.ps1: resolve real hook path, don't blindly overwrite existing hooks",
+  "ins": 124,
+  "del": 6,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-30",
+  "subject": "Archive older HANDOFF entries and record marketplace/CLAUDE.md HOLD resolution",
+  "ins": 154,
+  "del": 77,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-30",
+  "subject": "Add fact-based AX consultant reference; fill a missing HANDOFF gate",
+  "ins": 90,
+  "del": 0,
+  "files": 3
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-30",
+  "subject": "Fix duplicate/misdated changelog row for the Claude Skills warning",
+  "ins": 0,
+  "del": 2,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-30",
+  "subject": "business/README.md: clarify stale \"three mentors\" wording after table grew to 5",
+  "ins": 3,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-30",
+  "subject": "MENTOR.md: add Lee Kyung-il (Saltlux CEO)'s problem-before-technology principle",
+  "ins": 22,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-30",
+  "subject": "Generalize TF_TEAM_WORKFLOW.md verification and HOLD rules per project",
+  "ins": 7,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-30",
+  "subject": "Trim citation-hygiene clutter across business/ docs to actionable content",
+  "ins": 39,
+  "del": 69,
+  "files": 2
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-30",
+  "subject": "Stop recording a fixed GitHub star count for better-harness",
+  "ins": 3,
+  "del": 2,
+  "files": 2
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-30",
+  "subject": "agent-builder: record Dify evaluation (license-restricted) and correct a false Pi star-count claim",
+  "ins": 2,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-30",
+  "subject": "install-git-hooks.ps1: create the hook's parent directory before writing",
+  "ins": 20,
+  "del": 0,
+  "files": 2
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-30",
+  "subject": "Fix specialist-skill count off-by-one and two more stale-count files",
+  "ins": 4,
+  "del": 3,
+  "files": 3
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-30",
+  "subject": "install-git-hooks.ps1: resolve real hook path, don't blindly overwrite existing hooks",
+  "ins": 23,
+  "del": 3,
+  "files": 1
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-30",
+  "subject": "design-report: name a real code-scaffolding reference for actual site builds",
+  "ins": 2,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-29",
+  "subject": "Add LLM Wiki scaffold and log 2026-07-29 video-review session",
+  "ins": 26,
+  "del": 0,
+  "files": 6
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-29",
+  "subject": "Upgrade ERP and semiconductor citations to verified primary sources",
+  "ins": 3,
+  "del": 3,
+  "files": 1
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-29",
+  "subject": "Add Debugging Discipline section to AGENTS.md, grounded in 2026 research",
+  "ins": 16,
+  "del": 1,
+  "files": 2
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-07-29",
+  "subject": "Add office_automation_html_tools skill from verified YouTube walkthrough",
+  "ins": 73,
+  "del": 2,
+  "files": 3
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-07-29",
+  "subject": "Cross-link office_automation_html_tools and doc_coauthoring skills",
+  "ins": 8,
+  "del": 0,
+  "files": 2
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-29",
+  "subject": "Add pre-commit guard for .bat/.cmd bare-LF line endings",
+  "ins": 53,
+  "del": 0,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-29",
+  "subject": "Log final confirmation of ai_Scenario HOLD resolution (100% pass)",
+  "ins": 8,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-29",
+  "subject": "Log progress gates for the full skills/hermes-agents verification loop",
+  "ins": 7,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-29",
+  "subject": "Correct METR follow-up citation in AGENTS.md Debugging Discipline",
+  "ins": 2,
+  "del": 1,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-29",
+  "subject": "Record 2026-07-29 full verification loops (hermes-agents/skills, then 5-repo)",
+  "ins": 20,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-29",
+  "subject": "Research semiconductor, trade/customs, and confirm management/internet-co are non-gaps",
+  "ins": 6,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-29",
+  "subject": "Replace weak Debugging Discipline citations with a real methodology + empirical study",
+  "ins": 3,
+  "del": 2,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-29",
+  "subject": "Exclude run_game's MFC build HOLD from verification scope per user decision",
+  "ins": 1,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-29",
+  "subject": "Document the batch line-ending guard in README/CLAUDE",
+  "ins": 12,
+  "del": 4,
+  "files": 2
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-29",
+  "subject": "Re-search all 8 below-bar verticals for better candidates; record findings",
+  "ins": 7,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-29",
+  "subject": "Archive 2026-07-28~29 dated entries; log the archival loop itself",
+  "ins": 109,
+  "del": 88,
+  "files": 2
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-29",
+  "subject": "Strengthen AI memory-migration note with a direct primary-source fetch",
+  "ins": 1,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-29",
+  "subject": "Record run_game MFC HOLD re-verification (still unresolved)",
+  "ins": 5,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-29",
+  "subject": "Add Red Queen strategy principles to business/MENTOR.md",
+  "ins": 33,
+  "del": 0,
+  "files": 2
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-29",
+  "subject": "Re-search and record ERP/SCM, medical, apparel, and B2B/B2C domain coverage",
+  "ins": 20,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-29",
+  "subject": "Research and record manufacturing, electronics, and accounting domain coverage",
+  "ins": 8,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-29",
+  "subject": "Document official Claude Code cost-reduction habits",
+  "ins": 1,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-29",
+  "subject": "Stop logging Telegram message contents; add AST guard against regression",
+  "ins": 59,
+  "del": 4,
+  "files": 4
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-29",
+  "subject": "Make the regression test's own setup fail loudly instead of silently",
+  "ins": 2,
+  "del": 2,
+  "files": 1
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-29",
+  "subject": "Document cross-vendor AI memory/chat migration in personal-memory",
+  "ins": 4,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-29",
+  "subject": "Apply the pending buying-center check to biz-council Step 3a",
+  "ins": 3,
+  "del": 2,
+  "files": 2
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-29",
+  "subject": "Ground biz-council's solo-operator idea scoping in verified data",
+  "ins": 8,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-29",
+  "subject": "Fix install-git-hooks.ps1 resolving WSL bash instead of Git Bash",
+  "ins": 18,
+  "del": 9,
+  "files": 2
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-29",
+  "subject": "Add prompt-craft techniques from Utley and Lee Je-hyun; defer 3 manual-GUI creative tools",
+  "ins": 8,
+  "del": 1,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-29",
+  "subject": "Log 3-repo re-verification loop and its independent re-check",
+  "ins": 8,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-29",
+  "subject": "Re-verify low-evidence attribution claims; correct one stale number",
+  "ins": 3,
+  "del": 3,
+  "files": 2
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-29",
+  "subject": "Add GhostApproval symlink-approval warning to AGENTS.md Core Rules",
+  "ins": 2,
+  "del": 0,
+  "files": 2
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-29",
+  "subject": "Document scroll-world Claude skill as an install-method-only candidate",
+  "ins": 2,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-29",
+  "subject": "Log post-skill-addition 3-repo re-verification loop",
+  "ins": 8,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-29",
+  "subject": "Fix install-git-hooks.ps1 resolving WSL bash instead of Git Bash",
+  "ins": 15,
+  "del": 6,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-29",
+  "subject": "Log resolution of the ai_Scenario 90% HOLD from the pasted verification report",
+  "ins": 15,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-29",
+  "subject": "Document hermes.cmd's real silent-failure cause precisely",
+  "ins": 4,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-29",
+  "subject": "Document Jira/Atlassian connector auth flow and 11 candidate Claude Code harnesses",
+  "ins": 27,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-29",
+  "subject": "Log closure of the Telegram privacy fix that was pending commit",
+  "ins": 18,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-29",
+  "subject": "Strengthen prompt-craft's Lee Je-hyun citation with his own primary-source blog",
+  "ins": 2,
+  "del": 2,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Log ai_test1 doc-drift resolution and extended consistency guard",
+  "ins": 9,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Log validate_skills.ps1 NOTICE.md-deletion fix to HANDOFF",
+  "ins": 8,
+  "del": 2,
+  "files": 1
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-07-28",
+  "subject": "Fix ScheduleWakeup mischaracterization in antigravity_usage_guide.md",
+  "ins": 1,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Fix 2 remaining hardcoded absolute paths flagged by independent validation",
+  "ins": 7,
+  "del": 3,
+  "files": 3
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-07-28",
+  "subject": "Tighten llm_evaluation.md's self-preference-bias wording to match the research",
+  "ins": 1,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Log hermes-agents/skills README cleanup and 4-skill rewrite to HANDOFF",
+  "ins": 3,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-07-28",
+  "subject": "Fix 8 dead references links in caio_advisor.md/vpe_advisor.md",
+  "ins": 12,
+  "del": 8,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Log AGENTS.md Independent Verification Rule addition",
+  "ins": 1,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Log MIT attribution and dead-routing fixes for ai_prompt's 4 sourced skills",
+  "ins": 5,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Log validate_skills.ps1 frontmatter-routing check to HANDOFF",
+  "ins": 8,
+  "del": 2,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Log Antigravity guide accuracy fix and README cleanup to HANDOFF",
+  "ins": 8,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Log skills validator 3rd re-verification pass and Hermes CLI skill/curator investigation",
+  "ins": 5,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Log ScheduleWakeup correction to HANDOFF (ai_prompt@f21a38f)",
+  "ins": 7,
+  "del": 2,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Log npm audit remediation for ai_test3/CareerDiff and ai_test's three Node projects",
+  "ins": 5,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Archive re-accumulated ai_prompt saga history; add gate-by-gate evidence",
+  "ins": 112,
+  "del": 78,
+  "files": 2
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-28",
+  "subject": "Add Currency Rule and plan-divergence guidance to AGENTS.md",
+  "ins": 7,
+  "del": 0,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Log full ai_prompt + ai-workspace verification loop — both clean, no drift",
+  "ins": 5,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Log independent re-verification pass confirming all HOLDs resolved",
+  "ins": 4,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Log final npm audit cleanup: extension deps fixed, music_insight_studio venv restored",
+  "ins": 5,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-28",
+  "subject": "Stop workspace/link validators from entering ignored top-level dirs",
+  "ins": 42,
+  "del": 13,
+  "files": 2
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-07-28",
+  "subject": "Add validate_skills.ps1 regression guard; fix dead link + .md-extension consistency",
+  "ins": 98,
+  "del": 6,
+  "files": 6
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-07-28",
+  "subject": "Preserve MIT attribution for the 4 sourced skills; fix dead routing in marketing_psychology.md",
+  "ins": 72,
+  "del": 1,
+  "files": 6
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-07-28",
+  "subject": "Verification loop: fact-check the 4 rewritten skills' checkable claims",
+  "ins": 3,
+  "del": 3,
+  "files": 1
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-28",
+  "subject": "Fix missing Telegram bot requirements.txt referenced by SETUP.md",
+  "ins": 55,
+  "del": 5,
+  "files": 5
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Log final confirmation that remaining npm audit HOLDs are genuinely upstream-blocked",
+  "ins": 5,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Fix citation errors in HANDOFF's own verification-loop log",
+  "ins": 8,
+  "del": 2,
+  "files": 1
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-28",
+  "subject": "Add MCP supply-chain vetting rule, grounded in OWASP ASI04 (2026)",
+  "ins": 2,
+  "del": 0,
+  "files": 2
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-28",
+  "subject": "Mark agent-governance-kit as discontinued in CLAUDE.md",
+  "ins": 6,
+  "del": 8,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Add AI-threat-era security premise and imperfection differentiation note",
+  "ins": 21,
+  "del": 0,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Log HOLD resolution for validator regression test + last30days pytest scope",
+  "ins": 14,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-28",
+  "subject": "Add Independent Verification Rule to AGENTS.md, sourced from primary references",
+  "ins": 12,
+  "del": 0,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Log Telegram requirements parsing fix; archive older HANDOFF entries",
+  "ins": 100,
+  "del": 85,
+  "files": 2
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-28",
+  "subject": "Ground Review Discipline and Independent Verification Rule in Dex Horthy's AI Engineer 2026 talk",
+  "ins": 3,
+  "del": 0,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Fix remaining HANDOFF consistency issues: self-reference typo + dangling HOLD",
+  "ins": 2,
+  "del": 2,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Stop pinning per-repo commit hashes in Current State; fix root cause of recurring drift",
+  "ins": 9,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Evaluate touched HANDOFF.md entries against full staged content, not diff fragment",
+  "ins": 39,
+  "del": 16,
+  "files": 2
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-07-28",
+  "subject": "Add official-source Antigravity content: Knowledge system, 2.0 features, Rules/Workflows verification",
+  "ins": 32,
+  "del": 1,
+  "files": 2
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-28",
+  "subject": "Ignore local Claude Code settings and .tmp-*/.tmp_* test-fixture dirs",
+  "ins": 5,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Log ai_test2/ai_test3/ai_test full verification loop — all clean, no drift",
+  "ins": 5,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-07-28",
+  "subject": "Rewrite copywriting/marketing_psychology/rag_implementation/llm_evaluation from scratch",
+  "ins": 343,
+  "del": 505,
+  "files": 7
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Fix per-entry bypass in HANDOFF.md gate-evidence guard",
+  "ins": 51,
+  "del": 23,
+  "files": 2
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-07-28",
+  "subject": "Add 4 skills: copywriting/marketing-psychology, rag-implementation/llm-evaluation",
+  "ins": 585,
+  "del": 1,
+  "files": 5
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Log OWASP-grounded MCP supply-chain research pass",
+  "ins": 8,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-07-28",
+  "subject": "Remove hardcoded E:\\ai_test / E:\\ai_prompt path references from README.md",
+  "ins": 2,
+  "del": 2,
+  "files": 1
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-07-28",
+  "subject": "Remove hardcoded C:/Users/cs930 path from hermes_config_audit skill",
+  "ins": 1,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-07-28",
+  "subject": "Fix validate_skills.ps1's NOTICE.md-deletion blind spot",
+  "ins": 27,
+  "del": 3,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Fix remaining ai_img_video_prompt drift and AI_TEST_ROOT misuse in catalog-template.md",
+  "ins": 8,
+  "del": 4,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Complete remaining Open Items; fix preamble false-positive in hygiene guard",
+  "ins": 332,
+  "del": 9,
+  "files": 8
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Log ScheduleWakeup final revalidation pass to HANDOFF",
+  "ins": 6,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Log ai_prompt skill additions (copywriting/marketing-psychology/rag/llm-eval)",
+  "ins": 5,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Log verification-loop fact-check results to HANDOFF (ai_prompt@ad15040)",
+  "ins": 2,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-28",
+  "subject": "Add regression test for the ignored-dir scan fix; document last30days as POSIX-scoped",
+  "ins": 62,
+  "del": 0,
+  "files": 3
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Log 2nd follow-up audit resolution: guide accuracy + hermes-agents gitignore fix",
+  "ins": 9,
+  "del": 3,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Fix two more real bugs in check_handoff_hygiene.py: colon requirement, blank-line touch",
+  "ins": 27,
+  "del": 5,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Fix stale/dead links in llm-service-market-strategy.md and ai_mv_capcut_design.md",
+  "ins": 10,
+  "del": 5,
+  "files": 3
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Log imagevideo dev-server mitigation and an Edit-tool mixed-encoding corruption caught mid-session",
+  "ins": 5,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-07-28",
+  "subject": "Tidy README.md: fix broken path refs, remove stale/redundant content",
+  "ins": 13,
+  "del": 21,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Correct stale sibling-repo path name in prior HANDOFF log entry",
+  "ins": 2,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-07-28",
+  "subject": "Fix 2 accuracy issues in antigravity_usage_guide.md found by follow-up audit",
+  "ins": 3,
+  "del": 3,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Update Current State sync pointer to ai-workspace@89d2955",
+  "ins": 1,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Update Current State sync pointer to ai-workspace@3828759",
+  "ins": 1,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Add pre-commit guard for HANDOFF.md Progress Gate compliance",
+  "ins": 178,
+  "del": 0,
+  "files": 4
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-07-28",
+  "subject": "Close validate_skills.ps1's frontmatter-routing gap; backtick-ify marketing_psychology.md description",
+  "ins": 24,
+  "del": 13,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Log GitHub-research AGENTS.md additions",
+  "ins": 8,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Backfill actual commit hash in Current State / gate log",
+  "ins": 3,
+  "del": 3,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Close the duplicate 90% HOLD entry in HANDOFF's audit trail",
+  "ins": 1,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Log antigravity_usage_guide.md official-source expansion to HANDOFF",
+  "ins": 8,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Backfill final commit hash in Current State",
+  "ins": 1,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-28",
+  "subject": "Add query fan-out search-breadth rule to Evidence Rule",
+  "ins": 2,
+  "del": 0,
+  "files": 2
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-28",
+  "subject": "Add lethal-trifecta security warning and rationalizations rule from GitHub research",
+  "ins": 3,
+  "del": 0,
+  "files": 2
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-07-28",
+  "subject": "Fix 2 more accuracy issues in antigravity_usage_guide.md (2nd follow-up audit)",
+  "ins": 2,
+  "del": 2,
+  "files": 1
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-28",
+  "subject": "Tidy README.md: fix stale info, trim growing changelog history",
+  "ins": 11,
+  "del": 61,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Archive HANDOFF.md's dated history; replace hardcoded E:\\ paths with Path Alias Policy aliases",
+  "ins": 170,
+  "del": 185,
+  "files": 5
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Record hermes-agents Telegram requirements.txt verification loop",
+  "ins": 8,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Log AGENTS.md Dex Horthy talk grounding",
+  "ins": 8,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Fix stale not-yet-pushed notes in HANDOFF.md",
+  "ins": 2,
+  "del": 2,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Log AGENTS.md Currency Rule + plan-divergence addition",
+  "ins": 1,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-28",
+  "subject": "Log ai_prompt regression-guard closure to HANDOFF",
+  "ins": 6,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-28",
+  "subject": "Fix version-specifier parsing bug in check_telegram_requirements.py",
+  "ins": 71,
+  "del": 6,
+  "files": 5
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-27",
+  "subject": "Document /committee usage in the recommended-workflow table",
+  "ins": 1,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-27",
+  "subject": "Clarify what validate_workspace.ps1's PASS actually verifies",
+  "ins": 2,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-27",
+  "subject": "Evaluate 6 more YouTube-sourced videos, extend design-report + agent-builder",
+  "ins": 17,
+  "del": 9,
+  "files": 7
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-27",
+  "subject": "Move agent-governance-kit into hermes-agents/판매용/ and ignore it",
+  "ins": 2,
+  "del": 1,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-27",
+  "subject": "Log 5-project verification loop (ai_test through ai_test4) in HANDOFF",
+  "ins": 2,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-27",
+  "subject": "Log mechanical-vs-practice clarification pass in HANDOFF at gate-pass time",
+  "ins": 2,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-27",
+  "subject": "Backfill HANDOFF.md progress-gate entries for 2026-07-27 sessions",
+  "ins": 4,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-27",
+  "subject": "Log judgment-criteria improvement pass in HANDOFF at gate-pass time",
+  "ins": 2,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-27",
+  "subject": "Document the example-secret pre-commit guard in CLAUDE.md",
+  "ins": 7,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-27",
+  "subject": "Add multi-agent committee system (5 expert personas + orchestration command)",
+  "ins": 96,
+  "del": 0,
+  "files": 6
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-27",
+  "subject": "Clarify what the 3 pre-commit guards do and do not cover",
+  "ins": 9,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-27",
+  "subject": "Ground Regression Guard Rule in verified source; fix stale citation title",
+  "ins": 10,
+  "del": 2,
+  "files": 2
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-27",
+  "subject": "Evaluate ComfyUI Agent Panel + Vrew agent update, split Not yet built into DEFERRED.md",
+  "ins": 28,
+  "del": 9,
+  "files": 6
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-27",
+  "subject": "Document agent-governance-kit as an external dependency needing manual sync",
+  "ins": 9,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-27",
+  "subject": "Add website Project setup files (지침/메모리/파일설명/시작하기)",
+  "ins": 279,
+  "del": 0,
+  "files": 4
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-27",
+  "subject": "Add evaluation-driven development to LAW 4, closing the Skill Creator v2 gap",
+  "ins": 1,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-26",
+  "subject": "Evaluate 5 YouTube-sourced AI/agent videos, merge verified content",
+  "ins": 8,
+  "del": 1,
+  "files": 4
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-25",
+  "subject": "Log 2026-07-25 AGENTS.md add/revert/add cycle in README update history",
+  "ins": 5,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-25",
+  "subject": "Add pre-commit guard checking AGENTS.md changes are logged in README",
+  "ins": 88,
+  "del": 0,
+  "files": 4
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-25",
+  "subject": "Revert Boris Cherny review-judgment bullet from AGENTS.md",
+  "ins": 0,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-25",
+  "subject": "Log AGENTS_GUIDE.md addition in README update history",
+  "ins": 1,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-25",
+  "subject": "Add Boris Cherny review-judgment bullet to AGENTS.md Review Discipline",
+  "ins": 1,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-25",
+  "subject": "Add two rules from Anthropic's official Claude Code best-practices guide",
+  "ins": 2,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-25",
+  "subject": "Add AGENTS_GUIDE.md — Korean explanation doc for AGENTS.md",
+  "ins": 88,
+  "del": 0,
+  "files": 2
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-24",
+  "subject": "Add validate_links.ps1 to pre-commit hook installer",
+  "ins": 7,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-23",
+  "subject": "Log AGENTS.md Review Discipline change in README update history",
+  "ins": 8,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-23",
+  "subject": "HANDOFF: log accumulated 2026-07-17~07-23 verification history, add WSL flaky-check retry rule",
+  "ins": 26,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-23",
+  "subject": "Add Review Discipline section to AGENTS.md, sourced from primary references",
+  "ins": 7,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-23",
+  "subject": "Add CHON CTO/PM first-pass brief, closing a 6-day-old untracked file",
+  "ins": 281,
+  "del": 0,
+  "files": 2
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-23",
+  "subject": "Add safe single retry to hermes.ps1 for transient WSL_E_DISTRO_NOT_FOUND",
+  "ins": 17,
+  "del": 1,
+  "files": 3
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-23",
+  "subject": "HANDOFF: log HOLD rebuttal after re-running hermes.ps1/cmd 4x with exit 0",
+  "ins": 2,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-23",
+  "subject": "HANDOFF: reverse earlier no-retry decision after reproducing WSL_E_DISTRO_NOT_FOUND",
+  "ins": 3,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-23",
+  "subject": "Merge overlapping post-change summary bullets in AGENTS.md",
+  "ins": 1,
+  "del": 2,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-23",
+  "subject": "HANDOFF: log post-fix full verification/regression pass (no new defects)",
+  "ins": 1,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-23",
+  "subject": "Add external business ideas note; log stability re-verification in HANDOFF",
+  "ins": 31,
+  "del": 0,
+  "files": 3
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-22",
+  "subject": "Document hooks/disallowed-tools/paths frontmatter in LAW 4",
+  "ins": 1,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-21",
+  "subject": "Name Prompt/Loop Engineering at the points where they change behavior",
+  "ins": 3,
+  "del": 3,
+  "files": 2
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-21",
+  "subject": "Remove named-individual attributions from Attribution sections",
+  "ins": 60,
+  "del": 60,
+  "files": 11
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-21",
+  "subject": "Split attribution log out of README into ATTRIBUTION.md",
+  "ins": 191,
+  "del": 186,
+  "files": 4
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-21",
+  "subject": "Add agent-SaaS pricing/distribution framing and loop-engineering term attribution",
+  "ins": 12,
+  "del": 1,
+  "files": 4
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-21",
+  "subject": "Name Prompt Engineering and Loop Engineering in AGENTS.md's existing sections",
+  "ins": 2,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-21",
+  "subject": "Add prompt-craft skill for model-agnostic prompt writing",
+  "ins": 90,
+  "del": 7,
+  "files": 6
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-20",
+  "subject": "Exclude gitignored third-party clones from future-date validation",
+  "ins": 3,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-20",
+  "subject": "Add Karpathy's verifiability thesis: why taste/judgment resist automation",
+  "ins": 1,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-20",
+  "subject": "Broaden secret guard beyond the 3 previously-leaked key formats",
+  "ins": 7,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-20",
+  "subject": "Fix skill-count drift and a duplicated star-count typo across docs",
+  "ins": 10,
+  "del": 3,
+  "files": 3
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-20",
+  "subject": "Add missing safety guards and evidence tags flagged in earlier review",
+  "ins": 11,
+  "del": 13,
+  "files": 4
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-07-19",
+  "subject": "Add korean_ai_tell_remover skill",
+  "ins": 54,
+  "del": 1,
+  "files": 3
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-19",
+  "subject": "Add social-carousel skill: trend research to carousel export",
+  "ins": 86,
+  "del": 4,
+  "files": 4
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-07-19",
+  "subject": "Condense both READMEs, fix a broken docs/mcp_setup_guide.md link",
+  "ins": 14,
+  "del": 45,
+  "files": 2
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-19",
+  "subject": "Add plugin marketplace manifest; extend CORE-LAWS with skill-safety and script-vs-prose guidance",
+  "ins": 103,
+  "del": 0,
+  "files": 3
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-19",
+  "subject": "Apply LAW 0's canonical [LOW-EVIDENCE] tag to unbracketed vendor-benchmark claims",
+  "ins": 5,
+  "del": 5,
+  "files": 2
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-07-19",
+  "subject": "Add ai_tell_remover skill (English AI-writing tell removal)",
+  "ins": 69,
+  "del": 1,
+  "files": 3
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-19",
+  "subject": "Add real-workflow observation gate and OKF memory alternative",
+  "ins": 10,
+  "del": 1,
+  "files": 2
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-19",
+  "subject": "Confirm Pi Coding Agent's creator and real GitHub repo (badlogic/pi)",
+  "ins": 1,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-19",
+  "subject": "Add evidence-tag vocabulary and library/license verification rule to AGENTS.md",
+  "ins": 2,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-19",
+  "subject": "Update vibe-coder's Fable/mattpocock citations to v1.1; add game-dev design-doc gate",
+  "ins": 10,
+  "del": 5,
+  "files": 2
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-19",
+  "subject": "Add evidence-checked citations from video research pass; fix graphify repo move",
+  "ins": 37,
+  "del": 10,
+  "files": 5
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-07-19",
+  "subject": "Add story_scenario skill pair + antigravity usage guide, fix stale README links",
+  "ins": 251,
+  "del": 92,
+  "files": 5
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-19",
+  "subject": "docs: clarify skills repo vs ai_prompt skills collection are separate",
+  "ins": 5,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-19",
+  "subject": "Sync README with vibe-coder/game-dev updates; fix stale Referenced-sites entries",
+  "ins": 6,
+  "del": 4,
+  "files": 1
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-19",
+  "subject": "Add per-skill USAGE.md; fix validator scan of gitignored runtime clones",
+  "ins": 142,
+  "del": 5,
+  "files": 4
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-18",
+  "subject": "agent-builder: add workflow-vs-agent gate (Step 1.0); defer planning domain",
+  "ins": 7,
+  "del": 2,
+  "files": 3
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-18",
+  "subject": "Fix future-dated verification labels (2026-07-19 -> 2026-07-18)",
+  "ins": 47,
+  "del": 47,
+  "files": 8
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-18",
+  "subject": "Harden distribution and financial agent safety",
+  "ins": 68,
+  "del": 15,
+  "files": 7
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-18",
+  "subject": "Fix wrong orca star count and missing agent-crm LICENSE-UNCONFIRMED tag",
+  "ins": 4,
+  "del": 4,
+  "files": 3
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-18",
+  "subject": "Document and enforce agent verification guards",
+  "ins": 49,
+  "del": 4,
+  "files": 5
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-18",
+  "subject": "curator: add brand-voice-file persistence (Step 3)",
+  "ins": 4,
+  "del": 0,
+  "files": 2
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-18",
+  "subject": "Backfill README's Referenced-sites table for the 3 newest skills",
+  "ins": 31,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-18",
+  "subject": "Add biz-ops skill for finance/commercial/business-operations back-office work",
+  "ins": 62,
+  "del": 6,
+  "files": 4
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-18",
+  "subject": "Add personal-memory skill; correct scope-filtering pattern",
+  "ins": 72,
+  "del": 3,
+  "files": 3
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-18",
+  "subject": "Add video-producer skill, LAW 4 (skill-authoring), and harden remaining skills",
+  "ins": 193,
+  "del": 73,
+  "files": 9
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-18",
+  "subject": "Align CI with supported PowerShell runtime",
+  "ins": 3,
+  "del": 3,
+  "files": 2
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-18",
+  "subject": "Document the marketing-ideas 139 vs 140 discrepancy inline",
+  "ins": 1,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-18",
+  "subject": "Clarify Hermes attribution, fix marketingskills count, add tool-availability HOLD steps",
+  "ins": 16,
+  "del": 8,
+  "files": 7
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-18",
+  "subject": "Strengthen skill verification and safety guards",
+  "ins": 82,
+  "del": 24,
+  "files": 10
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-18",
+  "subject": "design-report: add awesome-design-md brand-token library; curator: add Korean-specific AI-tell removal (im-not-ai)",
+  "ins": 6,
+  "del": 2,
+  "files": 3
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-18",
+  "subject": "Make tool validation newline independent",
+  "ins": 9,
+  "del": 3,
+  "files": 1
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-18",
+  "subject": "Add agent-builder, distribution, curator, vibe-coder skills; harden existing skills",
+  "ins": 453,
+  "del": 29,
+  "files": 10
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-18",
+  "subject": "biz-council: add delivery-shape check (1.5a), fix README LAW 0-3->0-4",
+  "ins": 10,
+  "del": 2,
+  "files": 2
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-18",
+  "subject": "Strengthen trading evaluation guards",
+  "ins": 9,
+  "del": 3,
+  "files": 2
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-18",
+  "subject": "agent-builder: no-code/MCP boundary refinement (Zapier MCP explainer)",
+  "ins": 3,
+  "del": 1,
+  "files": 2
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-18",
+  "subject": "Add writing skill for AI-pattern removal and prose editing",
+  "ins": 62,
+  "del": 5,
+  "files": 4
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-18",
+  "subject": "Wire up validate_workspace.ps1 as a pre-commit hook",
+  "ins": 42,
+  "del": 0,
+  "files": 2
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-18",
+  "subject": "Flag archived gsd-build reference, correct host-compat claim, trim descriptions",
+  "ins": 10,
+  "del": 10,
+  "files": 9
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-18",
+  "subject": "Harden skill verification loops",
+  "ins": 103,
+  "del": 35,
+  "files": 10
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-18",
+  "subject": "Add game-dev skill; refresh Attribution; defer money-skills and senior-income",
+  "ins": 62,
+  "del": 8,
+  "files": 6
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-18",
+  "subject": "Fix validation date handling in CI",
+  "ins": 13,
+  "del": 3,
+  "files": 2
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-18",
+  "subject": "biz-council: add pre-build validation gate (1.5b); agent-builder: multi-source confirmation for irreversible-action workers (Step 1 item 5)",
+  "ins": 9,
+  "del": 2,
+  "files": 3
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-18",
+  "subject": "Restore verification dates corrupted to [ASSUMPTION] tag",
+  "ins": 32,
+  "del": 32,
+  "files": 6
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-07-17",
+  "subject": "Add hermes_config_audit skill: self-service audit for AGENTS.md/CLAUDE.md, permissions, MCP, cross-tool refs",
+  "ins": 179,
+  "del": 1,
+  "files": 3
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-17",
+  "subject": "Add verification secret guard",
+  "ins": 71,
+  "del": 7,
+  "files": 4
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-17",
+  "subject": "Correct license claims with folder-level verification, add .gitignore, soften genie to routing-only",
+  "ins": 22,
+  "del": 19,
+  "files": 5
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-17",
+  "subject": "Record hermes verification completion",
+  "ins": 2,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-17",
+  "subject": "Align AGENTS.md with karpathy-skills v1 guidelines, add Cursor rule, prune dead permissions",
+  "ins": 40,
+  "del": 11,
+  "files": 4
+ },
+ {
+  "repo": "skills",
+  "date": "2026-07-17",
+  "subject": "Initial commit: genie router + biz-council + design-report skills",
+  "ins": 343,
+  "del": 0,
+  "files": 7
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-15",
+  "subject": "fix: remove overbroad/malformed permission patterns, add fail-closed to telegram bot",
+  "ins": 6,
+  "del": 2,
+  "files": 2
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-15",
+  "subject": "fix: install-git-hooks.ps1 wrote a UTF-8 BOM that broke the shebang",
+  "ins": 5,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-15",
+  "subject": "fix: remove 2 more malformed permission entries missed in the first pass",
+  "ins": 0,
+  "del": 2,
+  "files": 1
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-15",
+  "subject": "docs: add scripts/install-git-hooks.ps1, fix circular CLAUDE.md hook instructions",
+  "ins": 56,
+  "del": 0,
+  "files": 2
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-15",
+  "subject": "docs: add Regression Guard Rule to AGENTS.md verification loop",
+  "ins": 7,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-15",
+  "subject": "feat: add automated guard for malformed .claude/settings.json permission entries",
+  "ins": 80,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-13",
+  "subject": "HANDOFF: archive old changelog, backfill CareerDiff/audacity_editor gap, reopen LLM plan",
+  "ins": 796,
+  "del": 783,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-13",
+  "subject": "HANDOFF: record independent re-verification and commit/push of ai_test2 + ai_test3 README",
+  "ins": 2,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-13",
+  "subject": "HANDOFF: log ai_test2 second verification/regression loop (real bug + doc fix)",
+  "ins": 2,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-13",
+  "subject": "HANDOFF: log ai_multi_agent web-UI de-duplication and path-warning fix",
+  "ins": 2,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-13",
+  "subject": "gitignore: exclude leftover ai_test2 pytest basetemp scratch directory",
+  "ins": 1,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-12",
+  "subject": "docs: fix stale .mcp.json server count in README.md",
+  "ins": 1,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-12",
+  "subject": "docs: add missing core docs and hermes-agents to README.md",
+  "ins": 6,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-12",
+  "subject": "docs: log commit/push confirmation for pydantic-agent scaffold work",
+  "ins": 5,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-12",
+  "subject": "docs: sync README.md with current repo state",
+  "ins": 30,
+  "del": 4,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-12",
+  "subject": "docs: log fifth verification pass and README.md count fix",
+  "ins": 2,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-07-12",
+  "subject": "Add skill_writing_quality skill (Matt Pocock writing-great-skills checklist)",
+  "ins": 41,
+  "del": 2,
+  "files": 3
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-12",
+  "subject": "docs: log full hermes-agents repo verification + critical secret-exposure finding",
+  "ins": 4,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-12",
+  "subject": "docs: close HOLD - .env.example real keys confirmed intentional (private repo)",
+  "ins": 2,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-12",
+  "subject": "feat: add dormant pydantic-ai MCP agent scaffold, fix MCP_SERVERS.md table",
+  "ins": 54,
+  "del": 6,
+  "files": 3
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-12",
+  "subject": "docs: record fail-closed pivot for pydantic-agent scaffold",
+  "ins": 11,
+  "del": 0,
+  "files": 2
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-12",
+  "subject": "feat: make pydantic-agent scaffold fail-closed and register it in .mcp.json",
+  "ins": 16,
+  "del": 2,
+  "files": 4
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-12",
+  "subject": "docs: add ADR-001 (pydantic-ai adoption hold) + pydantic-agent scaffold handoff log",
+  "ins": 107,
+  "del": 0,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-10",
+  "subject": "docs: 2026-07-08 음악 프롬프트 전체 감사 리포트 뒤늦은 커밋 (참조 끊김 수정)",
+  "ins": 1554,
+  "del": 0,
+  "files": 3
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-10",
+  "subject": "docs: ai_test1 보컬 안정성 태그 미러링 + 2차 검증 보고서 재확인 기록",
+  "ins": 5,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-10",
+  "subject": "docs: ai_test3 audacity_editor 착수 상태 + wav 배치 검증 결과 기록 후 중단",
+  "ins": 2,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-10",
+  "subject": "docs: ai_test1 producer 9파일 장르 라벨 수정 + 검증 프로세스 보강 기록",
+  "ins": 50,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-07-09",
+  "subject": "docs: HANDOFF 관리 규칙 및 book/ 임시 인덱스 정책 추가, pytest tmp 폴더 gitignore",
+  "ins": 4,
+  "del": 0,
+  "files": 3
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-06",
+  "subject": "docs: 확장 재검증(improvised/spontaneous) 및 분석 리포트 커밋 기록 추가",
+  "ins": 11,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-06",
+  "subject": "docs: music_skills 프롬프트 분석 리포트 추가 (2026-07-02 작업 누락분)",
+  "ins": 175,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-07-06",
+  "subject": "docs: music_lyric 3건 + ai_test1 애드립/허밍 방지 진행 기록 반영",
+  "ins": 210,
+  "del": 1,
+  "files": 1
+ }
+];
+const SESS = {
+ "daily": [
+  {
+   "date": "2026-07-04",
+   "claude-code": 1,
+   "codex": 0,
+   "total": 1
+  },
+  {
+   "date": "2026-07-05",
+   "claude-code": 1,
+   "codex": 1,
+   "total": 2
+  },
+  {
+   "date": "2026-07-06",
+   "claude-code": 3,
+   "codex": 1,
+   "total": 4
+  },
+  {
+   "date": "2026-07-07",
+   "claude-code": 2,
+   "codex": 0,
+   "total": 2
+  },
+  {
+   "date": "2026-07-08",
+   "claude-code": 1,
+   "codex": 3,
+   "total": 4
+  },
+  {
+   "date": "2026-07-09",
+   "claude-code": 6,
+   "codex": 3,
+   "total": 9
+  },
+  {
+   "date": "2026-07-10",
+   "claude-code": 1,
+   "codex": 0,
+   "total": 1
+  },
+  {
+   "date": "2026-07-11",
+   "claude-code": 6,
+   "codex": 0,
+   "total": 6
+  },
+  {
+   "date": "2026-07-12",
+   "claude-code": 4,
+   "codex": 2,
+   "total": 6
+  },
+  {
+   "date": "2026-07-13",
+   "claude-code": 1,
+   "codex": 0,
+   "total": 1
+  },
+  {
+   "date": "2026-07-14",
+   "claude-code": 0,
+   "codex": 0,
+   "total": 0
+  },
+  {
+   "date": "2026-07-15",
+   "claude-code": 1,
+   "codex": 0,
+   "total": 1
+  },
+  {
+   "date": "2026-07-16",
+   "claude-code": 2,
+   "codex": 1,
+   "total": 3
+  },
+  {
+   "date": "2026-07-17",
+   "claude-code": 4,
+   "codex": 1,
+   "total": 5
+  },
+  {
+   "date": "2026-07-18",
+   "claude-code": 3,
+   "codex": 1,
+   "total": 4
+  },
+  {
+   "date": "2026-07-19",
+   "claude-code": 4,
+   "codex": 0,
+   "total": 4
+  },
+  {
+   "date": "2026-07-20",
+   "claude-code": 4,
+   "codex": 0,
+   "total": 4
+  },
+  {
+   "date": "2026-07-21",
+   "claude-code": 3,
+   "codex": 1,
+   "total": 4
+  },
+  {
+   "date": "2026-07-22",
+   "claude-code": 3,
+   "codex": 0,
+   "total": 3
+  },
+  {
+   "date": "2026-07-23",
+   "claude-code": 4,
+   "codex": 0,
+   "total": 4
+  },
+  {
+   "date": "2026-07-24",
+   "claude-code": 3,
+   "codex": 0,
+   "total": 3
+  },
+  {
+   "date": "2026-07-25",
+   "claude-code": 2,
+   "codex": 1,
+   "total": 3
+  },
+  {
+   "date": "2026-07-26",
+   "claude-code": 2,
+   "codex": 1,
+   "total": 3
+  },
+  {
+   "date": "2026-07-27",
+   "claude-code": 4,
+   "codex": 1,
+   "total": 5
+  },
+  {
+   "date": "2026-07-28",
+   "claude-code": 3,
+   "codex": 3,
+   "total": 6
+  },
+  {
+   "date": "2026-07-29",
+   "claude-code": 6,
+   "codex": 5,
+   "total": 11
+  },
+  {
+   "date": "2026-07-30",
+   "claude-code": 7,
+   "codex": 4,
+   "total": 11
+  },
+  {
+   "date": "2026-07-31",
+   "claude-code": 5,
+   "codex": 3,
+   "total": 8
+  },
+  {
+   "date": "2026-08-01",
+   "claude-code": 1,
+   "codex": 1,
+   "total": 2
+  },
+  {
+   "date": "2026-08-02",
+   "claude-code": 2,
+   "codex": 2,
+   "total": 4
+  },
+  {
+   "date": "2026-08-03",
+   "claude-code": 2,
+   "codex": 0,
+   "total": 2
+  }
+ ],
+ "tools": [
+  "claude-code",
+  "codex"
+ ],
+ "tool_totals": {
+  "claude-code": 91,
+  "codex": 35
+ },
+ "dow_names": [
+  "월",
+  "화",
+  "수",
+  "목",
+  "금",
+  "토",
+  "일"
+ ],
+ "dow_series": {
+  "claude-code": [
+   14,
+   8,
+   11,
+   19,
+   13,
+   13,
+   13
+  ],
+  "codex": [
+   2,
+   4,
+   8,
+   8,
+   4,
+   3,
+   6
+  ]
+ },
+ "busiest_date": "2026-07-29",
+ "busiest_count": 11,
+ "active_days": 30,
+ "total_days": 31,
+ "start_date": "2026-07-04",
+ "end_date": "2026-08-03",
+ "total_sessions": 126,
+ "rows": [
+  {
+   "tool": "claude-code",
+   "date": "2026-08-03",
+   "label": "hermes-agents",
+   "lines": 84
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-08-03",
+   "label": "hermes-agents",
+   "lines": 167
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-08-02",
+   "label": "hermes-agents",
+   "lines": 2611
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-08-02",
+   "label": "hermes-agents",
+   "lines": 114
+  },
+  {
+   "tool": "codex",
+   "date": "2026-08-02",
+   "label": "Run full Hermes regression loop",
+   "lines": 0
+  },
+  {
+   "tool": "codex",
+   "date": "2026-08-02",
+   "label": "Run full verification loop",
+   "lines": 0
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-08-01",
+   "label": "hermes-agents",
+   "lines": 1537
+  },
+  {
+   "tool": "codex",
+   "date": "2026-08-01",
+   "label": "Validate ai_test1 project",
+   "lines": 0
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-31",
+   "label": "hermes-agents",
+   "lines": 459
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-31",
+   "label": "hermes-agents",
+   "lines": 69
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-31",
+   "label": "hermes-agents",
+   "lines": 759
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-31",
+   "label": "hermes-agents",
+   "lines": 880
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-31",
+   "label": "hermes-agents",
+   "lines": 920
+  },
+  {
+   "tool": "codex",
+   "date": "2026-07-31",
+   "label": "전체 검증 회귀 루프 진행",
+   "lines": 0
+  },
+  {
+   "tool": "codex",
+   "date": "2026-07-31",
+   "label": "채용공고 JSON 수집 구현",
+   "lines": 0
+  },
+  {
+   "tool": "codex",
+   "date": "2026-07-31",
+   "label": "Run music skills regression loop",
+   "lines": 0
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-30",
+   "label": "hermes-agents",
+   "lines": 298
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-30",
+   "label": "hermes-agents",
+   "lines": 172
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-30",
+   "label": "hermes-agents",
+   "lines": 151
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-30",
+   "label": "hermes-agents",
+   "lines": 1735
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-30",
+   "label": "hermes-agents",
+   "lines": 98
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-30",
+   "label": "hermes-agents",
+   "lines": 399
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-30",
+   "label": "hermes-agents",
+   "lines": 261
+  },
+  {
+   "tool": "codex",
+   "date": "2026-07-30",
+   "label": "전체 검증루프 진행",
+   "lines": 0
+  },
+  {
+   "tool": "codex",
+   "date": "2026-07-30",
+   "label": "Run skills verification loop",
+   "lines": 0
+  },
+  {
+   "tool": "codex",
+   "date": "2026-07-30",
+   "label": "Run full verification loop",
+   "lines": 0
+  },
+  {
+   "tool": "codex",
+   "date": "2026-07-30",
+   "label": "전체 검증 및 회귀루프 진행",
+   "lines": 0
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-29",
+   "label": "hermes-agents",
+   "lines": 164
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-29",
+   "label": "hermes-agents",
+   "lines": 954
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-29",
+   "label": "hermes-agents",
+   "lines": 687
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-29",
+   "label": "hermes-agents",
+   "lines": 1525
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-29",
+   "label": "hermes-agents",
+   "lines": 68
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-29",
+   "label": "hermes-agents",
+   "lines": 919
+  },
+  {
+   "tool": "codex",
+   "date": "2026-07-29",
+   "label": "Run full verification loop",
+   "lines": 0
+  },
+  {
+   "tool": "codex",
+   "date": "2026-07-29",
+   "label": "Run full regression validation",
+   "lines": 0
+  },
+  {
+   "tool": "codex",
+   "date": "2026-07-29",
+   "label": "전체 검증 루프 진행",
+   "lines": 0
+  },
+  {
+   "tool": "codex",
+   "date": "2026-07-29",
+   "label": "전체 검증 루프 진행",
+   "lines": 0
+  },
+  {
+   "tool": "codex",
+   "date": "2026-07-29",
+   "label": "Run full verification loop",
+   "lines": 0
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-28",
+   "label": "hermes-agents",
+   "lines": 1331
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-28",
+   "label": "hermes-agents",
+   "lines": 770
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-28",
+   "label": "hermes-agents",
+   "lines": 1143
+  },
+  {
+   "tool": "codex",
+   "date": "2026-07-28",
+   "label": "Verify validation loop updates",
+   "lines": 0
+  },
+  {
+   "tool": "codex",
+   "date": "2026-07-28",
+   "label": "Run full verification loop",
+   "lines": 0
+  },
+  {
+   "tool": "codex",
+   "date": "2026-07-28",
+   "label": "Run full verification loop",
+   "lines": 0
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-27",
+   "label": "hermes-agents",
+   "lines": 274
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-27",
+   "label": "hermes-agents",
+   "lines": 291
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-27",
+   "label": "hermes-agents",
+   "lines": 5228
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-27",
+   "label": "hermes-agents",
+   "lines": 434
+  },
+  {
+   "tool": "codex",
+   "date": "2026-07-27",
+   "label": "Run full regression validation",
+   "lines": 0
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-26",
+   "label": "hermes-agents",
+   "lines": 551
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-26",
+   "label": "hermes-agents",
+   "lines": 1439
+  },
+  {
+   "tool": "codex",
+   "date": "2026-07-26",
+   "label": "Run skills regression loop",
+   "lines": 0
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-25",
+   "label": "hermes-agents",
+   "lines": 62
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-25",
+   "label": "hermes-agents",
+   "lines": 711
+  },
+  {
+   "tool": "codex",
+   "date": "2026-07-25",
+   "label": "Run aim_music_app verification loop",
+   "lines": 0
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-24",
+   "label": "hermes-agents",
+   "lines": 565
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-24",
+   "label": "hermes-agents",
+   "lines": 854
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-24",
+   "label": "hermes-agents",
+   "lines": 149
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-23",
+   "label": "hermes-agents",
+   "lines": 232
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-23",
+   "label": "hermes-agents",
+   "lines": 81
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-23",
+   "label": "hermes-agents",
+   "lines": 640
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-23",
+   "label": "hermes-agents",
+   "lines": 164
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-22",
+   "label": "hermes-agents",
+   "lines": 1398
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-22",
+   "label": "hermes-agents",
+   "lines": 309
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-22",
+   "label": "hermes-agents",
+   "lines": 729
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-21",
+   "label": "hermes-agents",
+   "lines": 2732
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-21",
+   "label": "hermes-agents",
+   "lines": 458
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-21",
+   "label": "hermes-agents",
+   "lines": 280
+  },
+  {
+   "tool": "codex",
+   "date": "2026-07-21",
+   "label": "Verify music_skills_trot loop",
+   "lines": 0
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-20",
+   "label": "hermes-agents",
+   "lines": 69
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-20",
+   "label": "hermes-agents",
+   "lines": 485
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-20",
+   "label": "hermes-agents",
+   "lines": 505
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-20",
+   "label": "hermes-agents",
+   "lines": 1743
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-19",
+   "label": "hermes-agents",
+   "lines": 307
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-19",
+   "label": "hermes-agents",
+   "lines": 1175
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-19",
+   "label": "hermes-agents",
+   "lines": 277
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-19",
+   "label": "hermes-agents-ai-prompt",
+   "lines": 568
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-18",
+   "label": "hermes-agents",
+   "lines": 199
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-18",
+   "label": "hermes-agents",
+   "lines": 2874
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-18",
+   "label": "skills",
+   "lines": 809
+  },
+  {
+   "tool": "codex",
+   "date": "2026-07-18",
+   "label": "C:\\Users\\cs930\\Desktop\\skills 전체 검증루프 확인하시오.",
+   "lines": 0
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-17",
+   "label": "hermes-agents",
+   "lines": 716
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-17",
+   "label": "hermes-agents",
+   "lines": 318
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-17",
+   "label": "hermes-agents",
+   "lines": 722
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-17",
+   "label": "hermes-agents",
+   "lines": 3340
+  },
+  {
+   "tool": "codex",
+   "date": "2026-07-17",
+   "label": "프로젝트 검증",
+   "lines": 0
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-16",
+   "label": "hermes-agents",
+   "lines": 1340
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-16",
+   "label": "hermes-agents",
+   "lines": 230
+  },
+  {
+   "tool": "codex",
+   "date": "2026-07-16",
+   "label": "C:\\Users\\cs930\\Desktop\\hermes-agents 이 프로젝트는 전체 개선이 되었다. 검증…",
+   "lines": 0
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-15",
+   "label": "hermes-agents",
+   "lines": 2920
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-13",
+   "label": "hermes-agents",
+   "lines": 337
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-12",
+   "label": "hermes-agents",
+   "lines": 1131
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-12",
+   "label": "hermes-agents",
+   "lines": 155
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-12",
+   "label": "hermes-agents",
+   "lines": 1820
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-12",
+   "label": "hermes-agents",
+   "lines": 1084
+  },
+  {
+   "tool": "codex",
+   "date": "2026-07-12",
+   "label": "벡터화 프로젝트 찾기",
+   "lines": 0
+  },
+  {
+   "tool": "codex",
+   "date": "2026-07-12",
+   "label": "CareerDiff 진행 내용 확인",
+   "lines": 0
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-11",
+   "label": "hermes-agents",
+   "lines": 512
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-11",
+   "label": "hermes-agents",
+   "lines": 616
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-11",
+   "label": "hermes-agents",
+   "lines": 559
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-11",
+   "label": "hermes-agents",
+   "lines": 681
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-11",
+   "label": "hermes-agents",
+   "lines": 940
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-11",
+   "label": "hermes-agents",
+   "lines": 163
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-10",
+   "label": "hermes-agents",
+   "lines": 768
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-09",
+   "label": "hermes-agents",
+   "lines": 503
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-09",
+   "label": "hermes-agents",
+   "lines": 605
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-09",
+   "label": "hermes-agents",
+   "lines": 3564
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-09",
+   "label": "hermes-agents",
+   "lines": 2427
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-09",
+   "label": "hermes-agents",
+   "lines": 15
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-09",
+   "label": "hermes-agents",
+   "lines": 155
+  },
+  {
+   "tool": "codex",
+   "date": "2026-07-09",
+   "label": "음악 분석 프로그램 만들기",
+   "lines": 0
+  },
+  {
+   "tool": "codex",
+   "date": "2026-07-09",
+   "label": "마지막 진행 내용 찾기",
+   "lines": 0
+  },
+  {
+   "tool": "codex",
+   "date": "2026-07-09",
+   "label": "진행 상태 기록",
+   "lines": 0
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-08",
+   "label": "hermes-agents",
+   "lines": 48
+  },
+  {
+   "tool": "codex",
+   "date": "2026-07-08",
+   "label": "전체 프롬프트 검증",
+   "lines": 0
+  },
+  {
+   "tool": "codex",
+   "date": "2026-07-08",
+   "label": "프롬프트 용어 분석",
+   "lines": 0
+  },
+  {
+   "tool": "codex",
+   "date": "2026-07-08",
+   "label": "wikidocs 사이트 읽기",
+   "lines": 0
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-07",
+   "label": "hermes-agents",
+   "lines": 499
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-07",
+   "label": "hermes-agents",
+   "lines": 586
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-06",
+   "label": "hermes-agents",
+   "lines": 777
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-06",
+   "label": "hermes-agents",
+   "lines": 641
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-06",
+   "label": "hermes-agents",
+   "lines": 437
+  },
+  {
+   "tool": "codex",
+   "date": "2026-07-06",
+   "label": "가사 생성 프로젝트 설계",
+   "lines": 0
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-05",
+   "label": "hermes-agents",
+   "lines": 2724
+  },
+  {
+   "tool": "codex",
+   "date": "2026-07-05",
+   "label": "검증 루프 전체 확인",
+   "lines": 0
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-07-04",
+   "label": "hermes-agents",
+   "lines": 1256
+  }
+ ]
+};
+
+const REPO_LABELS = {
+  'hermes-agents': 'hermes-agents',
+  'ai-workspace': 'ai-workspace',
+  'ai_prompt': 'ai_prompt',
+  'skills': 'skills'
+};
+const REPO_COLOR_VAR = {
+  'hermes-agents': '--series-1',
+  'ai-workspace': '--series-2',
+  'ai_prompt': '--series-3',
+  'skills': '--series-4'
+};
+function repoColor(repo) {
+  return getComputedStyle(document.querySelector('.viz-root')).getPropertyValue(REPO_COLOR_VAR[repo]).trim();
+}
+
+const tooltip = document.getElementById('tooltip');
+function showTooltip(html, x, y) {
+  tooltip.innerHTML = html;
+  tooltip.classList.add('show');
+  const rect = tooltip.getBoundingClientRect();
+  let left = x + 14, top = y - rect.height - 10;
+  if (left + rect.width > window.innerWidth - 10) left = x - rect.width - 14;
+  if (top < 10) top = y + 14;
+  tooltip.style.left = left + 'px';
+  tooltip.style.top = top + 'px';
+}
+function hideTooltip() { tooltip.classList.remove('show'); }
+
+// ==== Session activity (Claude Code vs Codex) ====
+const TOOL_LABELS = { 'claude-code': 'Claude Code', 'codex': 'Codex' };
+const TOOL_COLOR_VAR = { 'claude-code': '--series-1', 'codex': '--series-2' };
+function toolColor(t) {
+  return getComputedStyle(document.querySelector('.viz-root')).getPropertyValue(TOOL_COLOR_VAR[t]).trim();
+}
+
+// -- session stat tiles --
+(function () {
+  const el = document.getElementById('sessStatRow');
+  const cc = SESS.tool_totals['claude-code'], cx = SESS.tool_totals['codex'];
+  const stats = [
+    { label: '총 세션 수 (2개 도구)', value: fmt(SESS.total_sessions), delta: `${SESS.start_date} ~ ${SESS.end_date}` },
+    { label: 'Claude Code 세션', value: fmt(cc), delta: `전체의 ${Math.round(cc/SESS.total_sessions*100)}%` },
+    { label: 'Codex 세션', value: fmt(cx), delta: `전체의 ${Math.round(cx/SESS.total_sessions*100)}%` },
+    { label: '활동일 / 전체 기간', value: `${SESS.active_days} / ${SESS.total_days}일`, delta: `최다: ${SESS.busiest_date.slice(5)} (${SESS.busiest_count}건)` },
+  ];
+  el.innerHTML = stats.map(s => `
+    <div class="stat-tile">
+      <div class="label">${s.label}</div>
+      <div class="value">${s.value}</div>
+      <div class="delta">${s.delta}</div>
+    </div>
+  `).join('');
+})();
+
+// -- session legend --
+(function () {
+  const el = document.getElementById('sessLegend');
+  el.innerHTML = SESS.tools.map(t => `
+    <div class="legend-item">
+      <span class="legend-swatch" style="background:${toolColor(t)}"></span>
+      <span>${TOOL_LABELS[t]}</span>
+      <span style="color:var(--text-muted)">(${SESS.tool_totals[t]})</span>
+    </div>
+  `).join('');
+})();
+
+// -- daily stacked bar (sessions) --
+(function () {
+  const data = SESS.daily;
+  const W = 1000, H = 220;
+  const padL = 30, padR = 10, padT = 10, padB = 24;
+  const chartW = W - padL - padR, chartH = H - padT - padB;
+  const n = data.length;
+  const gap = 2;
+  const barW = Math.max(4, (chartW / n) - gap);
+  const maxTotal = Math.max(1, ...data.map(d => d.total));
+
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  svg.setAttribute('width', '100%');
+  svg.setAttribute('height', H);
+
+  const steps = 4;
+  for (let i = 0; i <= steps; i++) {
+    const y = padT + chartH - (chartH * i / steps);
+    const line = document.createElementNS(svg.namespaceURI, 'line');
+    line.setAttribute('x1', padL); line.setAttribute('x2', W - padR);
+    line.setAttribute('y1', y); line.setAttribute('y2', y);
+    line.setAttribute('class', i === 0 ? 'baseline' : 'gridline');
+    svg.appendChild(line);
+    const val = Math.round(maxTotal * i / steps);
+    const t = document.createElementNS(svg.namespaceURI, 'text');
+    t.setAttribute('x', 4); t.setAttribute('y', y + 3);
+    t.setAttribute('class', 'axis-label');
+    t.textContent = val;
+    svg.appendChild(t);
+  }
+
+  data.forEach((d, i) => {
+    const x = padL + i * (chartW / n) + (chartW / n - barW) / 2;
+    let yCursor = padT + chartH;
+    const hitG = document.createElementNS(svg.namespaceURI, 'g');
+    SESS.tools.forEach((t) => {
+      const v = d[t];
+      if (v <= 0) return;
+      const segH = (v / maxTotal) * chartH;
+      const y = yCursor - segH;
+      const rect = document.createElementNS(svg.namespaceURI, 'rect');
+      rect.setAttribute('x', x);
+      rect.setAttribute('y', y);
+      rect.setAttribute('width', barW);
+      rect.setAttribute('height', Math.max(0, segH));
+      rect.setAttribute('fill', toolColor(t));
+      rect.setAttribute('class', 'bar-seg');
+      rect.setAttribute('rx', 1.5);
+      hitG.appendChild(rect);
+      yCursor -= segH;
+    });
+    const hit = document.createElementNS(svg.namespaceURI, 'rect');
+    hit.setAttribute('x', x);
+    hit.setAttribute('y', padT);
+    hit.setAttribute('width', barW);
+    hit.setAttribute('height', chartH);
+    hit.setAttribute('class', 'bar-hit');
+    hit.addEventListener('mousemove', (e) => {
+      const lines = SESS.tools.filter(t => d[t] > 0).map(t =>
+        `<span style="color:${toolColor(t)}">●</span> ${TOOL_LABELS[t]}: ${d[t]}`
+      ).join('<br>');
+      showTooltip(`<b>${d.date}</b><br>총 ${d.total}건${lines ? '<br>' + lines : '<br>세션 없음'}`, e.clientX, e.clientY);
+    });
+    hit.addEventListener('mouseleave', hideTooltip);
+    hitG.appendChild(hit);
+    svg.appendChild(hitG);
+
+    if (i % 4 === 0 || i === n - 1) {
+      const t = document.createElementNS(svg.namespaceURI, 'text');
+      t.setAttribute('x', x + barW / 2);
+      t.setAttribute('y', H - 6);
+      t.setAttribute('text-anchor', 'middle');
+      t.setAttribute('class', 'axis-label');
+      t.textContent = d.date.slice(5);
+      svg.appendChild(t);
+    }
+  });
+
+  document.getElementById('sessDailyChart').appendChild(svg);
+})();
+
+// -- tool total horizontal bar chart --
+(function () {
+  const tools = SESS.tools.slice().sort((a, b) => SESS.tool_totals[b] - SESS.tool_totals[a]);
+  const max = Math.max(...tools.map(t => SESS.tool_totals[t]));
+  const W = 460, rowH = 44, padL = 110, padR = 46, padT = 6;
+  const H = padT + tools.length * rowH;
+
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  svg.setAttribute('width', '100%');
+  svg.setAttribute('height', H);
+
+  tools.forEach((t, i) => {
+    const v = SESS.tool_totals[t];
+    const barMaxW = W - padL - padR;
+    const barW = (v / max) * barMaxW;
+    const y = padT + i * rowH + 12;
+
+    const label = document.createElementNS(svg.namespaceURI, 'text');
+    label.setAttribute('x', padL - 10);
+    label.setAttribute('y', y + 10);
+    label.setAttribute('text-anchor', 'end');
+    label.setAttribute('class', 'axis-label');
+    label.setAttribute('fill', 'var(--text-secondary)');
+    label.style.fontSize = '12px';
+    label.textContent = TOOL_LABELS[t];
+    svg.appendChild(label);
+
+    const rect = document.createElementNS(svg.namespaceURI, 'rect');
+    rect.setAttribute('x', padL);
+    rect.setAttribute('y', y);
+    rect.setAttribute('width', Math.max(2, barW));
+    rect.setAttribute('height', 20);
+    rect.setAttribute('rx', 4);
+    rect.setAttribute('fill', toolColor(t));
+    rect.setAttribute('class', 'bar-seg');
+    rect.addEventListener('mousemove', (e) => {
+      showTooltip(`<b>${TOOL_LABELS[t]}</b><br>세션 ${v}건 (${Math.round(v/SESS.total_sessions*100)}%)`, e.clientX, e.clientY);
+    });
+    rect.addEventListener('mouseleave', hideTooltip);
+    svg.appendChild(rect);
+
+    const val = document.createElementNS(svg.namespaceURI, 'text');
+    val.setAttribute('x', padL + barW + 8);
+    val.setAttribute('y', y + 14);
+    val.setAttribute('class', 'axis-label');
+    val.style.fontSize = '12px';
+    val.style.fontWeight = '600';
+    val.setAttribute('fill', 'var(--text-primary)');
+    val.textContent = v;
+    svg.appendChild(val);
+  });
+
+  document.getElementById('sessToolChart').appendChild(svg);
+})();
+
+// -- day-of-week grouped bars (two series) --
+(function () {
+  const el = document.getElementById('sessDowChart');
+  const max = Math.max(...SESS.dow_series['claude-code'], ...SESS.dow_series['codex'], 1);
+  SESS.dow_names.forEach((name, i) => {
+    const cc = SESS.dow_series['claude-code'][i];
+    const cx = SESS.dow_series['codex'][i];
+    const hcc = Math.max(2, (cc / max) * 100);
+    const hcx = Math.max(2, (cx / max) * 100);
+    const col = document.createElement('div');
+    col.className = 'dow-col';
+    col.innerHTML = `
+      <div class="dow-val">${cc}/${cx}</div>
+      <div class="dow-bar-group">
+        <div class="dow-bar" style="height:${hcc}%; background:${toolColor('claude-code')}" title="Claude Code: ${cc}"></div>
+        <div class="dow-bar" style="height:${hcx}%; background:${toolColor('codex')}" title="Codex: ${cx}"></div>
+      </div>
+      <div class="dow-label">${name}</div>
+    `;
+    el.appendChild(col);
+  });
+})();
+
+// -- session log table --
+(function () {
+  const filterRow = document.getElementById('sessFilterRow');
+  const logBody = document.getElementById('sessLogBody');
+  let active = 'all';
+  const rows = SESS.rows;
+
+  function render() {
+    const filtered = rows.filter(r => active === 'all' || r.tool === active);
+    logBody.innerHTML = filtered.map(r => `
+      <tr>
+        <td>${r.date}</td>
+        <td><span class="repo-badge"><span class="repo-dot" style="background:${toolColor(r.tool)}"></span>${TOOL_LABELS[r.tool]}</span></td>
+        <td class="subject">${String(r.label).replace(/</g,'&lt;')}</td>
+      </tr>
+    `).join('');
+  }
+
+  const chips = [{ key: 'all', label: `전체 (${rows.length})` }]
+    .concat(SESS.tools.map(t => ({ key: t, label: `${TOOL_LABELS[t]} (${SESS.tool_totals[t]})` })));
+  filterRow.innerHTML = chips.map(c => `<button class="filter-chip${c.key==='all'?' active':''}" data-key="${c.key}">${c.label}</button>`).join('');
+  filterRow.querySelectorAll('.filter-chip').forEach(btn => {
+    btn.addEventListener('click', () => {
+      active = btn.dataset.key;
+      filterRow.querySelectorAll('.filter-chip').forEach(b => b.classList.toggle('active', b === btn));
+      render();
+    });
+  });
+  render();
+})();
+
+// ---- Stat tiles ----
+function fmt(n) { return n.toLocaleString('en-US'); }
+const statRow = document.getElementById('statRow');
+const stats = [
+  { label: '총 커밋 수 (4개 저장소)', value: fmt(AGG.total_commits), delta: `${AGG.start_date} ~ ${AGG.end_date}` },
+  { label: '활동일 / 전체 기간', value: `${AGG.active_days} / ${AGG.total_days}일`, delta: `${Math.round(AGG.active_days/AGG.total_days*100)}% 가동률` },
+  { label: '변경 라인 (+/-)', value: `+${fmt(AGG.total_ins)}`, delta: `-${fmt(AGG.total_del)} · 파일 ${fmt(AGG.total_files)}개` },
+  { label: '최다 활동일', value: AGG.busiest_date.slice(5), delta: `커밋 ${AGG.busiest_count}건` },
+];
+statRow.innerHTML = stats.map(s => `
+  <div class="stat-tile">
+    <div class="label">${s.label}</div>
+    <div class="value">${s.value}</div>
+    <div class="delta">${s.delta}</div>
+  </div>
+`).join('');
+
+// ---- Legend ----
+const legend = document.getElementById('legend');
+legend.innerHTML = AGG.repos.map(r => `
+  <div class="legend-item">
+    <span class="legend-swatch" style="background:${repoColor(r)}"></span>
+    <span>${REPO_LABELS[r]}</span>
+    <span style="color:var(--text-muted)">(${AGG.repo_totals[r]})</span>
+  </div>
+`).join('');
+
+// ---- Daily stacked bar chart ----
+(function () {
+  const data = AGG.daily;
+  const W = 1000, H = 220;
+  const padL = 30, padR = 10, padT = 10, padB = 24;
+  const chartW = W - padL - padR, chartH = H - padT - padB;
+  const n = data.length;
+  const gap = 2;
+  const barW = Math.max(4, (chartW / n) - gap);
+  const maxTotal = Math.max(1, ...data.map(d => d.total));
+
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  svg.setAttribute('width', '100%');
+  svg.setAttribute('height', H);
+
+  // gridlines (4 steps)
+  const steps = 4;
+  for (let i = 0; i <= steps; i++) {
+    const y = padT + chartH - (chartH * i / steps);
+    const line = document.createElementNS(svg.namespaceURI, 'line');
+    line.setAttribute('x1', padL); line.setAttribute('x2', W - padR);
+    line.setAttribute('y1', y); line.setAttribute('y2', y);
+    line.setAttribute('class', i === 0 ? 'baseline' : 'gridline');
+    svg.appendChild(line);
+    const val = Math.round(maxTotal * i / steps);
+    const t = document.createElementNS(svg.namespaceURI, 'text');
+    t.setAttribute('x', 4); t.setAttribute('y', y + 3);
+    t.setAttribute('class', 'axis-label');
+    t.textContent = val;
+    svg.appendChild(t);
+  }
+
+  data.forEach((d, i) => {
+    const x = padL + i * (chartW / n) + (chartW / n - barW) / 2;
+    let yCursor = padT + chartH;
+    const hitG = document.createElementNS(svg.namespaceURI, 'g');
+    AGG.repos.forEach((r) => {
+      const v = d[r];
+      if (v <= 0) return;
+      const segH = (v / maxTotal) * chartH;
+      const y = yCursor - segH;
+      const rect = document.createElementNS(svg.namespaceURI, 'rect');
+      rect.setAttribute('x', x);
+      rect.setAttribute('y', y);
+      rect.setAttribute('width', barW);
+      rect.setAttribute('height', Math.max(0, segH - (yCursor < padT + chartH ? 1 : 0)));
+      rect.setAttribute('fill', repoColor(r));
+      rect.setAttribute('class', 'bar-seg');
+      rect.setAttribute('rx', 1.5);
+      hitG.appendChild(rect);
+      yCursor -= segH;
+    });
+    // invisible full-column hit area for tooltip
+    const hit = document.createElementNS(svg.namespaceURI, 'rect');
+    hit.setAttribute('x', x);
+    hit.setAttribute('y', padT);
+    hit.setAttribute('width', barW);
+    hit.setAttribute('height', chartH);
+    hit.setAttribute('class', 'bar-hit');
+    hit.addEventListener('mousemove', (e) => {
+      const lines = AGG.repos.filter(r => d[r] > 0).map(r =>
+        `<span style="color:${repoColor(r)}">●</span> ${REPO_LABELS[r]}: ${d[r]}`
+      ).join('<br>');
+      showTooltip(`<b>${d.date}</b><br>총 ${d.total}건${lines ? '<br>' + lines : '<br>커밋 없음'}`, e.clientX, e.clientY);
+    });
+    hit.addEventListener('mouseleave', hideTooltip);
+    hitG.appendChild(hit);
+    svg.appendChild(hitG);
+
+    // sparse x labels (every ~4th day)
+    if (i % 4 === 0 || i === n - 1) {
+      const t = document.createElementNS(svg.namespaceURI, 'text');
+      t.setAttribute('x', x + barW / 2);
+      t.setAttribute('y', H - 6);
+      t.setAttribute('text-anchor', 'middle');
+      t.setAttribute('class', 'axis-label');
+      t.textContent = d.date.slice(5);
+      svg.appendChild(t);
+    }
+  });
+
+  document.getElementById('dailyChart').appendChild(svg);
+})();
+
+// ---- Repo total horizontal bar chart ----
+(function () {
+  const repos = AGG.repos.slice().sort((a, b) => AGG.repo_totals[b] - AGG.repo_totals[a]);
+  const max = Math.max(...repos.map(r => AGG.repo_totals[r]));
+  const W = 460, rowH = 40, padL = 100, padR = 46, padT = 6;
+  const H = padT + repos.length * rowH;
+
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  svg.setAttribute('width', '100%');
+  svg.setAttribute('height', H);
+
+  repos.forEach((r, i) => {
+    const v = AGG.repo_totals[r];
+    const barMaxW = W - padL - padR;
+    const barW = (v / max) * barMaxW;
+    const y = padT + i * rowH + 10;
+
+    const label = document.createElementNS(svg.namespaceURI, 'text');
+    label.setAttribute('x', padL - 10);
+    label.setAttribute('y', y + 10);
+    label.setAttribute('text-anchor', 'end');
+    label.setAttribute('class', 'axis-label');
+    label.setAttribute('fill', 'var(--text-secondary)');
+    label.style.fontSize = '12px';
+    label.textContent = REPO_LABELS[r];
+    svg.appendChild(label);
+
+    const rect = document.createElementNS(svg.namespaceURI, 'rect');
+    rect.setAttribute('x', padL);
+    rect.setAttribute('y', y);
+    rect.setAttribute('width', Math.max(2, barW));
+    rect.setAttribute('height', 20);
+    rect.setAttribute('rx', 4);
+    rect.setAttribute('fill', repoColor(r));
+    rect.setAttribute('class', 'bar-seg');
+    rect.addEventListener('mousemove', (e) => {
+      showTooltip(`<b>${REPO_LABELS[r]}</b><br>커밋 ${v}건 (${Math.round(v/AGG.total_commits*100)}%)`, e.clientX, e.clientY);
+    });
+    rect.addEventListener('mouseleave', hideTooltip);
+    svg.appendChild(rect);
+
+    const val = document.createElementNS(svg.namespaceURI, 'text');
+    val.setAttribute('x', padL + barW + 8);
+    val.setAttribute('y', y + 14);
+    val.setAttribute('class', 'axis-label');
+    val.style.fontSize = '12px';
+    val.style.fontWeight = '600';
+    val.setAttribute('fill', 'var(--text-primary)');
+    val.textContent = v;
+    svg.appendChild(val);
+  });
+
+  document.getElementById('repoChart').appendChild(svg);
+})();
+
+// ---- Day-of-week bars (plain HTML, single series) ----
+(function () {
+  const el = document.getElementById('dowChart');
+  const max = Math.max(...AGG.dow_series, 1);
+  AGG.dow_names.forEach((name, i) => {
+    const v = AGG.dow_series[i];
+    const h = Math.max(3, (v / max) * 100);
+    const col = document.createElement('div');
+    col.className = 'dow-col';
+    col.innerHTML = `
+      <div class="dow-val">${v}</div>
+      <div class="dow-bar-group"><div class="dow-bar" style="height:${h}%; background:var(--series-1)"></div></div>
+      <div class="dow-label">${name}</div>
+    `;
+    el.appendChild(col);
+  });
+})();
+
+// ---- Activity log table ----
+const filterRow = document.getElementById('filterRow');
+const logBody = document.getElementById('logBody');
+let activeFilter = 'all';
+
+function renderLog() {
+  const rows = COMMITS.filter(c => activeFilter === 'all' || c.repo === activeFilter);
+  logBody.innerHTML = rows.map(c => `
+    <tr>
+      <td>${c.date}</td>
+      <td><span class="repo-badge"><span class="repo-dot" style="background:${repoColor(c.repo)}"></span>${REPO_LABELS[c.repo]}</span></td>
+      <td class="subject">${c.subject.replace(/</g,'&lt;')}</td>
+      <td class="num ins">+${c.ins}</td>
+      <td class="num del">-${c.del}</td>
+    </tr>
+  `).join('');
+}
+
+const chips = [{ key: 'all', label: `전체 (${COMMITS.length})` }]
+  .concat(AGG.repos.map(r => ({ key: r, label: `${REPO_LABELS[r]} (${AGG.repo_totals[r]})` })));
+
+filterRow.innerHTML = chips.map(c => `<button class="filter-chip${c.key==='all'?' active':''}" data-key="${c.key}">${c.label}</button>`).join('');
+filterRow.querySelectorAll('.filter-chip').forEach(btn => {
+  btn.addEventListener('click', () => {
+    activeFilter = btn.dataset.key;
+    filterRow.querySelectorAll('.filter-chip').forEach(b => b.classList.toggle('active', b === btn));
+    renderLog();
+  });
+});
+renderLog();
+
+document.getElementById('subtitle').textContent =
+  `${SESS.start_date} ~ ${SESS.end_date} · VS Code Claude Code/Codex 세션 로그 + 4개 저장소 git 커밋 로그 기반`;
+</script>
