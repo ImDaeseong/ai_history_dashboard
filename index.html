@@ -328,14 +328,6 @@ tbody td.num { text-align: right; font-variant-numeric: tabular-nums; white-spac
 const AGG = {
  "daily": [
   {
-   "date": "2026-07-05",
-   "hermes-agents": 0,
-   "ai-workspace": 0,
-   "ai_prompt": 0,
-   "skills": 0,
-   "total": 0
-  },
-  {
    "date": "2026-07-06",
    "hermes-agents": 0,
    "ai-workspace": 3,
@@ -566,6 +558,14 @@ const AGG = {
    "ai_prompt": 2,
    "skills": 4,
    "total": 11
+  },
+  {
+   "date": "2026-08-04",
+   "hermes-agents": 0,
+   "ai-workspace": 0,
+   "ai_prompt": 0,
+   "skills": 0,
+   "total": 0
   }
  ],
  "repos": [
@@ -606,8 +606,8 @@ const AGG = {
  "busiest_count": 79,
  "active_days": 23,
  "total_days": 30,
- "start_date": "2026-07-05",
- "end_date": "2026-08-03"
+ "start_date": "2026-07-06",
+ "end_date": "2026-08-04"
 };
 const COMMITS = [
  {
@@ -3110,12 +3110,6 @@ const COMMITS = [
 const SESS = {
  "daily": [
   {
-   "date": "2026-07-05",
-   "claude-code": 1,
-   "codex": 1,
-   "total": 2
-  },
-  {
    "date": "2026-07-06",
    "claude-code": 3,
    "codex": 1,
@@ -3286,8 +3280,14 @@ const SESS = {
   {
    "date": "2026-08-03",
    "claude-code": 3,
+   "codex": 1,
+   "total": 4
+  },
+  {
+   "date": "2026-08-04",
+   "claude-code": 0,
    "codex": 0,
-   "total": 3
+   "total": 0
   }
  ],
  "tools": [
@@ -3295,7 +3295,7 @@ const SESS = {
   "codex"
  ],
  "tool_totals": {
-  "claude-code": 91,
+  "claude-code": 90,
   "codex": 35
  },
  "dow_names": [
@@ -3315,25 +3315,25 @@ const SESS = {
    19,
    13,
    12,
-   13
+   12
   ],
   "codex": [
-   2,
+   3,
    4,
    8,
    8,
    4,
    3,
-   6
+   5
   ]
  },
  "busiest_date": "2026-07-29",
  "busiest_count": 11,
- "active_days": 29,
+ "active_days": 28,
  "total_days": 30,
- "start_date": "2026-07-05",
- "end_date": "2026-08-03",
- "total_sessions": 126,
+ "start_date": "2026-07-06",
+ "end_date": "2026-08-04",
+ "total_sessions": 125,
  "rows": [
   {
    "tool": "claude-code",
@@ -3345,13 +3345,19 @@ const SESS = {
    "tool": "claude-code",
    "date": "2026-08-03",
    "label": "hermes-agents",
-   "lines": 1332
+   "lines": 1388
   },
   {
    "tool": "claude-code",
    "date": "2026-08-03",
    "label": "hermes-agents",
    "lines": 538
+  },
+  {
+   "tool": "codex",
+   "date": "2026-08-03",
+   "label": "검증·회귀 루프 진행",
+   "lines": 0
   },
   {
    "tool": "claude-code",
@@ -4077,18 +4083,6 @@ const SESS = {
    "tool": "codex",
    "date": "2026-07-06",
    "label": "가사 생성 프로젝트 설계",
-   "lines": 0
-  },
-  {
-   "tool": "claude-code",
-   "date": "2026-07-05",
-   "label": "hermes-agents",
-   "lines": 2724
-  },
-  {
-   "tool": "codex",
-   "date": "2026-07-05",
-   "label": "검증 루프 전체 확인",
    "lines": 0
   }
  ]

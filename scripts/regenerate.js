@@ -27,28 +27,46 @@ const CLAUDE_PROJECTS_DIR = path.join(HOME, '.claude', 'projects');
 const CLAUDE_PROJECT_PREFIX = 'c--Users-' + path.basename(HOME) + '-Desktop-';
 const CODEX_SESSION_INDEX = path.join(HOME, '.codex', 'session_index.jsonl');
 
-function isoDate(d) { return d.toISOString().slice(0, 10); }
-function todayUTC() { const d = new Date(); d.setUTCHours(0, 0, 0, 0); return d; }
-function daysAgoUTC(n) { const d = todayUTC(); d.setUTCDate(d.getUTCDate() - n); return d; }
+// All date math below is in this machine's LOCAL calendar, not UTC. `git log
+// --date=short` prints the commit's stored local date, so the window must be
+// local-date-based too — a UTC-based "today" lags one calendar day behind
+// local "today" for the first ~9 hours of each day in KST (UTC+9), which
+// silently dropped that day's already-made commits from the window.
+function localISO(d) {
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}
+function localDateFromISO(isoStr) {
+  const [y, m, d] = isoStr.split('-').map(Number);
+  return new Date(y, m - 1, d); // local midnight
+}
+function today() { const d = new Date(); d.setHours(0, 0, 0, 0); return d; }
+function daysAgo(n) { const d = today(); d.setDate(d.getDate() - n); return d; }
 function dateRange(start, end) {
   const out = [];
   const cur = new Date(start);
-  while (cur <= end) { out.push(isoDate(cur)); cur.setUTCDate(cur.getUTCDate() + 1); }
+  while (cur <= end) { out.push(localISO(cur)); cur.setDate(cur.getDate() + 1); }
   return out;
 }
 function dowIndexMonFirst(isoStr) {
-  // JS getUTCDay(): 0=Sun..6=Sat. We want 0=Mon..6=Sun to match dashboard's 월~일 order.
-  const jsDow = new Date(isoStr + 'T00:00:00Z').getUTCDay();
+  // JS getDay(): 0=Sun..6=Sat (local). We want 0=Mon..6=Sun to match the
+  // dashboard's 월~일 order.
+  const jsDow = localDateFromISO(isoStr).getDay();
   return (jsDow + 6) % 7;
 }
 const DOW_NAMES = ['월', '화', '수', '목', '금', '토', '일'];
 
-const END = todayUTC();
-const START = daysAgoUTC(WINDOW_DAYS - 1);
+const END = today();
+const START = daysAgo(WINDOW_DAYS - 1);
 const ALL_DATES = dateRange(START, END);
-const START_STR = isoDate(START), END_STR = isoDate(END);
+const START_STR = localISO(START), END_STR = localISO(END);
 
 // ---------- 1. Commits (AGG + COMMITS) ----------
+// A repo whose `git log` fails (bad path, ownership mismatch, not a repo
+// anymore, etc.) must NOT be silently treated as "0 commits" — that would
+// let a partial, wrong dataset get written out and reported as success.
+// Collect failures and abort in that case; see the check after this
+// function's call site.
+const collectFailures = [];
 function collectRepoCommits(repo) {
   let out;
   try {
@@ -57,7 +75,7 @@ function collectRepoCommits(repo) {
       '--pretty=format:COMMIT\t%H\t%ad\t%s', '--numstat',
     ], { cwd: repo.dir, encoding: 'utf8' });
   } catch (e) {
-    console.error(`[warn] git log failed for ${repo.key} (${repo.dir}): ${e.message}`);
+    collectFailures.push(`git log failed for ${repo.key} (${repo.dir}): ${e.message.split('\n')[0]}`);
     return [];
   }
   const commits = [];
@@ -119,6 +137,14 @@ function buildAGG() {
 }
 
 // ---------- 2. Sessions (SESS) ----------
+// NOTE: session dates below are the UTC calendar date of the log's own
+// timestamp (Claude Code jsonl "timestamp", Codex "updated_at"), not
+// converted to local time — this matches how the original hand-built
+// dataset bucketed sessions (verified against it 2026-08-04) and is left
+// as-is here. It means a session starting late at night KST can land one
+// UTC-day earlier than the local calendar day the user actually worked in.
+// That's a separate, smaller inconsistency from the commit-window bug this
+// script fixes (which was about START_STR/END_STR, not this).
 function firstTimestampDate(filePath) {
   const text = fs.readFileSync(filePath, 'utf8');
   const lines = text.split('\n');
@@ -131,7 +157,10 @@ function firstTimestampDate(filePath) {
 
 function collectClaudeCodeSessions() {
   const rows = [];
-  if (!fs.existsSync(CLAUDE_PROJECTS_DIR)) return rows;
+  if (!fs.existsSync(CLAUDE_PROJECTS_DIR)) {
+    collectFailures.push(`Claude Code projects dir not found: ${CLAUDE_PROJECTS_DIR}`);
+    return rows;
+  }
   for (const entry of fs.readdirSync(CLAUDE_PROJECTS_DIR, { withFileTypes: true })) {
     if (!entry.isDirectory() || !entry.name.startsWith(CLAUDE_PROJECT_PREFIX)) continue;
     const label = entry.name.slice(CLAUDE_PROJECT_PREFIX.length);
@@ -151,7 +180,10 @@ function collectClaudeCodeSessions() {
 
 function collectCodexSessions() {
   const rows = [];
-  if (!fs.existsSync(CODEX_SESSION_INDEX)) return rows;
+  if (!fs.existsSync(CODEX_SESSION_INDEX)) {
+    collectFailures.push(`Codex session index not found: ${CODEX_SESSION_INDEX}`);
+    return rows;
+  }
   const text = fs.readFileSync(CODEX_SESSION_INDEX, 'utf8');
   for (const line of text.split('\n')) {
     if (!line.trim()) continue;
@@ -192,6 +224,15 @@ function buildSESS() {
 
 const AGG = buildAGG();
 const SESS = buildSESS();
+
+// A partial read (one repo's git log failed, or a session source was
+// missing) must never be written out as if it were a complete, correct
+// dataset. Abort loudly instead — index.html is left untouched.
+if (collectFailures.length > 0) {
+  console.error(`FAILED — ${collectFailures.length} data source(s) could not be read, aborting without touching index.html:`);
+  for (const f of collectFailures) console.error(`  - ${f}`);
+  process.exit(1);
+}
 
 // ---------- 3. Splice into index.html ----------
 function replaceConst(html, name, value) {
