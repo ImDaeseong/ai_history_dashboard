@@ -89,6 +89,15 @@ header p {
   color: var(--text-muted);
   margin: 0 0 16px;
 }
+.card summary {
+  cursor: pointer;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.card summary .sub { margin: 0; }
+.card[open] summary { margin-bottom: 4px; }
 .stat-row {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -240,16 +249,40 @@ tbody td.num { text-align: right; font-variant-numeric: tabular-nums; white-spac
   <div class="section-title">0. 요약</div>
   <div class="stat-row" id="summaryStatRow"></div>
 
-  <div class="card">
-    <h2>일별 활동 히트맵</h2>
-    <p class="sub">세션 + 커밋 합계. 진할수록 그날 활동이 많았다는 뜻입니다.</p>
-    <div id="heatmap"></div>
+  <div style="display:grid; grid-template-columns: 1.3fr 0.7fr; gap:20px;">
+    <div class="card" style="margin-bottom:0;">
+      <h2>일별 활동 히트맵</h2>
+      <p class="sub">세션 + 커밋 합계. 진할수록 그날 활동이 많았다는 뜻입니다.</p>
+      <div id="heatmap"></div>
+    </div>
+    <div class="card" style="margin-bottom:0;">
+      <h2>요일별 활동 리듬</h2>
+      <p class="sub">특정 날짜가 아니라 무슨 요일에 몰리는지.</p>
+      <div class="dow-row" id="dowRhythmChart"></div>
+    </div>
   </div>
 
-  <div class="card">
-    <h2>요일별 활동 리듬</h2>
-    <p class="sub">세션 + 커밋 합계, 월~일 기준. 특정 날짜가 아니라 무슨 요일에 몰리는지 보는 차트입니다.</p>
-    <div class="dow-row" id="dowRhythmChart"></div>
+  <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px; margin-top:20px;">
+    <div class="card" style="margin-bottom:0;">
+      <h2>가장 긴 세션 TOP 5</h2>
+      <p class="sub">Claude Code 라인 수 기준(Codex는 라인 수 미기록).</p>
+      <table>
+        <thead>
+          <tr><th>날짜</th><th>도구</th><th>제목 / 프로젝트</th><th style="text-align:right">라인 수</th></tr>
+        </thead>
+        <tbody id="topSessBody"></tbody>
+      </table>
+    </div>
+    <div class="card" style="margin-bottom:0;">
+      <h2>가장 큰 커밋 TOP 5</h2>
+      <p class="sub">추가+삭제 라인 합계 기준.</p>
+      <table>
+        <thead>
+          <tr><th>날짜</th><th>저장소</th><th>커밋 메시지</th><th style="text-align:right">+</th><th style="text-align:right">-</th></tr>
+        </thead>
+        <tbody id="topCommitBody"></tbody>
+      </table>
+    </div>
   </div>
 
   <div class="section-title">1. 에이전트 세션 활동 (Claude Code vs Codex)</div>
@@ -261,21 +294,9 @@ tbody td.num { text-align: right; font-variant-numeric: tabular-nums; white-spac
     <div id="sessDailyChart"></div>
   </div>
 
-  <div class="card" style="margin-top:20px;">
-    <h2>가장 긴 세션 TOP 5</h2>
-    <p class="sub">Claude Code 세션 로그 라인 수 기준(Codex 세션은 라인 수가 기록되지 않습니다).</p>
-    <table>
-      <thead>
-        <tr><th>날짜</th><th>도구</th><th>제목 / 프로젝트</th><th style="text-align:right">라인 수</th></tr>
-      </thead>
-      <tbody id="topSessBody"></tbody>
-    </table>
-  </div>
-
-  <div class="card" style="margin-top:20px;">
-    <h2>세션 로그</h2>
-    <p class="sub">도구 필터로 좁혀볼 수 있습니다. 최신순 정렬.</p>
-    <div class="filter-row" id="sessFilterRow"></div>
+  <details class="card" style="margin-top:20px;">
+    <summary><h2 style="display:inline;">세션 로그 펼치기</h2> <span class="sub" style="display:inline;">도구 필터로 좁혀볼 수 있습니다. 최신순 정렬.</span></summary>
+    <div class="filter-row" id="sessFilterRow" style="margin-top:14px;"></div>
     <div class="table-scroll">
       <table>
         <thead>
@@ -284,7 +305,7 @@ tbody td.num { text-align: right; font-variant-numeric: tabular-nums; white-spac
         <tbody id="sessLogBody"></tbody>
       </table>
     </div>
-  </div>
+  </details>
 
   <div class="section-title">2. 커밋 결과물 (Git 로그)</div>
 
@@ -295,21 +316,9 @@ tbody td.num { text-align: right; font-variant-numeric: tabular-nums; white-spac
     <div id="dailyChart"></div>
   </div>
 
-  <div class="card" style="margin-top:20px;">
-    <h2>가장 큰 커밋 TOP 5</h2>
-    <p class="sub">추가+삭제 라인 합계 기준.</p>
-    <table>
-      <thead>
-        <tr><th>날짜</th><th>저장소</th><th>커밋 메시지</th><th style="text-align:right">+추가</th><th style="text-align:right">-삭제</th></tr>
-      </thead>
-      <tbody id="topCommitBody"></tbody>
-    </table>
-  </div>
-
-  <div class="card" style="margin-top:20px;">
-    <h2>작업 로그 (전체 커밋)</h2>
-    <p class="sub">저장소 필터로 좁혀볼 수 있습니다. 최신순 정렬.</p>
-    <div class="filter-row" id="filterRow"></div>
+  <details class="card" style="margin-top:20px;">
+    <summary><h2 style="display:inline;">작업 로그 펼치기 (전체 커밋)</h2> <span class="sub" style="display:inline;">저장소 필터로 좁혀볼 수 있습니다. 최신순 정렬.</span></summary>
+    <div class="filter-row" id="filterRow" style="margin-top:14px;"></div>
     <div class="table-scroll">
       <table>
         <thead>
@@ -318,7 +327,7 @@ tbody td.num { text-align: right; font-variant-numeric: tabular-nums; white-spac
         <tbody id="logBody"></tbody>
       </table>
     </div>
-  </div>
+  </details>
 </div>
 </div>
 
