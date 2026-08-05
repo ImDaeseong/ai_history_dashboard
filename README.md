@@ -2,7 +2,7 @@
 
 Claude Code / Codex 세션 활동과 4개 저장소 git 커밋 활동을 한눈에 보는 정적 HTML 대시보드.
 
-**바로가기 →** https://imdaeseong.github.io/history_dashboard/
+**바로가기 →** https://imdaeseong.github.io/ai_history_dashboard/
 
 ## 데이터 출처
 
