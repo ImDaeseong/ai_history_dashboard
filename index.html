@@ -1,3 +1,6 @@
+<!doctype html>
+<html lang="ko">
+<head>
 <meta charset="utf-8">
 <title>AI 에이전트 작업 이력 대시보드</title>
 <style>
@@ -238,6 +241,8 @@ tbody td.num { text-align: right; font-variant-numeric: tabular-nums; white-spac
 }
 .section-title:first-of-type { margin-top: 0; }
 </style>
+</head>
+<body>
 
 <div class="viz-root">
 <div class="wrap">
@@ -336,14 +341,6 @@ tbody td.num { text-align: right; font-variant-numeric: tabular-nums; white-spac
 <script>
 const AGG = {
  "daily": [
-  {
-   "date": "2026-07-06",
-   "hermes-agents": 0,
-   "ai-workspace": 3,
-   "ai_prompt": 0,
-   "skills": 0,
-   "total": 3
-  },
   {
    "date": "2026-07-07",
    "hermes-agents": 0,
@@ -575,6 +572,14 @@ const AGG = {
    "ai_prompt": 0,
    "skills": 0,
    "total": 0
+  },
+  {
+   "date": "2026-08-05",
+   "hermes-agents": 1,
+   "ai-workspace": 0,
+   "ai_prompt": 0,
+   "skills": 0,
+   "total": 1
   }
  ],
  "repos": [
@@ -583,20 +588,20 @@ const AGG = {
   "ai_prompt",
   "skills"
  ],
- "total_commits": 312,
- "total_ins": 13515,
- "total_del": 3428,
- "total_files": 705,
+ "total_commits": 310,
+ "total_ins": 13142,
+ "total_del": 3427,
+ "total_files": 704,
  "repo_totals": {
-  "hermes-agents": 84,
-  "ai-workspace": 112,
+  "hermes-agents": 85,
+  "ai-workspace": 109,
   "ai_prompt": 32,
   "skills": 84
  },
  "dow_series": [
-  40,
+  37,
   85,
-  47,
+  48,
   56,
   16,
   35,
@@ -615,10 +620,18 @@ const AGG = {
  "busiest_count": 79,
  "active_days": 23,
  "total_days": 30,
- "start_date": "2026-07-06",
- "end_date": "2026-08-04"
+ "start_date": "2026-07-07",
+ "end_date": "2026-08-05"
 };
 const COMMITS = [
+ {
+  "repo": "hermes-agents",
+  "date": "2026-08-05",
+  "subject": "AGENTS.md: add Test Scope Rule, point to qa_manager verification system",
+  "ins": 23,
+  "del": 0,
+  "files": 2
+ },
  {
   "repo": "hermes-agents",
   "date": "2026-08-03",
@@ -3090,40 +3103,10 @@ const COMMITS = [
   "ins": 4,
   "del": 0,
   "files": 3
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-06",
-  "subject": "docs: 확장 재검증(improvised/spontaneous) 및 분석 리포트 커밋 기록 추가",
-  "ins": 11,
-  "del": 0,
-  "files": 1
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-06",
-  "subject": "docs: music_skills 프롬프트 분석 리포트 추가 (2026-07-02 작업 누락분)",
-  "ins": 175,
-  "del": 0,
-  "files": 1
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-06",
-  "subject": "docs: music_lyric 3건 + ai_test1 애드립/허밍 방지 진행 기록 반영",
-  "ins": 210,
-  "del": 1,
-  "files": 1
  }
 ];
 const SESS = {
  "daily": [
-  {
-   "date": "2026-07-06",
-   "claude-code": 3,
-   "codex": 1,
-   "total": 4
-  },
   {
    "date": "2026-07-07",
    "claude-code": 2,
@@ -3294,6 +3277,12 @@ const SESS = {
   },
   {
    "date": "2026-08-04",
+   "claude-code": 4,
+   "codex": 2,
+   "total": 6
+  },
+  {
+   "date": "2026-08-05",
    "claude-code": 0,
    "codex": 0,
    "total": 0
@@ -3304,8 +3293,8 @@ const SESS = {
   "codex"
  ],
  "tool_totals": {
-  "claude-code": 90,
-  "codex": 35
+  "claude-code": 91,
+  "codex": 36
  },
  "dow_names": [
   "월",
@@ -3318,8 +3307,8 @@ const SESS = {
  ],
  "dow_series": {
   "claude-code": [
-   15,
-   8,
+   12,
+   12,
    11,
    19,
    13,
@@ -3327,8 +3316,8 @@ const SESS = {
    12
   ],
   "codex": [
-   3,
-   4,
+   2,
+   6,
    8,
    8,
    4,
@@ -3340,10 +3329,46 @@ const SESS = {
  "busiest_count": 11,
  "active_days": 28,
  "total_days": 30,
- "start_date": "2026-07-06",
- "end_date": "2026-08-04",
- "total_sessions": 125,
+ "start_date": "2026-07-07",
+ "end_date": "2026-08-05",
+ "total_sessions": 127,
  "rows": [
+  {
+   "tool": "claude-code",
+   "date": "2026-08-04",
+   "label": "hermes-agents",
+   "lines": 1693
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-08-04",
+   "label": "hermes-agents",
+   "lines": 144
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-08-04",
+   "label": "hermes-agents",
+   "lines": 153
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-08-04",
+   "label": "hermes-agents",
+   "lines": 8
+  },
+  {
+   "tool": "codex",
+   "date": "2026-08-04",
+   "label": "Run ai_good_usage verification loop",
+   "lines": 0
+  },
+  {
+   "tool": "codex",
+   "date": "2026-08-04",
+   "label": "진행 검증·회귀 루프",
+   "lines": 0
+  },
   {
    "tool": "claude-code",
    "date": "2026-08-03",
@@ -3354,7 +3379,7 @@ const SESS = {
    "tool": "claude-code",
    "date": "2026-08-03",
    "label": "hermes-agents",
-   "lines": 1568
+   "lines": 1569
   },
   {
    "tool": "claude-code",
@@ -4069,30 +4094,6 @@ const SESS = {
    "date": "2026-07-07",
    "label": "hermes-agents",
    "lines": 586
-  },
-  {
-   "tool": "claude-code",
-   "date": "2026-07-06",
-   "label": "hermes-agents",
-   "lines": 777
-  },
-  {
-   "tool": "claude-code",
-   "date": "2026-07-06",
-   "label": "hermes-agents",
-   "lines": 641
-  },
-  {
-   "tool": "claude-code",
-   "date": "2026-07-06",
-   "label": "hermes-agents",
-   "lines": 437
-  },
-  {
-   "tool": "codex",
-   "date": "2026-07-06",
-   "label": "가사 생성 프로젝트 설계",
-   "lines": 0
   }
  ]
 };
@@ -4542,3 +4543,5 @@ AGG.daily.forEach(d => { DAILY_MAP[d.date] = (DAILY_MAP[d.date] || 0) + d.total;
   `).join('');
 })();
 </script>
+</body>
+</html>
