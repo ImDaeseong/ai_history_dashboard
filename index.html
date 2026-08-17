@@ -357,22 +357,6 @@ tbody td.num { text-align: right; font-variant-numeric: tabular-nums; white-spac
 const AGG = {
  "daily": [
   {
-   "date": "2026-07-17",
-   "hermes-agents": 2,
-   "ai-workspace": 1,
-   "ai_prompt": 1,
-   "skills": 2,
-   "total": 6
-  },
-  {
-   "date": "2026-07-18",
-   "hermes-agents": 0,
-   "ai-workspace": 0,
-   "ai_prompt": 0,
-   "skills": 28,
-   "total": 28
-  },
-  {
    "date": "2026-07-19",
    "hermes-agents": 2,
    "ai-workspace": 0,
@@ -595,6 +579,22 @@ const AGG = {
    "ai_prompt": 0,
    "skills": 0,
    "total": 1
+  },
+  {
+   "date": "2026-08-16",
+   "hermes-agents": 0,
+   "ai-workspace": 0,
+   "ai_prompt": 0,
+   "skills": 0,
+   "total": 0
+  },
+  {
+   "date": "2026-08-17",
+   "hermes-agents": 0,
+   "ai-workspace": 2,
+   "ai_prompt": 1,
+   "skills": 1,
+   "total": 4
   }
  ],
  "repos": [
@@ -603,23 +603,23 @@ const AGG = {
   "ai_prompt",
   "skills"
  ],
- "total_commits": 302,
- "total_ins": 11062,
- "total_del": 2855,
- "total_files": 712,
+ "total_commits": 272,
+ "total_ins": 9320,
+ "total_del": 2510,
+ "total_files": 578,
  "repo_totals": {
-  "hermes-agents": 83,
-  "ai-workspace": 95,
+  "hermes-agents": 81,
+  "ai-workspace": 96,
   "ai_prompt": 32,
-  "skills": 92
+  "skills": 63
  },
  "dow_series": [
-  36,
+  40,
   86,
   44,
   58,
-  18,
-  36,
+  12,
+  8,
   24
  ],
  "dow_names": [
@@ -633,12 +633,44 @@ const AGG = {
  ],
  "busiest_date": "2026-07-28",
  "busiest_count": 79,
- "active_days": 25,
+ "active_days": 24,
  "total_days": 30,
- "start_date": "2026-07-17",
- "end_date": "2026-08-15"
+ "start_date": "2026-07-19",
+ "end_date": "2026-08-17"
 };
 const COMMITS = [
+ {
+  "repo": "ai-workspace",
+  "date": "2026-08-17",
+  "subject": "README: fix stale 관련 저장소 table (3 -> all 8 workspace repos)",
+  "ins": 6,
+  "del": 2,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-08-17",
+  "subject": "Allow HANDOFF hygiene guard to accept linked daily-log evidence",
+  "ins": 188,
+  "del": 10,
+  "files": 8
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-08-17",
+  "subject": "Add AGENTS.md (Codex-facing counterpart to CLAUDE.md)",
+  "ins": 48,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "skills",
+  "date": "2026-08-17",
+  "subject": "Add image-motion-graphics skill (image/song -> layered PSD/AEP motion graphics)",
+  "ins": 135,
+  "del": 6,
+  "files": 7
+ },
  {
   "repo": "hermes-agents",
   "date": "2026-08-15",
@@ -2782,294 +2814,10 @@ const COMMITS = [
   "ins": 10,
   "del": 5,
   "files": 2
- },
- {
-  "repo": "skills",
-  "date": "2026-07-18",
-  "subject": "Fix wrong orca star count and missing agent-crm LICENSE-UNCONFIRMED tag",
-  "ins": 4,
-  "del": 4,
-  "files": 3
- },
- {
-  "repo": "skills",
-  "date": "2026-07-18",
-  "subject": "Backfill README's Referenced-sites table for the 3 newest skills",
-  "ins": 31,
-  "del": 0,
-  "files": 1
- },
- {
-  "repo": "skills",
-  "date": "2026-07-18",
-  "subject": "Add writing skill for AI-pattern removal and prose editing",
-  "ins": 62,
-  "del": 5,
-  "files": 4
- },
- {
-  "repo": "skills",
-  "date": "2026-07-18",
-  "subject": "Add biz-ops skill for finance/commercial/business-operations back-office work",
-  "ins": 62,
-  "del": 6,
-  "files": 4
- },
- {
-  "repo": "skills",
-  "date": "2026-07-18",
-  "subject": "Add game-dev skill; refresh Attribution; defer money-skills and senior-income",
-  "ins": 62,
-  "del": 8,
-  "files": 6
- },
- {
-  "repo": "skills",
-  "date": "2026-07-18",
-  "subject": "Document the marketing-ideas 139 vs 140 discrepancy inline",
-  "ins": 1,
-  "del": 1,
-  "files": 1
- },
- {
-  "repo": "skills",
-  "date": "2026-07-18",
-  "subject": "Clarify Hermes attribution, fix marketingskills count, add tool-availability HOLD steps",
-  "ins": 16,
-  "del": 8,
-  "files": 7
- },
- {
-  "repo": "skills",
-  "date": "2026-07-18",
-  "subject": "Flag archived gsd-build reference, correct host-compat claim, trim descriptions",
-  "ins": 10,
-  "del": 10,
-  "files": 9
- },
- {
-  "repo": "skills",
-  "date": "2026-07-18",
-  "subject": "Make tool validation newline independent",
-  "ins": 9,
-  "del": 3,
-  "files": 1
- },
- {
-  "repo": "skills",
-  "date": "2026-07-18",
-  "subject": "Strengthen trading evaluation guards",
-  "ins": 9,
-  "del": 3,
-  "files": 2
- },
- {
-  "repo": "skills",
-  "date": "2026-07-18",
-  "subject": "Align CI with supported PowerShell runtime",
-  "ins": 3,
-  "del": 3,
-  "files": 2
- },
- {
-  "repo": "skills",
-  "date": "2026-07-18",
-  "subject": "Fix validation date handling in CI",
-  "ins": 13,
-  "del": 3,
-  "files": 2
- },
- {
-  "repo": "skills",
-  "date": "2026-07-18",
-  "subject": "Harden distribution and financial agent safety",
-  "ins": 68,
-  "del": 15,
-  "files": 7
- },
- {
-  "repo": "skills",
-  "date": "2026-07-18",
-  "subject": "Document and enforce agent verification guards",
-  "ins": 49,
-  "del": 4,
-  "files": 5
- },
- {
-  "repo": "skills",
-  "date": "2026-07-18",
-  "subject": "Strengthen skill verification and safety guards",
-  "ins": 82,
-  "del": 24,
-  "files": 10
- },
- {
-  "repo": "skills",
-  "date": "2026-07-18",
-  "subject": "Add personal-memory skill; correct scope-filtering pattern",
-  "ins": 72,
-  "del": 3,
-  "files": 3
- },
- {
-  "repo": "skills",
-  "date": "2026-07-18",
-  "subject": "design-report: add awesome-design-md brand-token library; curator: add Korean-specific AI-tell removal (im-not-ai)",
-  "ins": 6,
-  "del": 2,
-  "files": 3
- },
- {
-  "repo": "skills",
-  "date": "2026-07-18",
-  "subject": "curator: add brand-voice-file persistence (Step 3)",
-  "ins": 4,
-  "del": 0,
-  "files": 2
- },
- {
-  "repo": "skills",
-  "date": "2026-07-18",
-  "subject": "biz-council: add pre-build validation gate (1.5b); agent-builder: multi-source confirmation for irreversible-action workers (Step 1 item 5)",
-  "ins": 9,
-  "del": 2,
-  "files": 3
- },
- {
-  "repo": "skills",
-  "date": "2026-07-18",
-  "subject": "agent-builder: no-code/MCP boundary refinement (Zapier MCP explainer)",
-  "ins": 3,
-  "del": 1,
-  "files": 2
- },
- {
-  "repo": "skills",
-  "date": "2026-07-18",
-  "subject": "agent-builder: add workflow-vs-agent gate (Step 1.0); defer planning domain",
-  "ins": 7,
-  "del": 2,
-  "files": 3
- },
- {
-  "repo": "skills",
-  "date": "2026-07-18",
-  "subject": "Wire up validate_workspace.ps1 as a pre-commit hook",
-  "ins": 42,
-  "del": 0,
-  "files": 2
- },
- {
-  "repo": "skills",
-  "date": "2026-07-18",
-  "subject": "Fix future-dated verification labels (2026-07-19 -> 2026-07-18)",
-  "ins": 47,
-  "del": 47,
-  "files": 8
- },
- {
-  "repo": "skills",
-  "date": "2026-07-18",
-  "subject": "biz-council: add delivery-shape check (1.5a), fix README LAW 0-3->0-4",
-  "ins": 10,
-  "del": 2,
-  "files": 2
- },
- {
-  "repo": "skills",
-  "date": "2026-07-18",
-  "subject": "Add video-producer skill, LAW 4 (skill-authoring), and harden remaining skills",
-  "ins": 193,
-  "del": 73,
-  "files": 9
- },
- {
-  "repo": "skills",
-  "date": "2026-07-18",
-  "subject": "Restore verification dates corrupted to [ASSUMPTION] tag",
-  "ins": 32,
-  "del": 32,
-  "files": 6
- },
- {
-  "repo": "skills",
-  "date": "2026-07-18",
-  "subject": "Harden skill verification loops",
-  "ins": 103,
-  "del": 35,
-  "files": 10
- },
- {
-  "repo": "skills",
-  "date": "2026-07-18",
-  "subject": "Add agent-builder, distribution, curator, vibe-coder skills; harden existing skills",
-  "ins": 453,
-  "del": 29,
-  "files": 10
- },
- {
-  "repo": "hermes-agents",
-  "date": "2026-07-17",
-  "subject": "Add verification secret guard",
-  "ins": 71,
-  "del": 7,
-  "files": 4
- },
- {
-  "repo": "hermes-agents",
-  "date": "2026-07-17",
-  "subject": "Align AGENTS.md with karpathy-skills v1 guidelines, add Cursor rule, prune dead permissions",
-  "ins": 40,
-  "del": 11,
-  "files": 4
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-07-17",
-  "subject": "Record hermes verification completion",
-  "ins": 2,
-  "del": 0,
-  "files": 1
- },
- {
-  "repo": "ai_prompt",
-  "date": "2026-07-17",
-  "subject": "Add hermes_config_audit skill: self-service audit for AGENTS.md/CLAUDE.md, permissions, MCP, cross-tool refs",
-  "ins": 179,
-  "del": 1,
-  "files": 3
- },
- {
-  "repo": "skills",
-  "date": "2026-07-17",
-  "subject": "Correct license claims with folder-level verification, add .gitignore, soften genie to routing-only",
-  "ins": 22,
-  "del": 19,
-  "files": 5
- },
- {
-  "repo": "skills",
-  "date": "2026-07-17",
-  "subject": "Initial commit: genie router + biz-council + design-report skills",
-  "ins": 343,
-  "del": 0,
-  "files": 7
  }
 ];
 const SESS = {
  "daily": [
-  {
-   "date": "2026-07-17",
-   "claude-code": 4,
-   "codex": 1,
-   "total": 5
-  },
-  {
-   "date": "2026-07-18",
-   "claude-code": 3,
-   "codex": 1,
-   "total": 4
-  },
   {
    "date": "2026-07-19",
    "claude-code": 4,
@@ -3085,8 +2833,8 @@ const SESS = {
   {
    "date": "2026-07-21",
    "claude-code": 3,
-   "codex": 1,
-   "total": 4
+   "codex": 0,
+   "total": 3
   },
   {
    "date": "2026-07-22",
@@ -3109,68 +2857,68 @@ const SESS = {
   {
    "date": "2026-07-25",
    "claude-code": 2,
-   "codex": 1,
-   "total": 3
+   "codex": 0,
+   "total": 2
   },
   {
    "date": "2026-07-26",
    "claude-code": 2,
-   "codex": 1,
-   "total": 3
+   "codex": 0,
+   "total": 2
   },
   {
    "date": "2026-07-27",
    "claude-code": 4,
-   "codex": 1,
-   "total": 5
+   "codex": 0,
+   "total": 4
   },
   {
    "date": "2026-07-28",
    "claude-code": 3,
-   "codex": 3,
-   "total": 6
+   "codex": 0,
+   "total": 3
   },
   {
    "date": "2026-07-29",
    "claude-code": 6,
-   "codex": 5,
-   "total": 11
+   "codex": 0,
+   "total": 6
   },
   {
    "date": "2026-07-30",
    "claude-code": 7,
-   "codex": 4,
-   "total": 11
+   "codex": 0,
+   "total": 7
   },
   {
    "date": "2026-07-31",
    "claude-code": 5,
-   "codex": 3,
-   "total": 8
+   "codex": 0,
+   "total": 5
   },
   {
    "date": "2026-08-01",
    "claude-code": 1,
-   "codex": 1,
-   "total": 2
+   "codex": 0,
+   "total": 1
   },
   {
    "date": "2026-08-02",
    "claude-code": 2,
-   "codex": 2,
-   "total": 4
+   "codex": 0,
+   "total": 2
   },
   {
    "date": "2026-08-03",
    "claude-code": 3,
-   "codex": 1,
-   "total": 4
+   "codex": 0,
+   "total": 3
   },
   {
    "date": "2026-08-04",
    "claude-code": 4,
-   "codex": 2,
-   "total": 6
+   "codex": 0,
+   "total": 4
   },
   {
    "date": "2026-08-05",
@@ -3181,8 +2929,8 @@ const SESS = {
   {
    "date": "2026-08-06",
    "claude-code": 4,
-   "codex": 1,
-   "total": 5
+   "codex": 0,
+   "total": 4
   },
   {
    "date": "2026-08-07",
@@ -3193,26 +2941,26 @@ const SESS = {
   {
    "date": "2026-08-08",
    "claude-code": 0,
-   "codex": 1,
-   "total": 1
+   "codex": 0,
+   "total": 0
   },
   {
    "date": "2026-08-09",
    "claude-code": 1,
-   "codex": 1,
-   "total": 2
+   "codex": 0,
+   "total": 1
   },
   {
    "date": "2026-08-10",
    "claude-code": 2,
-   "codex": 1,
-   "total": 3
+   "codex": 0,
+   "total": 2
   },
   {
    "date": "2026-08-11",
    "claude-code": 1,
-   "codex": 1,
-   "total": 2
+   "codex": 0,
+   "total": 1
   },
   {
    "date": "2026-08-12",
@@ -3229,14 +2977,26 @@ const SESS = {
   {
    "date": "2026-08-14",
    "claude-code": 2,
+   "codex": 0,
+   "total": 2
+  },
+  {
+   "date": "2026-08-15",
+   "claude-code": 2,
    "codex": 1,
    "total": 3
   },
   {
-   "date": "2026-08-15",
+   "date": "2026-08-16",
+   "claude-code": 3,
+   "codex": 4,
+   "total": 7
+  },
+  {
+   "date": "2026-08-17",
    "claude-code": 1,
-   "codex": 1,
-   "total": 2
+   "codex": 0,
+   "total": 1
   }
  ],
  "tools": [
@@ -3244,8 +3004,8 @@ const SESS = {
   "codex"
  ],
  "tool_totals": {
-  "claude-code": 82,
-  "codex": 34
+  "claude-code": 80,
+  "codex": 5
  },
  "dow_names": [
   "월",
@@ -3258,42 +3018,96 @@ const SESS = {
  ],
  "dow_series": {
   "claude-code": [
-   13,
+   14,
    11,
    10,
    15,
-   17,
-   7,
-   9
+   13,
+   5,
+   12
   ],
   "codex": [
-   3,
-   7,
-   5,
-   5,
-   5,
-   5,
+   0,
+   0,
+   0,
+   0,
+   0,
+   1,
    4
   ]
  },
- "busiest_date": "2026-07-29",
- "busiest_count": 11,
- "active_days": 28,
+ "busiest_date": "2026-07-30",
+ "busiest_count": 7,
+ "active_days": 27,
  "total_days": 30,
- "start_date": "2026-07-17",
- "end_date": "2026-08-15",
- "total_sessions": 116,
+ "start_date": "2026-07-19",
+ "end_date": "2026-08-17",
+ "total_sessions": 85,
  "rows": [
+  {
+   "tool": "claude-code",
+   "date": "2026-08-17",
+   "label": "hermes-agents",
+   "lines": 1660
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-08-16",
+   "label": "hermes-agents",
+   "lines": 49
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-08-16",
+   "label": "hermes-agents",
+   "lines": 246
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-08-16",
+   "label": "hermes-agents",
+   "lines": 130
+  },
+  {
+   "tool": "codex",
+   "date": "2026-08-16",
+   "label": "차가운 안녕 뮤직비디오 제작",
+   "lines": 0
+  },
+  {
+   "tool": "codex",
+   "date": "2026-08-16",
+   "label": "Cowork로 게임 제작",
+   "lines": 0
+  },
+  {
+   "tool": "codex",
+   "date": "2026-08-16",
+   "label": "AI 브라우저 정보",
+   "lines": 0
+  },
+  {
+   "tool": "codex",
+   "date": "2026-08-16",
+   "label": "AI 사업 프로젝트 검색",
+   "lines": 0
+  },
   {
    "tool": "claude-code",
    "date": "2026-08-15",
    "label": "hermes-agents",
-   "lines": 139
+   "lines": 131
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-08-15",
+   "label": "hermes-agents",
+   "lines": 276
   },
   {
    "tool": "codex",
    "date": "2026-08-15",
-   "label": "Run full verification loop",
+   "label": "제거 대상 확인",
    "lines": 0
   },
   {
@@ -3309,22 +3123,10 @@ const SESS = {
    "lines": 598
   },
   {
-   "tool": "codex",
-   "date": "2026-08-14",
-   "label": "Run full skills regression loop",
-   "lines": 0
-  },
-  {
    "tool": "claude-code",
    "date": "2026-08-11",
    "label": "hermes-agents",
    "lines": 198
-  },
-  {
-   "tool": "codex",
-   "date": "2026-08-11",
-   "label": "Run verification regression loops",
-   "lines": 0
   },
   {
    "tool": "claude-code",
@@ -3339,28 +3141,10 @@ const SESS = {
    "lines": 62
   },
   {
-   "tool": "codex",
-   "date": "2026-08-10",
-   "label": "전체 검증 및 회귀루프 진행",
-   "lines": 0
-  },
-  {
    "tool": "claude-code",
    "date": "2026-08-09",
    "label": "hermes-agents",
    "lines": 179
-  },
-  {
-   "tool": "codex",
-   "date": "2026-08-09",
-   "label": "Run full verification loop",
-   "lines": 0
-  },
-  {
-   "tool": "codex",
-   "date": "2026-08-08",
-   "label": "Run full project regression loop",
-   "lines": 0
   },
   {
    "tool": "claude-code",
@@ -3405,12 +3189,6 @@ const SESS = {
    "lines": 36
   },
   {
-   "tool": "codex",
-   "date": "2026-08-06",
-   "label": "Run full regression loop",
-   "lines": 0
-  },
-  {
    "tool": "claude-code",
    "date": "2026-08-05",
    "label": "hermes-agents",
@@ -3441,18 +3219,6 @@ const SESS = {
    "lines": 8
   },
   {
-   "tool": "codex",
-   "date": "2026-08-04",
-   "label": "Run ai_good_usage verification loop",
-   "lines": 0
-  },
-  {
-   "tool": "codex",
-   "date": "2026-08-04",
-   "label": "진행 검증·회귀 루프",
-   "lines": 0
-  },
-  {
    "tool": "claude-code",
    "date": "2026-08-03",
    "label": "hermes-agents",
@@ -3471,12 +3237,6 @@ const SESS = {
    "lines": 538
   },
   {
-   "tool": "codex",
-   "date": "2026-08-03",
-   "label": "검증·회귀 루프 진행",
-   "lines": 0
-  },
-  {
    "tool": "claude-code",
    "date": "2026-08-02",
    "label": "hermes-agents",
@@ -3489,28 +3249,10 @@ const SESS = {
    "lines": 114
   },
   {
-   "tool": "codex",
-   "date": "2026-08-02",
-   "label": "Run full Hermes regression loop",
-   "lines": 0
-  },
-  {
-   "tool": "codex",
-   "date": "2026-08-02",
-   "label": "Run full verification loop",
-   "lines": 0
-  },
-  {
    "tool": "claude-code",
    "date": "2026-08-01",
    "label": "hermes-agents",
    "lines": 1537
-  },
-  {
-   "tool": "codex",
-   "date": "2026-08-01",
-   "label": "Validate ai_test1 project",
-   "lines": 0
   },
   {
    "tool": "claude-code",
@@ -3541,24 +3283,6 @@ const SESS = {
    "date": "2026-07-31",
    "label": "hermes-agents",
    "lines": 920
-  },
-  {
-   "tool": "codex",
-   "date": "2026-07-31",
-   "label": "전체 검증 회귀 루프 진행",
-   "lines": 0
-  },
-  {
-   "tool": "codex",
-   "date": "2026-07-31",
-   "label": "채용공고 JSON 수집 구현",
-   "lines": 0
-  },
-  {
-   "tool": "codex",
-   "date": "2026-07-31",
-   "label": "Run music skills regression loop",
-   "lines": 0
   },
   {
    "tool": "claude-code",
@@ -3603,30 +3327,6 @@ const SESS = {
    "lines": 261
   },
   {
-   "tool": "codex",
-   "date": "2026-07-30",
-   "label": "전체 검증루프 진행",
-   "lines": 0
-  },
-  {
-   "tool": "codex",
-   "date": "2026-07-30",
-   "label": "Run skills verification loop",
-   "lines": 0
-  },
-  {
-   "tool": "codex",
-   "date": "2026-07-30",
-   "label": "Run full verification loop",
-   "lines": 0
-  },
-  {
-   "tool": "codex",
-   "date": "2026-07-30",
-   "label": "전체 검증 및 회귀루프 진행",
-   "lines": 0
-  },
-  {
    "tool": "claude-code",
    "date": "2026-07-29",
    "label": "hermes-agents",
@@ -3663,36 +3363,6 @@ const SESS = {
    "lines": 919
   },
   {
-   "tool": "codex",
-   "date": "2026-07-29",
-   "label": "Run full verification loop",
-   "lines": 0
-  },
-  {
-   "tool": "codex",
-   "date": "2026-07-29",
-   "label": "Run full regression validation",
-   "lines": 0
-  },
-  {
-   "tool": "codex",
-   "date": "2026-07-29",
-   "label": "전체 검증 루프 진행",
-   "lines": 0
-  },
-  {
-   "tool": "codex",
-   "date": "2026-07-29",
-   "label": "전체 검증 루프 진행",
-   "lines": 0
-  },
-  {
-   "tool": "codex",
-   "date": "2026-07-29",
-   "label": "Run full verification loop",
-   "lines": 0
-  },
-  {
    "tool": "claude-code",
    "date": "2026-07-28",
    "label": "hermes-agents",
@@ -3709,24 +3379,6 @@ const SESS = {
    "date": "2026-07-28",
    "label": "hermes-agents",
    "lines": 1143
-  },
-  {
-   "tool": "codex",
-   "date": "2026-07-28",
-   "label": "Verify validation loop updates",
-   "lines": 0
-  },
-  {
-   "tool": "codex",
-   "date": "2026-07-28",
-   "label": "Run full verification loop",
-   "lines": 0
-  },
-  {
-   "tool": "codex",
-   "date": "2026-07-28",
-   "label": "Run full verification loop",
-   "lines": 0
   },
   {
    "tool": "claude-code",
@@ -3753,12 +3405,6 @@ const SESS = {
    "lines": 434
   },
   {
-   "tool": "codex",
-   "date": "2026-07-27",
-   "label": "Run full regression validation",
-   "lines": 0
-  },
-  {
    "tool": "claude-code",
    "date": "2026-07-26",
    "label": "hermes-agents",
@@ -3771,12 +3417,6 @@ const SESS = {
    "lines": 1439
   },
   {
-   "tool": "codex",
-   "date": "2026-07-26",
-   "label": "Run skills regression loop",
-   "lines": 0
-  },
-  {
    "tool": "claude-code",
    "date": "2026-07-25",
    "label": "hermes-agents",
@@ -3787,12 +3427,6 @@ const SESS = {
    "date": "2026-07-25",
    "label": "hermes-agents",
    "lines": 711
-  },
-  {
-   "tool": "codex",
-   "date": "2026-07-25",
-   "label": "Run aim_music_app verification loop",
-   "lines": 0
   },
   {
    "tool": "claude-code",
@@ -3873,12 +3507,6 @@ const SESS = {
    "lines": 280
   },
   {
-   "tool": "codex",
-   "date": "2026-07-21",
-   "label": "Verify music_skills_trot loop",
-   "lines": 0
-  },
-  {
    "tool": "claude-code",
    "date": "2026-07-20",
    "label": "hermes-agents",
@@ -3925,60 +3553,6 @@ const SESS = {
    "date": "2026-07-19",
    "label": "hermes-agents-ai-prompt",
    "lines": 568
-  },
-  {
-   "tool": "claude-code",
-   "date": "2026-07-18",
-   "label": "hermes-agents",
-   "lines": 199
-  },
-  {
-   "tool": "claude-code",
-   "date": "2026-07-18",
-   "label": "hermes-agents",
-   "lines": 2874
-  },
-  {
-   "tool": "claude-code",
-   "date": "2026-07-18",
-   "label": "skills",
-   "lines": 809
-  },
-  {
-   "tool": "codex",
-   "date": "2026-07-18",
-   "label": "C:\\Users\\cs930\\Desktop\\skills 전체 검증루프 확인하시오.",
-   "lines": 0
-  },
-  {
-   "tool": "claude-code",
-   "date": "2026-07-17",
-   "label": "hermes-agents",
-   "lines": 716
-  },
-  {
-   "tool": "claude-code",
-   "date": "2026-07-17",
-   "label": "hermes-agents",
-   "lines": 318
-  },
-  {
-   "tool": "claude-code",
-   "date": "2026-07-17",
-   "label": "hermes-agents",
-   "lines": 722
-  },
-  {
-   "tool": "claude-code",
-   "date": "2026-07-17",
-   "label": "hermes-agents",
-   "lines": 3340
-  },
-  {
-   "tool": "codex",
-   "date": "2026-07-17",
-   "label": "프로젝트 검증",
-   "lines": 0
   }
  ]
 };
