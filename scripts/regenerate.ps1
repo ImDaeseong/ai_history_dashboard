@@ -2,7 +2,7 @@
 # commits and pushes to origin/main (GitHub Pages redeploys automatically).
 #
 # Run manually:   powershell -File scripts\regenerate.ps1
-# Or from Task Scheduler (see README.md "자동 갱신" section for setup).
+# Or double-click scripts\publish.bat (see README.md "갱신").
 
 $ErrorActionPreference = "Stop"
 $repoRoot = Split-Path -Parent $PSScriptRoot
