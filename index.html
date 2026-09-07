@@ -817,18 +817,18 @@ const AGG = {
   },
   {
    "date": "2026-09-07",
-   "ai_history_dashboard": 12,
-   "ai_test": 0,
+   "ai_history_dashboard": 13,
+   "ai_test": 1,
    "ai_test1": 0,
    "ai_test2": 0,
    "career": 0,
-   "hermes-agents": 7,
-   "ai-workspace": 3,
+   "hermes-agents": 9,
+   "ai-workspace": 5,
    "ai_prompt": 2,
    "llm-wiki": 0,
-   "qa_manager": 1,
+   "qa_manager": 2,
    "skills": 1,
-   "total": 26
+   "total": 33
   }
  ],
  "repos": [
@@ -844,25 +844,25 @@ const AGG = {
   "qa_manager",
   "skills"
  ],
- "total_commits": 138,
- "total_ins": 30186,
- "total_del": 10979,
- "total_files": 666,
+ "total_commits": 145,
+ "total_ins": 31012,
+ "total_del": 11163,
+ "total_files": 684,
  "repo_totals": {
-  "ai_history_dashboard": 17,
-  "ai_test": 6,
+  "ai_history_dashboard": 18,
+  "ai_test": 7,
   "ai_test1": 16,
   "ai_test2": 9,
   "career": 0,
-  "hermes-agents": 31,
-  "ai-workspace": 19,
+  "hermes-agents": 33,
+  "ai-workspace": 21,
   "ai_prompt": 9,
   "llm-wiki": 1,
-  "qa_manager": 10,
+  "qa_manager": 11,
   "skills": 20
  },
  "dow_series": [
-  61,
+  68,
   3,
   3,
   9,
@@ -879,14 +879,22 @@ const AGG = {
   "토",
   "일"
  ],
- "busiest_date": "2026-08-17",
- "busiest_count": 28,
+ "busiest_date": "2026-09-07",
+ "busiest_count": 33,
  "active_days": 21,
  "total_days": 30,
  "start_date": "2026-08-09",
  "end_date": "2026-09-07"
 };
 const COMMITS = [
+ {
+  "repo": "ai_history_dashboard",
+  "date": "2026-09-07",
+  "subject": "Restore original hand-designed HTML instead of generic markdown conversion",
+  "ins": 520,
+  "del": 145,
+  "files": 5
+ },
  {
   "repo": "ai_history_dashboard",
   "date": "2026-09-07",
@@ -984,6 +992,30 @@ const COMMITS = [
   "files": 1
  },
  {
+  "repo": "ai_test",
+  "date": "2026-09-07",
+  "subject": "Exclude weather_alarm's project-local pytest temp directory",
+  "ins": 1,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-09-07",
+  "subject": "Add advisory HANDOFF freshness guard (10th guard)",
+  "ins": 214,
+  "del": 10,
+  "files": 5
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-09-07",
+  "subject": "Add all-project scope discovery step to hermes-start skill",
+  "ins": 8,
+  "del": 0,
+  "files": 1
+ },
+ {
   "repo": "hermes-agents",
   "date": "2026-09-07",
   "subject": "Fix README link left pointing at the deleted .html file",
@@ -1042,6 +1074,22 @@ const COMMITS = [
  {
   "repo": "ai-workspace",
   "date": "2026-09-07",
+  "subject": "Record weather_alarm HOLD resolution in HANDOFF and daily-log",
+  "ins": 54,
+  "del": 0,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-09-07",
+  "subject": "Record task-observer weekly review session in Current State",
+  "ins": 1,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-09-07",
   "subject": "Consolidate today's HANDOFF entry with full session scope",
   "ins": 1,
   "del": 1,
@@ -1078,6 +1126,14 @@ const COMMITS = [
   "ins": 131,
   "del": 418,
   "files": 16
+ },
+ {
+  "repo": "qa_manager",
+  "date": "2026-09-07",
+  "subject": "Fix weather-alarm-tests HOLD: pin pytest to a project-local temp dir",
+  "ins": 28,
+  "del": 29,
+  "files": 3
  },
  {
   "repo": "qa_manager",
@@ -2170,9 +2226,9 @@ const SESS = {
   },
   {
    "date": "2026-09-07",
-   "claude-code": 0,
-   "codex": 0,
-   "total": 0
+   "claude-code": 1,
+   "codex": 1,
+   "total": 2
   }
  ],
  "tools": [
@@ -2180,8 +2236,8 @@ const SESS = {
   "codex"
  ],
  "tool_totals": {
-  "claude-code": 41,
-  "codex": 16
+  "claude-code": 42,
+  "codex": 17
  },
  "dow_names": [
   "월",
@@ -2194,7 +2250,7 @@ const SESS = {
  ],
  "dow_series": {
   "claude-code": [
-   7,
+   8,
    6,
    4,
    3,
@@ -2203,7 +2259,7 @@ const SESS = {
    7
   ],
   "codex": [
-   0,
+   1,
    2,
    0,
    3,
@@ -2214,12 +2270,24 @@ const SESS = {
  },
  "busiest_date": "2026-08-16",
  "busiest_count": 7,
- "active_days": 20,
+ "active_days": 21,
  "total_days": 30,
  "start_date": "2026-08-09",
  "end_date": "2026-09-07",
- "total_sessions": 57,
+ "total_sessions": 59,
  "rows": [
+  {
+   "tool": "claude-code",
+   "date": "2026-09-07",
+   "label": "hermes-agents",
+   "lines": 925
+  },
+  {
+   "tool": "codex",
+   "date": "2026-09-07",
+   "label": "전체 프로젝트 루프 진행",
+   "lines": 0
+  },
   {
    "tool": "claude-code",
    "date": "2026-09-06",
@@ -2230,7 +2298,7 @@ const SESS = {
    "tool": "claude-code",
    "date": "2026-09-06",
    "label": "hermes-agents",
-   "lines": 2499
+   "lines": 2543
   },
   {
    "tool": "codex",
