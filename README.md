@@ -25,7 +25,7 @@ Claude Code / Codex 세션 활동과 Desktop 아래 모든 git 저장소의 커�
 
 | 방법 | 하는 일 |
 |---|---|
-| `scripts\regenerate.bat` 더블클릭 | `index.html`과 구조 문서 2종 갱신 (git 조작 없음) |
+| `scripts\regenerate.bat` 더블클릭 | `index.html` 갱신 (git 조작 없음) |
 | `scripts\publish.bat` 더블클릭 | 갱신 + 변경 시 커밋·푸시 |
 
 터미널에서 직접 실행하려면 각각 `node scripts/regenerate.js`, `powershell -File scripts/regenerate.ps1`.
@@ -36,7 +36,7 @@ Settings → Pages → Source: `Deploy from a branch` → Branch: `main` / `/(ro
 
 ## 관련 구조 문서
 
-원본은 hermes-agents의 `.md`(Mermaid 다이어그램 포함)이며, `regenerate`/`publish` 실행 때마다 이 저장소용 `.html`로 변환해 갱신됩니다 — GitHub Pages는 `.md`를 그대로 텍스트로만 서빙해 Mermaid가 안 그려지므로, 이 저장소에서는 링크를 Pages 주소로 엽니다.
+hermes-agents의 구조를 정리한 손으로 디자인한 페이지(커스텀 SVG 다이어그램)입니다. hermes-agents 쪽 원본은 `.md`(Mermaid)로 관리되지만, 그 다이어그램 자체는 마크다운에서 기계적으로 뽑아낼 수 없어 `regenerate.js`가 자동 변환하지 않습니다 — hermes-agents의 저장소 구조가 실제로 바뀔 때만 이 두 파일을 손으로 갱신합니다.
 
 - [hermes-workspace-structure.html](https://imdaeseong.github.io/ai_history_dashboard/hermes-workspace-structure.html) — 저장소별 역할 분담과 새 프로젝트 생성 흐름
 - [hermes-agent-architecture.html](https://imdaeseong.github.io/ai_history_dashboard/hermes-agent-architecture.html) — 요청 하나가 하네스→규칙→도구/스킬→메모리→커밋 게이트를 거쳐 산출물이 되는 내부 처리 흐름
