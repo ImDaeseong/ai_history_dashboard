@@ -35,3 +35,10 @@ Claude Code / Codex 세션 활동과 4개 저장소 git 커밋 활동을 한눈�
 ## Pages 설정
 
 Settings → Pages → Source: `Deploy from a branch` → Branch: `main` / `/(root)`
+
+## 관련 구조 문서
+
+이 대시보드가 집계하는 저장소들의 역할 분담과 구조는 그림으로 정리돼 있습니다. `hermes-agents`가 비공개 저장소라 아래 링크는 로컬에 두 저장소를 나란히 클론해 둔 상태(`Desktop/ai_history_dashboard`, `Desktop/hermes-agents`)에서만 열립니다.
+
+- [hermes-workspace-structure.html](../hermes-agents/hermes-workspace-structure.html) — 4개 저장소(hermes-agents/ai-workspace/ai_prompt/skills) 역할 분담과 새 프로젝트 생성 흐름
+- [hermes-agent-architecture.html](../hermes-agents/hermes-agent-architecture.html) — 하나의 요청이 하네스→규칙→도구/스킬→메모리→커밋 게이트를 거쳐 산출물로 나오는 내부 처리 흐름
