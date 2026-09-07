@@ -36,7 +36,5 @@ Settings → Pages → Source: `Deploy from a branch` → Branch: `main` / `/(ro
 
 ## 관련 구조 문서
 
-집계 대상 저장소들의 역할 분담과 구조도. 원본은 비공개 저장소 `hermes-agents`에 있고 아래는 그 시점의 사본이라 자동 갱신되지 않습니다. 링크는 반드시 Pages 주소로 열어야 렌더링됩니다(저장소 파일 목록에서 직접 열면 GitHub가 소스 코드로만 보여줍니다).
-
 - [hermes-workspace-structure.html](https://imdaeseong.github.io/ai_history_dashboard/hermes-workspace-structure.html) — 4개 저장소 역할 분담과 새 프로젝트 생성 흐름
 - [hermes-agent-architecture.html](https://imdaeseong.github.io/ai_history_dashboard/hermes-agent-architecture.html) — 요청 하나가 하네스→규칙→도구/스킬→메모리→커밋 게이트를 거쳐 산출물이 되는 내부 처리 흐름
