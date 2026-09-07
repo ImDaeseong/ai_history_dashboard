@@ -36,7 +36,7 @@ Settings → Pages → Source: `Deploy from a branch` → Branch: `main` / `/(ro
 
 ## 관련 구조 문서
 
-`regenerate`/`publish` 실행 때마다 hermes-agents에서 최신 버전으로 갱신됩니다.
+원본은 hermes-agents의 `.md`(Mermaid 다이어그램 포함)이며, `regenerate`/`publish` 실행 때마다 이 저장소용 `.html`로 변환해 갱신됩니다 — GitHub Pages는 `.md`를 그대로 텍스트로만 서빙해 Mermaid가 안 그려지므로, 이 저장소에서는 링크를 Pages 주소로 엽니다.
 
-- [hermes-workspace-structure.md](hermes-workspace-structure.md) — 저장소별 역할 분담과 새 프로젝트 생성 흐름
-- [hermes-agent-architecture.md](hermes-agent-architecture.md) — 요청 하나가 하네스→규칙→도구/스킬→메모리→커밋 게이트를 거쳐 산출물이 되는 내부 처리 흐름
+- [hermes-workspace-structure.html](https://imdaeseong.github.io/ai_history_dashboard/hermes-workspace-structure.html) — 저장소별 역할 분담과 새 프로젝트 생성 흐름
+- [hermes-agent-architecture.html](https://imdaeseong.github.io/ai_history_dashboard/hermes-agent-architecture.html) — 요청 하나가 하네스→규칙→도구/스킬→메모리→커밋 게이트를 거쳐 산출물이 되는 내부 처리 흐름

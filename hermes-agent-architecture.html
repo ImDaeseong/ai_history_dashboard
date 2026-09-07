@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>에이전트 하나가 아니라, 에이전트를 만드는 공장</title>
+<script src="https://cdn.jsdelivr.net/npm/marked@12/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<style>
+  :root{ color-scheme: light; --bg:#f4f6fb; --surface:#ffffff; --text:#20232b; --muted:#666c7a; --border:#e3e7f0; --link:#7c3aed; }
+  @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ color-scheme: dark; --bg:#14161c; --surface:#1c1f27; --text:#eef0f5; --muted:#9aa0b0; --border:#31353f; --link:#a78bfa; } }
+  :root[data-theme="dark"]{ color-scheme: dark; --bg:#14161c; --surface:#1c1f27; --text:#eef0f5; --muted:#9aa0b0; --border:#31353f; --link:#a78bfa; }
+  *{box-sizing:border-box;}
+  body{margin:0; background:var(--bg); color:var(--text); font-family:-apple-system,"Noto Sans KR",sans-serif; line-height:1.7;}
+  .wrap{max-width:900px; margin:0 auto; padding:44px 24px 80px;}
+  h1{font-size:28px;} h2{font-size:20px; margin-top:36px;}
+  a{color:var(--link);}
+  table{border-collapse:collapse; width:100%; margin:16px 0; background:var(--surface); border:1px solid var(--border); border-radius:10px; overflow:hidden;}
+  th,td{border-bottom:1px solid var(--border); padding:8px 12px; text-align:left; font-size:14px;}
+  th{background:var(--bg); font-weight:700;}
+  code{background:var(--bg); padding:1px 6px; border-radius:4px; font-size:0.9em; font-family:ui-monospace,"SFMono-Regular",monospace;}
+  pre code{background:none; padding:0;}
+  .mermaid{background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:20px; margin:16px 0; overflow-x:auto;}
+  hr{border:none; border-top:1px solid var(--border); margin:32px 0;}
+</style>
+</head>
+<body>
+<div class="wrap" id="content"></div>
+<script>
+  const md = "# 에이전트 하나가 아니라, 에이전트를 만드는 공장\n\n이 저장소는 Claude Code와 Codex, 두 개의 코딩 에이전트가 **같은 규칙 하나**를 보고 움직이도록 설계돼 있습니다. 요청이 들어와서 실제로 무언가로 나오기까지, 6단계를 순서대로 따라가 보세요.\n\n| 하네스 | MCP 도구 | 위원회 에이전트 | 스킬 자산 | 자동 안전 가드 |\n|---|---|---|---|---|\n| 2 | 16 | 5 | 143 | 10 |\n\n## 구조도 — 요청 하나가 지나가는 길\n\n```mermaid\nflowchart TB\n    A[\"1 · 하네스 진입<br/><small>Claude Code · Codex CLI — 어느 쪽으로 시작해도 동일</small>\"]\n    B[\"2 · 공유 규칙<br/><small>AGENTS.md — 두 하네스가 보는 원본은 하나</small>\"]\n    C1[\"스킬 143개<br/><small>/spec · /plan</small>\"]\n    C2[\"위원회 5인<br/><small>committee 서브에이전트</small>\"]\n    C3[\"MCP 도구 16개<br/><small>AI모델·검색·음악·영상·소셜</small>\"]\n    D[\"4 · 메모리 레이어<br/><small>MEMORY.md · 코드 지식그래프 · 세션 타임라인 · 자기개선 로그</small>\"]\n    E[\"5 · 커밋 게이트<br/><small>자동 가드 10종 — 하나라도 실패하면 커밋 자체가 막힘</small>\"]\n    F1[\"Telegram 봇<br/><small>운영 중</small>\"]\n    F2[\"pydantic-agent<br/><small>설계완료·대기중</small>\"]\n    F3[\"외부 프로젝트<br/><small>스킬만 가져다 씀</small>\"]\n\n    A --> B\n    B --> C1\n    B --> C2\n    B --> C3\n    C1 --> D\n    C2 --> D\n    C3 --> D\n    D --> E\n    E --> F1\n    E --> F2\n    E --> F3\n```\n\n색이 곧 단계입니다 — 하네스 → 규칙 → 도구·역할·스킬(3갈래) → 메모리 → 커밋 게이트 → 산출물(3갈래). 아래는 각 박스를 실제 파일·경로로 풀어 쓴 내용입니다.\n\n## 단계별 자세히\n\n**1 · 둘 중 하나로 들어온다** — 어느 쪽으로 시작해도 뒤 과정은 동일합니다.\n- `Claude Code` — VS Code / CLI\n- `Codex CLI` — OpenAI 하네스\n\n**2 · 같은 규칙 하나를 본다** — 두 하네스가 각자 다른 규칙을 따르면 결과가 갈립니다. 그래서 원본은 하나뿐입니다.\n- `AGENTS.md` — 코드 원칙·검증 방식·리뷰 기준\n\n**3 · 도구·역할·스킬을 꺼내 쓴다** — 필요에 따라 조합해서 쓰는 재료들입니다.\n- `MCP 도구 16개` — AI 모델·검색·음악·영상·소셜 연동\n- `위원회 5인` — ai-expert·developer·business·marketing·designer-ux\n- `스킬 143개` — 프로젝트 5 + 개인 114 + 공개 저장소 29\n\n**4 · 세션을 넘어 기억한다** — 대화가 끝나도 사라지지 않는 4갈래 기억입니다.\n- `MEMORY.md` — 검증된 사실 (장기)\n- `codebase-memory-mcp` — 코드 지식그래프\n- `claude-mem` — 세션 타임라인\n- `skill-observations` — 스킬 자기개선 로그\n\n**5 · 커밋 전에 10개 문을 통과한다** — 사람이 매번 확인하지 않아도, 규칙을 어기면 여기서 자동으로 막힙니다.\n- 설정 무결성·시크릿 탐지·changelog 동기화 등 6종\n- 두 하네스 미러 정합성 4종 (MCP·위원회·커맨드·문서)\n\n**6 · 실제로 무언가가 된다** — 지금까지 이어진 구조가 최종적으로 만들어내는 것들입니다.\n- `Telegram 봇` — 운영 중\n- `pydantic-agent` — 설계는 끝, 트리거 대기 중 (ADR-001)\n- 외부 콘텐츠 프로젝트가 스킬을 가져다 씀\n\n## 그래서, 에이전트를 만들 수 있나?\n\n네. 다만 조립된 모습은 \"에이전트 1개\"가 아니라 \"에이전트를 계속 안전하게 만들어내는 공장\"에 가깝습니다.\n\n- ✅ **재료는 충분** — 도구·역할·스킬이 이미 연결돼 있어 새 에이전트를 만들 때 처음부터 짤 필요가 없습니다.\n- ✅ **안전장치 내장** — 최소권한·자동 가드·미러 동기화가 구조 자체에 박혀 있어 실수가 조용히 커지지 않습니다.\n- ⚠️ **완성품은 아직 적음** — 실제로 다 끝난 건 Telegram 봇 1개뿐 — 나머지는 재료거나 대기 중입니다.\n- 🎯 **다음 병목** — 도구가 아니라 \"만들다 만 것\"을 끝까지 미는 실행력입니다.\n\n---\n\nhermes-agents 저장소의 실제 설정 파일(.mcp.json, .claude/, .codex/, scripts/, AGENTS.md, mcp_manager/, bots/)을 직접 읽어 작성 · 2026-09-05 기준, 수치는 파일 개수를 그대로 센 것이라 변동될 수 있습니다.\n";
+  const container = document.getElementById('content');
+  container.innerHTML = marked.parse(md);
+  container.querySelectorAll('code.language-mermaid').forEach(code => {
+    const div = document.createElement('div');
+    div.className = 'mermaid';
+    div.textContent = code.textContent;
+    code.closest('pre').replaceWith(div);
+  });
+  mermaid.initialize({ startOnLoad: false });
+  mermaid.run({ querySelector: '.mermaid' });
+</script>
+</body>
+</html>

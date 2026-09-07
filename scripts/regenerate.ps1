@@ -14,7 +14,7 @@ if ($LASTEXITCODE -ne 0) {
     exit 1
 }
 
-git add index.html hermes-workspace-structure.md hermes-agent-architecture.md
+git add index.html hermes-workspace-structure.html hermes-agent-architecture.html
 $diff = git diff --cached --stat
 if ([string]::IsNullOrWhiteSpace($diff)) {
     Write-Host "No changes since last run — nothing to commit."

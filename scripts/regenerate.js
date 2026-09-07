@@ -19,18 +19,74 @@ const HOME = os.homedir();
 const REPO_ROOT = path.resolve(__dirname, '..');
 const INDEX_HTML = path.join(REPO_ROOT, 'index.html');
 
-// hermes-agents is private, so these are point-in-time copies (see README's
-// "관련 구조 문서" section) -- refreshed here so `regenerate`/`publish` keep
-// them current without a separate manual step.
-const STRUCTURE_DOCS = ['hermes-workspace-structure.md', 'hermes-agent-architecture.md'];
+// hermes-agents keeps these as .md (correct there -- github.com's own blob
+// viewer renders Mermaid fences natively). But GitHub Pages serves a raw
+// .md file as plain text with NO markdown/Mermaid processing (confirmed by
+// fetching the .md copy through the live Pages URL: it showed literal
+// "# 규칙은 하나..." and a raw ```mermaid fence, not a rendered page) --
+// blob-view rendering and Pages serving are two different code paths, and
+// only one of them processes Markdown. So this repo needs a real, standalone
+// .html page instead: convert the .md source at every regenerate run using
+// CDN-loaded marked.js (markdown) + mermaid.js (diagrams), so the Pages URL
+// actually renders. hermes-agents is private, so this is a point-in-time
+// copy, not a live sync -- refreshed here on every `regenerate`/`publish`.
+const STRUCTURE_DOCS = ['hermes-workspace-structure', 'hermes-agent-architecture'];
 const HERMES_AGENTS_DIR = path.join(HOME, 'Desktop', 'hermes-agents');
+function mdToStandaloneHtml(mdText, title) {
+  return `<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>${title}</title>
+<script src="https://cdn.jsdelivr.net/npm/marked@12/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<style>
+  :root{ color-scheme: light; --bg:#f4f6fb; --surface:#ffffff; --text:#20232b; --muted:#666c7a; --border:#e3e7f0; --link:#7c3aed; }
+  @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ color-scheme: dark; --bg:#14161c; --surface:#1c1f27; --text:#eef0f5; --muted:#9aa0b0; --border:#31353f; --link:#a78bfa; } }
+  :root[data-theme="dark"]{ color-scheme: dark; --bg:#14161c; --surface:#1c1f27; --text:#eef0f5; --muted:#9aa0b0; --border:#31353f; --link:#a78bfa; }
+  *{box-sizing:border-box;}
+  body{margin:0; background:var(--bg); color:var(--text); font-family:-apple-system,"Noto Sans KR",sans-serif; line-height:1.7;}
+  .wrap{max-width:900px; margin:0 auto; padding:44px 24px 80px;}
+  h1{font-size:28px;} h2{font-size:20px; margin-top:36px;}
+  a{color:var(--link);}
+  table{border-collapse:collapse; width:100%; margin:16px 0; background:var(--surface); border:1px solid var(--border); border-radius:10px; overflow:hidden;}
+  th,td{border-bottom:1px solid var(--border); padding:8px 12px; text-align:left; font-size:14px;}
+  th{background:var(--bg); font-weight:700;}
+  code{background:var(--bg); padding:1px 6px; border-radius:4px; font-size:0.9em; font-family:ui-monospace,"SFMono-Regular",monospace;}
+  pre code{background:none; padding:0;}
+  .mermaid{background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:20px; margin:16px 0; overflow-x:auto;}
+  hr{border:none; border-top:1px solid var(--border); margin:32px 0;}
+</style>
+</head>
+<body>
+<div class="wrap" id="content"></div>
+<script>
+  const md = ${JSON.stringify(mdText)};
+  const container = document.getElementById('content');
+  container.innerHTML = marked.parse(md);
+  container.querySelectorAll('code.language-mermaid').forEach(code => {
+    const div = document.createElement('div');
+    div.className = 'mermaid';
+    div.textContent = code.textContent;
+    code.closest('pre').replaceWith(div);
+  });
+  mermaid.initialize({ startOnLoad: false });
+  mermaid.run({ querySelector: '.mermaid' });
+</script>
+</body>
+</html>
+`;
+}
 for (const name of STRUCTURE_DOCS) {
-  const src = path.join(HERMES_AGENTS_DIR, name);
-  const dest = path.join(REPO_ROOT, name);
+  const src = path.join(HERMES_AGENTS_DIR, name + '.md');
+  const dest = path.join(REPO_ROOT, name + '.html');
   try {
-    fs.copyFileSync(src, dest);
+    const mdText = fs.readFileSync(src, 'utf8');
+    const title = mdText.match(/^#\s+(.+)$/m)?.[1] ?? name;
+    fs.writeFileSync(dest, mdToStandaloneHtml(mdText, title), 'utf8');
   } catch (e) {
-    console.error(`WARNING: could not copy ${name} from hermes-agents: ${e.message.split('\n')[0]}`);
+    console.error(`WARNING: could not convert ${name}.md from hermes-agents: ${e.message.split('\n')[0]}`);
   }
 }
 
