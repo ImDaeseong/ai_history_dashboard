@@ -357,22 +357,6 @@ tbody td.num { text-align: right; font-variant-numeric: tabular-nums; white-spac
 const AGG = {
  "daily": [
   {
-   "date": "2026-08-07",
-   "hermes-agents": 0,
-   "ai-workspace": 0,
-   "ai_prompt": 1,
-   "skills": 0,
-   "total": 1
-  },
-  {
-   "date": "2026-08-08",
-   "hermes-agents": 0,
-   "ai-workspace": 0,
-   "ai_prompt": 0,
-   "skills": 0,
-   "total": 0
-  },
-  {
    "date": "2026-08-09",
    "hermes-agents": 3,
    "ai-workspace": 0,
@@ -590,11 +574,27 @@ const AGG = {
   },
   {
    "date": "2026-09-05",
-   "hermes-agents": 9,
-   "ai-workspace": 5,
-   "ai_prompt": 5,
+   "hermes-agents": 10,
+   "ai-workspace": 7,
+   "ai_prompt": 6,
    "skills": 0,
-   "total": 19
+   "total": 23
+  },
+  {
+   "date": "2026-09-06",
+   "hermes-agents": 0,
+   "ai-workspace": 1,
+   "ai_prompt": 0,
+   "skills": 8,
+   "total": 9
+  },
+  {
+   "date": "2026-09-07",
+   "hermes-agents": 5,
+   "ai-workspace": 3,
+   "ai_prompt": 2,
+   "skills": 1,
+   "total": 11
   }
  ],
  "repos": [
@@ -603,24 +603,24 @@ const AGG = {
   "ai_prompt",
   "skills"
  ],
- "total_commits": 54,
- "total_ins": 4238,
- "total_del": 711,
- "total_files": 153,
+ "total_commits": 77,
+ "total_ins": 6361,
+ "total_del": 2974,
+ "total_files": 261,
  "repo_totals": {
-  "hermes-agents": 23,
-  "ai-workspace": 13,
-  "ai_prompt": 7,
-  "skills": 11
+  "hermes-agents": 29,
+  "ai-workspace": 19,
+  "ai_prompt": 9,
+  "skills": 20
  },
  "dow_series": [
-  10,
+  21,
   2,
   2,
   4,
-  8,
-  24,
-  4
+  7,
+  28,
+  13
  ],
  "dow_names": [
   "월",
@@ -632,13 +632,181 @@ const AGG = {
   "일"
  ],
  "busiest_date": "2026-09-05",
- "busiest_count": 19,
- "active_days": 18,
+ "busiest_count": 23,
+ "active_days": 19,
  "total_days": 30,
- "start_date": "2026-08-07",
- "end_date": "2026-09-05"
+ "start_date": "2026-08-09",
+ "end_date": "2026-09-07"
 };
 const COMMITS = [
+ {
+  "repo": "hermes-agents",
+  "date": "2026-09-07",
+  "subject": "Add hermes-workspace-structure.html diagram, link from README",
+  "ins": 209,
+  "del": 1,
+  "files": 2
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-09-07",
+  "subject": "Add new_project.ps1 bootstrap script",
+  "ins": 127,
+  "del": 0,
+  "files": 2
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-09-07",
+  "subject": "Re-verify MCP_SERVERS.md harness-candidate URLs, fix stale/archived entries",
+  "ins": 4,
+  "del": 3,
+  "files": 1
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-09-07",
+  "subject": "Remove README changelog section per user request",
+  "ins": 0,
+  "del": 4,
+  "files": 1
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-09-07",
+  "subject": "Simplify hermes-agents onboarding docs, restore MCP_SERVERS reference sections",
+  "ins": 105,
+  "del": 676,
+  "files": 8
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-09-07",
+  "subject": "Consolidate today's HANDOFF entry with full session scope",
+  "ins": 1,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-09-07",
+  "subject": "Commit stray daily-log records and backfill missing HANDOFF entries",
+  "ins": 202,
+  "del": 0,
+  "files": 4
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-09-07",
+  "subject": "Recover mojibake-corrupted README and _templates governance docs",
+  "ins": 112,
+  "del": 731,
+  "files": 5
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-09-07",
+  "subject": "Fix dangling NOTICE.md reference, link skill filenames to their files",
+  "ins": 16,
+  "del": 16,
+  "files": 1
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-09-07",
+  "subject": "Simplify onboarding docs, fix dangling references, restore usage-guide research",
+  "ins": 131,
+  "del": 418,
+  "files": 16
+ },
+ {
+  "repo": "skills",
+  "date": "2026-09-07",
+  "subject": "docs: audit linked guides and clarify upstream license scope",
+  "ins": 357,
+  "del": 225,
+  "files": 16
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-09-06",
+  "subject": "Record four-project local verification (ai_test/1/2/3)",
+  "ins": 66,
+  "del": 0,
+  "files": 2
+ },
+ {
+  "repo": "skills",
+  "date": "2026-09-06",
+  "subject": "docs: trim README links and redundant guidance",
+  "ins": 28,
+  "del": 32,
+  "files": 3
+ },
+ {
+  "repo": "skills",
+  "date": "2026-09-06",
+  "subject": "docs: clarify GitHub skill provenance and license scope",
+  "ins": 4,
+  "del": 2,
+  "files": 1
+ },
+ {
+  "repo": "skills",
+  "date": "2026-09-06",
+  "subject": "Fix skill initialization and validation; simplify README",
+  "ins": 180,
+  "del": 108,
+  "files": 12
+ },
+ {
+  "repo": "skills",
+  "date": "2026-09-06",
+  "subject": "Link web-Project onboarding docs from README; fix their stale counts",
+  "ins": 59,
+  "del": 21,
+  "files": 6
+ },
+ {
+  "repo": "skills",
+  "date": "2026-09-06",
+  "subject": "Clarify SCM/CRM coverage in erp-fundamentals",
+  "ins": 8,
+  "del": 4,
+  "files": 3
+ },
+ {
+  "repo": "skills",
+  "date": "2026-09-06",
+  "subject": "Add sales-desk and founder-finance; re-search 3 other deferred domains",
+  "ins": 215,
+  "del": 9,
+  "files": 10
+ },
+ {
+  "repo": "skills",
+  "date": "2026-09-06",
+  "subject": "Fix stale skill count and runtime-dependency list in README",
+  "ins": 3,
+  "del": 3,
+  "files": 2
+ },
+ {
+  "repo": "skills",
+  "date": "2026-09-06",
+  "subject": "Add diagram-forge and footage-editor skills; evaluate 4 more repos",
+  "ins": 215,
+  "del": 5,
+  "files": 9
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-09-05",
+  "subject": "Remove stale hermes-agent-architecture.html link from README",
+  "ins": 0,
+  "del": 2,
+  "files": 1
+ },
  {
   "repo": "hermes-agents",
   "date": "2026-09-05",
@@ -714,6 +882,22 @@ const COMMITS = [
  {
   "repo": "ai-workspace",
   "date": "2026-09-05",
+  "subject": "Remove stale ai-workspace-architecture.html link from README",
+  "ins": 0,
+  "del": 2,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-09-05",
+  "subject": "Record 2026-09-05 full 12-repo project loop",
+  "ins": 85,
+  "del": 0,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-09-05",
   "subject": "Record ai_prompt F3 regression-test closure in HANDOFF/daily-log",
   "ins": 82,
   "del": 0,
@@ -750,6 +934,14 @@ const COMMITS = [
   "ins": 294,
   "del": 0,
   "files": 2
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-09-05",
+  "subject": "Remove stale ai-prompt-architecture.html link from README",
+  "ins": 0,
+  "del": 2,
+  "files": 1
  },
  {
   "repo": "ai_prompt",
@@ -1062,30 +1254,10 @@ const COMMITS = [
   "ins": 39,
   "del": 0,
   "files": 1
- },
- {
-  "repo": "ai_prompt",
-  "date": "2026-08-07",
-  "subject": "community_meta_prompter: add verified info-gap check step (/clarify)",
-  "ins": 4,
-  "del": 2,
-  "files": 2
  }
 ];
 const SESS = {
  "daily": [
-  {
-   "date": "2026-08-07",
-   "claude-code": 3,
-   "codex": 0,
-   "total": 3
-  },
-  {
-   "date": "2026-08-08",
-   "claude-code": 0,
-   "codex": 0,
-   "total": 0
-  },
   {
    "date": "2026-08-09",
    "claude-code": 1,
@@ -1250,9 +1422,21 @@ const SESS = {
   },
   {
    "date": "2026-09-05",
+   "claude-code": 4,
+   "codex": 3,
+   "total": 7
+  },
+  {
+   "date": "2026-09-06",
    "claude-code": 2,
    "codex": 1,
    "total": 3
+  },
+  {
+   "date": "2026-09-07",
+   "claude-code": 0,
+   "codex": 0,
+   "total": 0
   }
  ],
  "tools": [
@@ -1260,8 +1444,8 @@ const SESS = {
   "codex"
  ],
  "tool_totals": {
-  "claude-code": 40,
-  "codex": 13
+  "claude-code": 41,
+  "codex": 16
  },
  "dow_names": [
   "월",
@@ -1278,9 +1462,9 @@ const SESS = {
    6,
    4,
    3,
-   9,
    6,
-   5
+   8,
+   7
   ],
   "codex": [
    0,
@@ -1288,23 +1472,47 @@ const SESS = {
    0,
    3,
    2,
-   2,
-   4
+   4,
+   5
   ]
  },
  "busiest_date": "2026-08-16",
  "busiest_count": 7,
  "active_days": 20,
  "total_days": 30,
- "start_date": "2026-08-07",
- "end_date": "2026-09-05",
- "total_sessions": 53,
+ "start_date": "2026-08-09",
+ "end_date": "2026-09-07",
+ "total_sessions": 57,
  "rows": [
+  {
+   "tool": "claude-code",
+   "date": "2026-09-06",
+   "label": "hermes-agents",
+   "lines": 986
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-09-06",
+   "label": "hermes-agents",
+   "lines": 1230
+  },
+  {
+   "tool": "codex",
+   "date": "2026-09-06",
+   "label": "Resume previous work",
+   "lines": 0
+  },
   {
    "tool": "claude-code",
    "date": "2026-09-05",
    "label": "hermes-agents",
-   "lines": 1189
+   "lines": 1277
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-09-05",
+   "label": "hermes-agents",
+   "lines": 823
   },
   {
    "tool": "claude-code",
@@ -1313,9 +1521,27 @@ const SESS = {
    "lines": 889
   },
   {
+   "tool": "claude-code",
+   "date": "2026-09-05",
+   "label": "hermes-agents",
+   "lines": 241
+  },
+  {
    "tool": "codex",
    "date": "2026-09-05",
    "label": "Run detailed loop verification",
+   "lines": 0
+  },
+  {
+   "tool": "codex",
+   "date": "2026-09-05",
+   "label": "Run project loops",
+   "lines": 0
+  },
+  {
+   "tool": "codex",
+   "date": "2026-09-05",
+   "label": "검증 루프 전체 점검",
    "lines": 0
   },
   {
@@ -1599,24 +1825,6 @@ const SESS = {
    "date": "2026-08-09",
    "label": "hermes-agents",
    "lines": 179
-  },
-  {
-   "tool": "claude-code",
-   "date": "2026-08-07",
-   "label": "hermes-agents",
-   "lines": 51
-  },
-  {
-   "tool": "claude-code",
-   "date": "2026-08-07",
-   "label": "hermes-agents",
-   "lines": 1878
-  },
-  {
-   "tool": "claude-code",
-   "date": "2026-08-07",
-   "label": "hermes-agents",
-   "lines": 375
   }
  ]
 };
