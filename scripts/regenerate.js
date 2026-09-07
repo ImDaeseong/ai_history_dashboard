@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 // Regenerates the AGG / COMMITS / SESS inline JSON blocks in ../index.html
-// from local git logs (4 repos) and local Claude Code / Codex session logs.
+// from local git logs (every repo auto-discovered under Desktop, see
+// discoverRepos below) and local Claude Code / Codex session logs. Also
+// refreshes this repo's copies of hermes-agents' two structure docs.
 //
 // This script only reads local files on this machine — it cannot run in a
 // cloud CI runner, because ~/.claude/projects and ~/.codex/session_index.jsonl
@@ -17,12 +19,95 @@ const HOME = os.homedir();
 const REPO_ROOT = path.resolve(__dirname, '..');
 const INDEX_HTML = path.join(REPO_ROOT, 'index.html');
 
-const REPOS = [
-  { key: 'hermes-agents', dir: path.join(HOME, 'Desktop', 'hermes-agents') },
-  { key: 'ai-workspace', dir: path.join(HOME, 'Desktop', 'hermes-agents', 'ai-workspace') },
-  { key: 'ai_prompt', dir: path.join(HOME, 'Desktop', 'hermes-agents', 'ai_prompt') },
-  { key: 'skills', dir: path.join(HOME, 'Desktop', 'skills') },
-];
+// hermes-agents is private, so these are point-in-time copies (see README's
+// "관련 구조 문서" section) -- refreshed here so `regenerate`/`publish` keep
+// them current without a separate manual step.
+const STRUCTURE_DOCS = ['hermes-workspace-structure.md', 'hermes-agent-architecture.md'];
+const HERMES_AGENTS_DIR = path.join(HOME, 'Desktop', 'hermes-agents');
+for (const name of STRUCTURE_DOCS) {
+  const src = path.join(HERMES_AGENTS_DIR, name);
+  const dest = path.join(REPO_ROOT, name);
+  try {
+    fs.copyFileSync(src, dest);
+  } catch (e) {
+    console.error(`WARNING: could not copy ${name} from hermes-agents: ${e.message.split('\n')[0]}`);
+  }
+}
+
+// Discovers every independent git repo under Desktop automatically --
+// top-level folders, plus one level deeper (covers hermes-agents/ai-workspace
+// and hermes-agents/ai_prompt, which are separate repos nested inside
+// hermes-agents via .gitignore). A hardcoded list goes stale the moment a
+// project is added or removed (e.g. ai_test3 existed, then was deleted
+// entirely -- a fixed REPOS array would have kept querying a gone folder).
+//
+// Two false-positive classes found while building this (both real, on this
+// machine, 2026-09-07) that a naive "any nested .git" scan would wrongly
+// count as separate projects:
+//   1. Third-party dependency clones (e.g. skills/last30days, a marketplace
+//      plugin clone) -- not the user's own work, would inflate their stats.
+//      Filtered by remote owner: only remotes under github.com/ImDaeseong
+//      (or no remote at all, i.e. a real local-only project) are kept.
+//   2. A stray duplicate .git with IDENTICAL history to its parent
+//      (ai_test1/music_skills -- same HEAD, same remote as ai_test1 itself,
+//      apparently an accidental nested `git init`/copy). Counting it would
+//      double-count every ai_test1 commit under a second name. Filtered by
+//      comparing remote URL to the parent repo's own remote URL.
+const SKIP_DIR_NAMES = new Set(['node_modules', '.venv', 'venv', '__pycache__', 'dist', 'build', '.next', 'test-results']);
+const OWNED_REMOTE_RE = /github\.com[:/]ImDaeseong\//i;
+function hasGit(dir) {
+  try { return fs.existsSync(path.join(dir, '.git')); } catch { return false; }
+}
+function getRemoteUrl(dir) {
+  try {
+    return execFileSync('git', ['remote', 'get-url', 'origin'], { cwd: dir, encoding: 'utf8' }).trim();
+  } catch {
+    return null; // no remote configured -- treated as "not a foreign clone", kept
+  }
+}
+function discoverRepos(desktopDir) {
+  const repos = [];
+  let topLevel;
+  try {
+    topLevel = fs.readdirSync(desktopDir, { withFileTypes: true })
+      .filter(e => e.isDirectory() && !SKIP_DIR_NAMES.has(e.name));
+  } catch (e) {
+    collectFailures.push(`could not scan ${desktopDir}: ${e.message.split('\n')[0]}`);
+    return repos;
+  }
+  for (const entry of topLevel) {
+    const dir = path.join(desktopDir, entry.name);
+    let parentRemote = null;
+    if (hasGit(dir)) {
+      repos.push({ key: entry.name, dir });
+      parentRemote = getRemoteUrl(dir);
+    }
+    let children;
+    try {
+      children = fs.readdirSync(dir, { withFileTypes: true });
+    } catch {
+      continue; // permission-denied or similar -- skip nested scan, not fatal
+    }
+    for (const child of children) {
+      if (!child.isDirectory() || SKIP_DIR_NAMES.has(child.name)) continue;
+      const childDir = path.join(dir, child.name);
+      if (!hasGit(childDir)) continue;
+      const childRemote = getRemoteUrl(childDir);
+      if (childRemote && childRemote === parentRemote) {
+        discoveryNotes.push(`skipped ${childDir}: same remote as parent ${dir} (likely a stray duplicate .git)`);
+        continue;
+      }
+      if (childRemote && !OWNED_REMOTE_RE.test(childRemote)) {
+        continue; // third-party dependency clone, not the user's own project
+      }
+      repos.push({ key: child.name, dir: childDir });
+    }
+  }
+  return repos;
+}
+const collectFailures = [];
+const discoveryNotes = []; // informational skips (dependency clones, duplicate .git) -- not fatal
+const REPOS = discoverRepos(path.join(HOME, 'Desktop'));
 const CLAUDE_PROJECTS_DIR = path.join(HOME, '.claude', 'projects');
 const CLAUDE_PROJECT_PREFIX = 'c--Users-' + path.basename(HOME) + '-Desktop-';
 const CODEX_SESSION_INDEX = path.join(HOME, '.codex', 'session_index.jsonl');
@@ -65,8 +150,8 @@ const START_STR = localISO(START), END_STR = localISO(END);
 // anymore, etc.) must NOT be silently treated as "0 commits" — that would
 // let a partial, wrong dataset get written out and reported as success.
 // Collect failures and abort in that case; see the check after this
-// function's call site.
-const collectFailures = [];
+// function's call site. (collectFailures is declared above discoverRepos()
+// so a Desktop-scan failure can be recorded on the same list.)
 function collectRepoCommits(repo) {
   let out;
   try {
@@ -252,3 +337,7 @@ fs.writeFileSync(INDEX_HTML, html, 'utf8');
 console.log(`OK — window ${START_STR} ~ ${END_STR}`);
 console.log(`  commits: ${COMMITS.length} across ${REPOS.length} repos`);
 console.log(`  sessions: ${SESS_ROWS.length} (claude-code ${SESS.tool_totals['claude-code']}, codex ${SESS.tool_totals.codex})`);
+if (discoveryNotes.length > 0) {
+  console.log(`  discovery notes (${discoveryNotes.length}, non-fatal):`);
+  for (const n of discoveryNotes) console.log(`    - ${n}`);
+}

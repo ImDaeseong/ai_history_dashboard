@@ -1,6 +1,6 @@
 # AI Agent Work-History Dashboard
 
-Claude Code / Codex 세션 활동과 4개 저장소 git 커밋 활동을 한눈에 보는 정적 HTML 대시보드.
+Claude Code / Codex 세션 활동과 Desktop 아래 모든 git 저장소의 커밋 활동을 한눈에 보는 정적 HTML 대시보드.
 
 **바로가기 →** [imdaeseong.github.io/ai_history_dashboard](https://imdaeseong.github.io/ai_history_dashboard/)
 
@@ -9,7 +9,7 @@ Claude Code / Codex 세션 활동과 4개 저장소 git 커밋 활동을 한눈�
 | 항목 | 소스 |
 |---|---|
 | 세션 활동 | `~/.claude/projects/*/*.jsonl`(Claude Code), `~/.codex/session_index.jsonl`(Codex) |
-| 커밋 | `hermes-agents` / `ai-workspace` / `ai_prompt` / `skills` 최근 30일 `git log` |
+| 커밋 | `Desktop/*`와 그 한 단계 아래(`hermes-agents/ai-workspace` 등)에서 자동 발견한 모든 git 저장소, 최근 30일 `git log`. 새 프로젝트를 추가해도 다음 갱신 때 자동으로 잡힙니다. 원격이 `github.com/ImDaeseong/*`가 아닌 저장소(설치한 서드파티 플러그인 클론 등)와 부모와 원격이 같은 중복 `.git`은 제외합니다. |
 
 두 도구는 로그 스키마가 달라(Codex는 세션 제목만, Claude Code는 라인 수도 기록) 완전히 대칭 비교는 아닙니다.
 
@@ -25,7 +25,7 @@ Claude Code / Codex 세션 활동과 4개 저장소 git 커밋 활동을 한눈�
 
 | 방법 | 하는 일 |
 |---|---|
-| `scripts\regenerate.bat` 더블클릭 | `index.html`만 갱신 (git 조작 없음) |
+| `scripts\regenerate.bat` 더블클릭 | `index.html`과 구조 문서 2종 갱신 (git 조작 없음) |
 | `scripts\publish.bat` 더블클릭 | 갱신 + 변경 시 커밋·푸시 |
 
 터미널에서 직접 실행하려면 각각 `node scripts/regenerate.js`, `powershell -File scripts/regenerate.ps1`.
@@ -36,5 +36,7 @@ Settings → Pages → Source: `Deploy from a branch` → Branch: `main` / `/(ro
 
 ## 관련 구조 문서
 
-- [hermes-workspace-structure.html](https://imdaeseong.github.io/ai_history_dashboard/hermes-workspace-structure.html) — 4개 저장소 역할 분담과 새 프로젝트 생성 흐름
-- [hermes-agent-architecture.html](https://imdaeseong.github.io/ai_history_dashboard/hermes-agent-architecture.html) — 요청 하나가 하네스→규칙→도구/스킬→메모리→커밋 게이트를 거쳐 산출물이 되는 내부 처리 흐름
+`regenerate`/`publish` 실행 때마다 hermes-agents에서 최신 버전으로 갱신됩니다.
+
+- [hermes-workspace-structure.md](hermes-workspace-structure.md) — 저장소별 역할 분담과 새 프로젝트 생성 흐름
+- [hermes-agent-architecture.md](hermes-agent-architecture.md) — 요청 하나가 하네스→규칙→도구/스킬→메모리→커밋 게이트를 거쳐 산출물이 되는 내부 처리 흐름

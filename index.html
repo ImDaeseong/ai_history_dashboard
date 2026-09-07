@@ -17,10 +17,18 @@
   --accent:         #7c3aed;
   --accent-soft:    #efe9fe;
   --shadow:         0 1px 2px rgba(32,28,51,.05), 0 6px 20px rgba(32,28,51,.07);
-  --series-1: #7c3aed; /* hermes-agents */
-  --series-2: #f0653e; /* ai-workspace */
-  --series-3: #12b886; /* ai_prompt */
-  --series-4: #f2a900; /* skills */
+  --series-1: #7c3aed;
+  --series-2: #f0653e;
+  --series-3: #12b886;
+  --series-4: #f2a900;
+  --series-5: #3b82f6;
+  --series-6: #ec4899;
+  --series-7: #84cc16;
+  --series-8: #06b6d4;
+  --series-9: #a855f7;
+  --series-10: #f97316;
+  --series-11: #14b8a6;
+  --series-12: #64748b;
 }
 @media (prefers-color-scheme: dark) {
   :root:where(:not([data-theme="light"])) .viz-root {
@@ -40,6 +48,14 @@
     --series-2: #ff8562;
     --series-3: #35d6a3;
     --series-4: #ffc23c;
+    --series-5: #7aa8ff;
+    --series-6: #ff8fc4;
+    --series-7: #b3e457;
+    --series-8: #5fe0f5;
+    --series-9: #c99bff;
+    --series-10: #ffab6b;
+    --series-11: #5fe0cd;
+    --series-12: #a0aec0;
   }
 }
 :root[data-theme="dark"] .viz-root {
@@ -59,6 +75,14 @@
   --series-2: #ff8562;
   --series-3: #35d6a3;
   --series-4: #ffc23c;
+  --series-5: #7aa8ff;
+  --series-6: #ff8fc4;
+  --series-7: #b3e457;
+  --series-8: #5fe0f5;
+  --series-9: #c99bff;
+  --series-10: #ffab6b;
+  --series-11: #5fe0cd;
+  --series-12: #a0aec0;
 }
 
 * { box-sizing: border-box; }
@@ -358,269 +382,493 @@ const AGG = {
  "daily": [
   {
    "date": "2026-08-09",
+   "ai_history_dashboard": 0,
+   "ai_test": 0,
+   "ai_test1": 0,
+   "ai_test2": 0,
+   "career": 0,
    "hermes-agents": 3,
    "ai-workspace": 0,
    "ai_prompt": 0,
+   "llm-wiki": 0,
+   "qa_manager": 0,
    "skills": 0,
    "total": 3
   },
   {
    "date": "2026-08-10",
+   "ai_history_dashboard": 0,
+   "ai_test": 0,
+   "ai_test1": 0,
+   "ai_test2": 0,
+   "career": 0,
    "hermes-agents": 2,
    "ai-workspace": 1,
    "ai_prompt": 0,
+   "llm-wiki": 0,
+   "qa_manager": 0,
    "skills": 1,
    "total": 4
   },
   {
    "date": "2026-08-11",
+   "ai_history_dashboard": 0,
+   "ai_test": 0,
+   "ai_test1": 0,
+   "ai_test2": 0,
+   "career": 0,
    "hermes-agents": 1,
    "ai-workspace": 0,
    "ai_prompt": 0,
+   "llm-wiki": 0,
+   "qa_manager": 0,
    "skills": 0,
    "total": 1
   },
   {
    "date": "2026-08-12",
+   "ai_history_dashboard": 0,
+   "ai_test": 0,
+   "ai_test1": 0,
+   "ai_test2": 0,
+   "career": 0,
    "hermes-agents": 0,
    "ai-workspace": 0,
    "ai_prompt": 0,
+   "llm-wiki": 0,
+   "qa_manager": 0,
    "skills": 0,
    "total": 0
   },
   {
    "date": "2026-08-13",
+   "ai_history_dashboard": 0,
+   "ai_test": 0,
+   "ai_test1": 0,
+   "ai_test2": 0,
+   "career": 0,
    "hermes-agents": 0,
    "ai-workspace": 0,
    "ai_prompt": 0,
+   "llm-wiki": 0,
+   "qa_manager": 0,
    "skills": 0,
    "total": 0
   },
   {
    "date": "2026-08-14",
+   "ai_history_dashboard": 0,
+   "ai_test": 0,
+   "ai_test1": 0,
+   "ai_test2": 0,
+   "career": 0,
    "hermes-agents": 0,
    "ai-workspace": 0,
    "ai_prompt": 0,
+   "llm-wiki": 0,
+   "qa_manager": 0,
    "skills": 5,
    "total": 5
   },
   {
    "date": "2026-08-15",
+   "ai_history_dashboard": 1,
+   "ai_test": 0,
+   "ai_test1": 0,
+   "ai_test2": 0,
+   "career": 0,
    "hermes-agents": 1,
    "ai-workspace": 0,
    "ai_prompt": 0,
-   "skills": 0,
-   "total": 1
-  },
-  {
-   "date": "2026-08-16",
-   "hermes-agents": 0,
-   "ai-workspace": 0,
-   "ai_prompt": 0,
-   "skills": 0,
-   "total": 0
-  },
-  {
-   "date": "2026-08-17",
-   "hermes-agents": 0,
-   "ai-workspace": 2,
-   "ai_prompt": 1,
-   "skills": 1,
-   "total": 4
-  },
-  {
-   "date": "2026-08-18",
-   "hermes-agents": 0,
-   "ai-workspace": 0,
-   "ai_prompt": 0,
-   "skills": 0,
-   "total": 0
-  },
-  {
-   "date": "2026-08-19",
-   "hermes-agents": 2,
-   "ai-workspace": 0,
-   "ai_prompt": 0,
+   "llm-wiki": 0,
+   "qa_manager": 0,
    "skills": 0,
    "total": 2
   },
   {
+   "date": "2026-08-16",
+   "ai_history_dashboard": 0,
+   "ai_test": 0,
+   "ai_test1": 4,
+   "ai_test2": 0,
+   "career": 0,
+   "hermes-agents": 0,
+   "ai-workspace": 0,
+   "ai_prompt": 0,
+   "llm-wiki": 0,
+   "qa_manager": 0,
+   "skills": 0,
+   "total": 4
+  },
+  {
+   "date": "2026-08-17",
+   "ai_history_dashboard": 3,
+   "ai_test": 5,
+   "ai_test1": 6,
+   "ai_test2": 4,
+   "career": 0,
+   "hermes-agents": 0,
+   "ai-workspace": 2,
+   "ai_prompt": 1,
+   "llm-wiki": 1,
+   "qa_manager": 5,
+   "skills": 1,
+   "total": 28
+  },
+  {
+   "date": "2026-08-18",
+   "ai_history_dashboard": 0,
+   "ai_test": 0,
+   "ai_test1": 1,
+   "ai_test2": 0,
+   "career": 0,
+   "hermes-agents": 0,
+   "ai-workspace": 0,
+   "ai_prompt": 0,
+   "llm-wiki": 0,
+   "qa_manager": 0,
+   "skills": 0,
+   "total": 1
+  },
+  {
+   "date": "2026-08-19",
+   "ai_history_dashboard": 0,
+   "ai_test": 0,
+   "ai_test1": 1,
+   "ai_test2": 0,
+   "career": 0,
+   "hermes-agents": 2,
+   "ai-workspace": 0,
+   "ai_prompt": 0,
+   "llm-wiki": 0,
+   "qa_manager": 0,
+   "skills": 0,
+   "total": 3
+  },
+  {
    "date": "2026-08-20",
+   "ai_history_dashboard": 0,
+   "ai_test": 0,
+   "ai_test1": 2,
+   "ai_test2": 0,
+   "career": 0,
    "hermes-agents": 1,
    "ai-workspace": 0,
    "ai_prompt": 0,
+   "llm-wiki": 0,
+   "qa_manager": 2,
    "skills": 0,
-   "total": 1
+   "total": 5
   },
   {
    "date": "2026-08-21",
+   "ai_history_dashboard": 0,
+   "ai_test": 0,
+   "ai_test1": 0,
+   "ai_test2": 1,
+   "career": 0,
    "hermes-agents": 0,
    "ai-workspace": 1,
    "ai_prompt": 0,
+   "llm-wiki": 0,
+   "qa_manager": 0,
    "skills": 0,
-   "total": 1
+   "total": 2
   },
   {
    "date": "2026-08-22",
+   "ai_history_dashboard": 0,
+   "ai_test": 0,
+   "ai_test1": 0,
+   "ai_test2": 0,
+   "career": 0,
    "hermes-agents": 1,
    "ai-workspace": 1,
    "ai_prompt": 0,
+   "llm-wiki": 0,
+   "qa_manager": 0,
    "skills": 1,
    "total": 3
   },
   {
    "date": "2026-08-23",
+   "ai_history_dashboard": 0,
+   "ai_test": 0,
+   "ai_test1": 0,
+   "ai_test2": 0,
+   "career": 0,
    "hermes-agents": 0,
    "ai-workspace": 0,
    "ai_prompt": 0,
+   "llm-wiki": 0,
+   "qa_manager": 0,
    "skills": 0,
    "total": 0
   },
   {
    "date": "2026-08-24",
+   "ai_history_dashboard": 0,
+   "ai_test": 0,
+   "ai_test1": 0,
+   "ai_test2": 0,
+   "career": 0,
    "hermes-agents": 0,
    "ai-workspace": 0,
    "ai_prompt": 0,
+   "llm-wiki": 0,
+   "qa_manager": 0,
    "skills": 0,
    "total": 0
   },
   {
    "date": "2026-08-25",
+   "ai_history_dashboard": 0,
+   "ai_test": 0,
+   "ai_test1": 0,
+   "ai_test2": 0,
+   "career": 0,
    "hermes-agents": 0,
    "ai-workspace": 0,
    "ai_prompt": 0,
+   "llm-wiki": 0,
+   "qa_manager": 0,
    "skills": 0,
    "total": 0
   },
   {
    "date": "2026-08-26",
+   "ai_history_dashboard": 0,
+   "ai_test": 0,
+   "ai_test1": 0,
+   "ai_test2": 0,
+   "career": 0,
    "hermes-agents": 0,
    "ai-workspace": 0,
    "ai_prompt": 0,
+   "llm-wiki": 0,
+   "qa_manager": 0,
    "skills": 0,
    "total": 0
   },
   {
    "date": "2026-08-27",
+   "ai_history_dashboard": 0,
+   "ai_test": 0,
+   "ai_test1": 1,
+   "ai_test2": 0,
+   "career": 0,
    "hermes-agents": 0,
    "ai-workspace": 1,
    "ai_prompt": 0,
+   "llm-wiki": 0,
+   "qa_manager": 0,
    "skills": 2,
-   "total": 3
+   "total": 4
   },
   {
    "date": "2026-08-28",
+   "ai_history_dashboard": 0,
+   "ai_test": 0,
+   "ai_test1": 0,
+   "ai_test2": 0,
+   "career": 0,
    "hermes-agents": 1,
    "ai-workspace": 0,
    "ai_prompt": 0,
+   "llm-wiki": 0,
+   "qa_manager": 0,
    "skills": 0,
    "total": 1
   },
   {
    "date": "2026-08-29",
+   "ai_history_dashboard": 0,
+   "ai_test": 0,
+   "ai_test1": 0,
+   "ai_test2": 0,
+   "career": 0,
    "hermes-agents": 1,
    "ai-workspace": 0,
    "ai_prompt": 0,
+   "llm-wiki": 0,
+   "qa_manager": 0,
    "skills": 0,
    "total": 1
   },
   {
    "date": "2026-08-30",
+   "ai_history_dashboard": 0,
+   "ai_test": 0,
+   "ai_test1": 0,
+   "ai_test2": 0,
+   "career": 0,
    "hermes-agents": 0,
    "ai-workspace": 1,
    "ai_prompt": 0,
+   "llm-wiki": 0,
+   "qa_manager": 0,
    "skills": 0,
    "total": 1
   },
   {
    "date": "2026-08-31",
+   "ai_history_dashboard": 0,
+   "ai_test": 0,
+   "ai_test1": 0,
+   "ai_test2": 0,
+   "career": 0,
    "hermes-agents": 1,
    "ai-workspace": 0,
    "ai_prompt": 0,
+   "llm-wiki": 0,
+   "qa_manager": 1,
    "skills": 1,
-   "total": 2
+   "total": 3
   },
   {
    "date": "2026-09-01",
+   "ai_history_dashboard": 0,
+   "ai_test": 0,
+   "ai_test1": 0,
+   "ai_test2": 0,
+   "career": 0,
    "hermes-agents": 0,
    "ai-workspace": 1,
    "ai_prompt": 0,
+   "llm-wiki": 0,
+   "qa_manager": 0,
    "skills": 0,
    "total": 1
   },
   {
    "date": "2026-09-02",
+   "ai_history_dashboard": 0,
+   "ai_test": 0,
+   "ai_test1": 0,
+   "ai_test2": 0,
+   "career": 0,
    "hermes-agents": 0,
    "ai-workspace": 0,
    "ai_prompt": 0,
+   "llm-wiki": 0,
+   "qa_manager": 0,
    "skills": 0,
    "total": 0
   },
   {
    "date": "2026-09-03",
+   "ai_history_dashboard": 0,
+   "ai_test": 0,
+   "ai_test1": 0,
+   "ai_test2": 0,
+   "career": 0,
    "hermes-agents": 0,
    "ai-workspace": 0,
    "ai_prompt": 0,
+   "llm-wiki": 0,
+   "qa_manager": 0,
    "skills": 0,
    "total": 0
   },
   {
    "date": "2026-09-04",
+   "ai_history_dashboard": 0,
+   "ai_test": 0,
+   "ai_test1": 0,
+   "ai_test2": 0,
+   "career": 0,
    "hermes-agents": 0,
    "ai-workspace": 0,
    "ai_prompt": 0,
+   "llm-wiki": 0,
+   "qa_manager": 0,
    "skills": 0,
    "total": 0
   },
   {
    "date": "2026-09-05",
+   "ai_history_dashboard": 1,
+   "ai_test": 0,
+   "ai_test1": 0,
+   "ai_test2": 0,
+   "career": 0,
    "hermes-agents": 10,
    "ai-workspace": 7,
    "ai_prompt": 6,
+   "llm-wiki": 0,
+   "qa_manager": 1,
    "skills": 0,
-   "total": 23
+   "total": 25
   },
   {
    "date": "2026-09-06",
+   "ai_history_dashboard": 0,
+   "ai_test": 1,
+   "ai_test1": 1,
+   "ai_test2": 4,
+   "career": 0,
    "hermes-agents": 0,
    "ai-workspace": 1,
    "ai_prompt": 0,
+   "llm-wiki": 0,
+   "qa_manager": 0,
    "skills": 8,
-   "total": 9
+   "total": 15
   },
   {
    "date": "2026-09-07",
-   "hermes-agents": 5,
+   "ai_history_dashboard": 8,
+   "ai_test": 0,
+   "ai_test1": 0,
+   "ai_test2": 0,
+   "career": 0,
+   "hermes-agents": 6,
    "ai-workspace": 3,
    "ai_prompt": 2,
+   "llm-wiki": 0,
+   "qa_manager": 1,
    "skills": 1,
-   "total": 11
+   "total": 21
   }
  ],
  "repos": [
+  "ai_history_dashboard",
+  "ai_test",
+  "ai_test1",
+  "ai_test2",
+  "career",
   "hermes-agents",
   "ai-workspace",
   "ai_prompt",
+  "llm-wiki",
+  "qa_manager",
   "skills"
  ],
- "total_commits": 77,
- "total_ins": 6361,
- "total_del": 2974,
- "total_files": 261,
+ "total_commits": 133,
+ "total_ins": 29016,
+ "total_del": 10256,
+ "total_files": 647,
  "repo_totals": {
-  "hermes-agents": 29,
+  "ai_history_dashboard": 13,
+  "ai_test": 6,
+  "ai_test1": 16,
+  "ai_test2": 9,
+  "career": 0,
+  "hermes-agents": 30,
   "ai-workspace": 19,
   "ai_prompt": 9,
+  "llm-wiki": 1,
+  "qa_manager": 10,
   "skills": 20
  },
  "dow_series": [
-  21,
-  2,
-  2,
-  4,
-  7,
-  28,
-  13
+  56,
+  3,
+  3,
+  9,
+  8,
+  31,
+  23
  ],
  "dow_names": [
   "월",
@@ -631,14 +879,86 @@ const AGG = {
   "토",
   "일"
  ],
- "busiest_date": "2026-09-05",
- "busiest_count": 23,
- "active_days": 19,
+ "busiest_date": "2026-08-17",
+ "busiest_count": 28,
+ "active_days": 21,
  "total_days": 30,
  "start_date": "2026-08-09",
  "end_date": "2026-09-07"
 };
 const COMMITS = [
+ {
+  "repo": "ai_history_dashboard",
+  "date": "2026-09-07",
+  "subject": "Auto-update dashboard data (2026-09-07 16:11)",
+  "ins": 1,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "ai_history_dashboard",
+  "date": "2026-09-07",
+  "subject": "Trim structure-docs section to just the links",
+  "ins": 0,
+  "del": 2,
+  "files": 1
+ },
+ {
+  "repo": "ai_history_dashboard",
+  "date": "2026-09-07",
+  "subject": "Trim README: drop design-philosophy footnote, tighten wording",
+  "ins": 4,
+  "del": 8,
+  "files": 1
+ },
+ {
+  "repo": "ai_history_dashboard",
+  "date": "2026-09-07",
+  "subject": "Link the diagrams through GitHub Pages, not the repo blob view",
+  "ins": 4,
+  "del": 2,
+  "files": 1
+ },
+ {
+  "repo": "ai_history_dashboard",
+  "date": "2026-09-07",
+  "subject": "Copy hermes-agents structure diagrams into this public repo",
+  "ins": 504,
+  "del": 3,
+  "files": 3
+ },
+ {
+  "repo": "ai_history_dashboard",
+  "date": "2026-09-07",
+  "subject": "Link the hermes-agents structure diagrams from README",
+  "ins": 7,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai_history_dashboard",
+  "date": "2026-09-07",
+  "subject": "Auto-update dashboard data (2026-09-07 09:48)",
+  "ins": 1,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "ai_history_dashboard",
+  "date": "2026-09-07",
+  "subject": "Auto-update dashboard data (2026-09-07 09:34)",
+  "ins": 292,
+  "del": 84,
+  "files": 1
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-09-07",
+  "subject": "Convert structure diagrams from custom-SVG HTML to Mermaid markdown",
+  "ins": 128,
+  "del": 501,
+  "files": 4
+ },
  {
   "repo": "hermes-agents",
   "date": "2026-09-07",
@@ -720,12 +1040,68 @@ const COMMITS = [
   "files": 16
  },
  {
+  "repo": "qa_manager",
+  "date": "2026-09-07",
+  "subject": "Retire stale ai_test3 registration, move CareerDiff coverage to ai_test2",
+  "ins": 174,
+  "del": 331,
+  "files": 14
+ },
+ {
   "repo": "skills",
   "date": "2026-09-07",
   "subject": "docs: audit linked guides and clarify upstream license scope",
   "ins": 357,
   "del": 225,
   "files": 16
+ },
+ {
+  "repo": "ai_test",
+  "date": "2026-09-06",
+  "subject": "Fix weather_alarm import-time logging side effects",
+  "ins": 53,
+  "del": 20,
+  "files": 3
+ },
+ {
+  "repo": "ai_test1",
+  "date": "2026-09-06",
+  "subject": "Guard aim_music_mp4_app tests against writing project assets",
+  "ins": 36,
+  "del": 7,
+  "files": 2
+ },
+ {
+  "repo": "ai_test2",
+  "date": "2026-09-06",
+  "subject": "Dedupe candidate-profile text in CareerDiff validation-case storage",
+  "ins": 244,
+  "del": 19,
+  "files": 6
+ },
+ {
+  "repo": "ai_test2",
+  "date": "2026-09-06",
+  "subject": "Fix stale project facts and tighten README further",
+  "ins": 21,
+  "del": 34,
+  "files": 1
+ },
+ {
+  "repo": "ai_test2",
+  "date": "2026-09-06",
+  "subject": "Tighten README and fix Python-only assumptions after CareerDiff add",
+  "ins": 12,
+  "del": 25,
+  "files": 1
+ },
+ {
+  "repo": "ai_test2",
+  "date": "2026-09-06",
+  "subject": "Add CareerDiff project (moved from ai_test3)",
+  "ins": 14126,
+  "del": 3,
+  "files": 85
  },
  {
   "repo": "ai-workspace",
@@ -798,6 +1174,14 @@ const COMMITS = [
   "ins": 215,
   "del": 5,
   "files": 9
+ },
+ {
+  "repo": "ai_history_dashboard",
+  "date": "2026-09-05",
+  "subject": "Regenerate dashboard: rolling window through 2026-09-05",
+  "ins": 670,
+  "del": 2606,
+  "files": 1
  },
  {
   "repo": "hermes-agents",
@@ -984,6 +1368,14 @@ const COMMITS = [
   "files": 2
  },
  {
+  "repo": "qa_manager",
+  "date": "2026-09-05",
+  "subject": "Regenerate dashboards: 2026-09-05 full-loop run, 8 projects, 0 failing",
+  "ins": 37,
+  "del": 37,
+  "files": 9
+ },
+ {
   "repo": "ai-workspace",
   "date": "2026-09-01",
   "subject": "HANDOFF: record 2026-08-30 twelve-repo audit and 2026-08-31 hermes re-audit loops",
@@ -998,6 +1390,14 @@ const COMMITS = [
   "ins": 44,
   "del": 3,
   "files": 3
+ },
+ {
+  "repo": "qa_manager",
+  "date": "2026-08-31",
+  "subject": "fix: renumber hermes-agents R7->R8 guard row, drop unsupported weather_alarm count",
+  "ins": 115,
+  "del": 50,
+  "files": 11
  },
  {
   "repo": "skills",
@@ -1030,6 +1430,14 @@ const COMMITS = [
   "ins": 124,
   "del": 7,
   "files": 4
+ },
+ {
+  "repo": "ai_test1",
+  "date": "2026-08-27",
+  "subject": "Suno 허밍/랜덤 코러스/랩 진입전 소음 억제 원칙 추가 (music_skills/unpredictable/lyric/codes)",
+  "ins": 42,
+  "del": 8,
+  "files": 9
  },
  {
   "repo": "ai-workspace",
@@ -1080,11 +1488,35 @@ const COMMITS = [
   "files": 9
  },
  {
+  "repo": "ai_test2",
+  "date": "2026-08-21",
+  "subject": "README: fix wrong test command for ai_img_video_aiBoygirl",
+  "ins": 1,
+  "del": 1,
+  "files": 1
+ },
+ {
   "repo": "ai-workspace",
   "date": "2026-08-21",
   "subject": "HANDOFF: backfill 2026-08-21 full verification loop entry",
   "ins": 79,
   "del": 0,
+  "files": 2
+ },
+ {
+  "repo": "ai_test1",
+  "date": "2026-08-20",
+  "subject": "music_story_skills: adopt 3 community-sourced Suno prompting improvements",
+  "ins": 15,
+  "del": 2,
+  "files": 3
+ },
+ {
+  "repo": "ai_test1",
+  "date": "2026-08-20",
+  "subject": "Fix stale music_story_skills test count in README/PROJECT_STATUS (34 -> 40)",
+  "ins": 4,
+  "del": 4,
   "files": 2
  },
  {
@@ -1094,6 +1526,30 @@ const COMMITS = [
   "ins": 190,
   "del": 0,
   "files": 7
+ },
+ {
+  "repo": "qa_manager",
+  "date": "2026-08-20",
+  "subject": "Regenerate all dashboards and system index (0 failing across 8 projects)",
+  "ins": 48,
+  "del": 14,
+  "files": 9
+ },
+ {
+  "repo": "qa_manager",
+  "date": "2026-08-20",
+  "subject": "ai_test1: track music_story_skills as its own checklist item (R2-D11)",
+  "ins": 9,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai_test1",
+  "date": "2026-08-19",
+  "subject": "music_story_skills: add scene-manifest export, fix Windows pytest tmp_path",
+  "ins": 223,
+  "del": 0,
+  "files": 4
  },
  {
   "repo": "hermes-agents",
@@ -1110,6 +1566,158 @@ const COMMITS = [
   "ins": 173,
   "del": 0,
   "files": 2
+ },
+ {
+  "repo": "ai_test1",
+  "date": "2026-08-18",
+  "subject": "Register music_story_skills: story-driven lyric/music prompt engine",
+  "ins": 2196,
+  "del": 4,
+  "files": 19
+ },
+ {
+  "repo": "ai_history_dashboard",
+  "date": "2026-08-17",
+  "subject": "Auto-update dashboard data (2026-08-17 23:20)",
+  "ins": 1,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "ai_history_dashboard",
+  "date": "2026-08-17",
+  "subject": "Fix regenerate.ps1's dangling reference to a nonexistent README section",
+  "ins": 1,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "ai_history_dashboard",
+  "date": "2026-08-17",
+  "subject": "Auto-update dashboard data (2026-08-17 23:14)",
+  "ins": 185,
+  "del": 611,
+  "files": 1
+ },
+ {
+  "repo": "ai_test",
+  "date": "2026-08-17",
+  "subject": "Fix stale PROJECT_STATUS.md header date",
+  "ins": 1,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "ai_test",
+  "date": "2026-08-17",
+  "subject": "Correct false completion claims in ai-webtoon_capcut docs",
+  "ins": 59,
+  "del": 85,
+  "files": 6
+ },
+ {
+  "repo": "ai_test",
+  "date": "2026-08-17",
+  "subject": "Drop hardcoded absolute paths from README repo-goal blurb",
+  "ins": 1,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "ai_test",
+  "date": "2026-08-17",
+  "subject": "Condense root README to a summary index",
+  "ins": 30,
+  "del": 1042,
+  "files": 1
+ },
+ {
+  "repo": "ai_test",
+  "date": "2026-08-17",
+  "subject": "Fix broken install script references in ai-webtoon_capcut docs",
+  "ins": 109,
+  "del": 2,
+  "files": 5
+ },
+ {
+  "repo": "ai_test1",
+  "date": "2026-08-17",
+  "subject": "Condense root README to a summary index matching the ai_test/ai_test2/ai_test3 style",
+  "ins": 40,
+  "del": 199,
+  "files": 1
+ },
+ {
+  "repo": "ai_test1",
+  "date": "2026-08-17",
+  "subject": "Move misplaced GitHub research doc from music_lyric/ to repo root",
+  "ins": 66,
+  "del": 0,
+  "files": 2
+ },
+ {
+  "repo": "ai_test1",
+  "date": "2026-08-17",
+  "subject": "Register aim_music_mp4_app; record this loop's fixes in PROJECT_STATUS.md",
+  "ins": 4,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "ai_test1",
+  "date": "2026-08-17",
+  "subject": "Document rap-verse/vocal-harmonics Style keyword bleed-through (music_skills + fork)",
+  "ins": 24,
+  "del": 0,
+  "files": 8
+ },
+ {
+  "repo": "ai_test1",
+  "date": "2026-08-17",
+  "subject": "Fix AGENTS.md missing from tests_unit.py's DOC_FILES allowlist",
+  "ins": 6,
+  "del": 6,
+  "files": 3
+ },
+ {
+  "repo": "ai_test1",
+  "date": "2026-08-17",
+  "subject": "Sync AGENTS.md across ai_test1: register aim_music_mp4_app, fix Cowork-import stub fallout",
+  "ins": 494,
+  "del": 0,
+  "files": 7
+ },
+ {
+  "repo": "ai_test2",
+  "date": "2026-08-17",
+  "subject": "Restyle root README to match the ai_test/ai_test3 summary-index format",
+  "ins": 52,
+  "del": 78,
+  "files": 1
+ },
+ {
+  "repo": "ai_test2",
+  "date": "2026-08-17",
+  "subject": "Record same-day re-verification + README condensation in VERIFICATION.md",
+  "ins": 11,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai_test2",
+  "date": "2026-08-17",
+  "subject": "Condense root README to a summary index",
+  "ins": 38,
+  "del": 265,
+  "files": 1
+ },
+ {
+  "repo": "ai_test2",
+  "date": "2026-08-17",
+  "subject": "Full re-verification loop + add music_insight_studio/CLAUDE.md",
+  "ins": 65,
+  "del": 1,
+  "files": 3
  },
  {
   "repo": "ai-workspace",
@@ -1136,12 +1744,100 @@ const COMMITS = [
   "files": 1
  },
  {
+  "repo": "llm-wiki",
+  "date": "2026-08-17",
+  "subject": "Tighten README wording without losing information",
+  "ins": 10,
+  "del": 23,
+  "files": 1
+ },
+ {
+  "repo": "qa_manager",
+  "date": "2026-08-17",
+  "subject": "README: add a one-line doc-structure outline under the title",
+  "ins": 2,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "qa_manager",
+  "date": "2026-08-17",
+  "subject": "README: record 2026-08-17 verification of the 작동 흐름 claims",
+  "ins": 8,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "qa_manager",
+  "date": "2026-08-17",
+  "subject": "Merge remaining 계층/핵심원칙 redundancy into 작동 흐름",
+  "ins": 2,
+  "del": 4,
+  "files": 1
+ },
+ {
+  "repo": "qa_manager",
+  "date": "2026-08-17",
+  "subject": "Tighten README: merge redundant 계층구조/작동흐름 explanation",
+  "ins": 4,
+  "del": 29,
+  "files": 1
+ },
+ {
+  "repo": "qa_manager",
+  "date": "2026-08-17",
+  "subject": "Regenerate: full re-check of all 8 projects (2026-08-17), 0 failing",
+  "ins": 9,
+  "del": 9,
+  "files": 9
+ },
+ {
   "repo": "skills",
   "date": "2026-08-17",
   "subject": "Add image-motion-graphics skill (image/song -> layered PSD/AEP motion graphics)",
   "ins": 135,
   "del": 6,
   "files": 7
+ },
+ {
+  "repo": "ai_test1",
+  "date": "2026-08-16",
+  "subject": "aim_music_mp4_app: 배치 렌더러 3곡 자산 반영 + .bat 개행/.gitignore 결함 수정",
+  "ins": 326,
+  "del": 6,
+  "files": 29
+ },
+ {
+  "repo": "ai_test1",
+  "date": "2026-08-16",
+  "subject": "aim_music_mp4_app: input/ 원본 음원을 git 추적에서 제외",
+  "ins": 2,
+  "del": 457,
+  "files": 11
+ },
+ {
+  "repo": "ai_test1",
+  "date": "2026-08-16",
+  "subject": "aim_music_mp4_app: 렌더러/패키저 확장 및 3곡 제작 자산 커밋",
+  "ins": 1368,
+  "del": 96,
+  "files": 83
+ },
+ {
+  "repo": "ai_test1",
+  "date": "2026-08-16",
+  "subject": "aim_music_mp4_app 신규 추가: 키 비주얼 고정배경 MP4 렌더러 + CapCut 패키지 생성기",
+  "ins": 326,
+  "del": 1,
+  "files": 8
+ },
+ {
+  "repo": "ai_history_dashboard",
+  "date": "2026-08-15",
+  "subject": "Auto-update dashboard data (2026-08-15)",
+  "ins": 444,
+  "del": 596,
+  "files": 1
  },
  {
   "repo": "hermes-agents",
@@ -1494,7 +2190,7 @@ const SESS = {
    "tool": "claude-code",
    "date": "2026-09-06",
    "label": "hermes-agents",
-   "lines": 1741
+   "lines": 2153
   },
   {
    "tool": "codex",
@@ -1829,18 +2525,13 @@ const SESS = {
  ]
 };
 
-const REPO_LABELS = {
-  'hermes-agents': 'hermes-agents',
-  'ai-workspace': 'ai-workspace',
-  'ai_prompt': 'ai_prompt',
-  'skills': 'skills'
-};
-const REPO_COLOR_VAR = {
-  'hermes-agents': '--series-1',
-  'ai-workspace': '--series-2',
-  'ai_prompt': '--series-3',
-  'skills': '--series-4'
-};
+// Built from AGG.repos (auto-discovered by regenerate.js), not hardcoded --
+// a fixed list here would silently render "undefined" labels and colorless
+// bars for any repo added after this file was hand-written (found exactly
+// that bug on 2026-09-07 when discovery went from 4 repos to 11).
+const REPO_LABELS = Object.fromEntries(AGG.repos.map(r => [r, r]));
+const REPO_COLOR_VARS = ['--series-1','--series-2','--series-3','--series-4','--series-5','--series-6','--series-7','--series-8','--series-9','--series-10','--series-11','--series-12'];
+const REPO_COLOR_VAR = Object.fromEntries(AGG.repos.map((r, i) => [r, REPO_COLOR_VARS[i % REPO_COLOR_VARS.length]]));
 function repoColor(repo) {
   return getComputedStyle(document.querySelector('.viz-root')).getPropertyValue(REPO_COLOR_VAR[repo]).trim();
 }
@@ -2119,7 +2810,7 @@ filterRow.querySelectorAll('.filter-chip').forEach(btn => {
 renderLog();
 
 document.getElementById('subtitle').textContent =
-  `${SESS.start_date} ~ ${SESS.end_date} · VS Code Claude Code/Codex 세션 로그 + 4개 저장소 git 커밋 로그 기반`;
+  `${SESS.start_date} ~ ${SESS.end_date} · VS Code Claude Code/Codex 세션 로그 + 저장소 ${AGG.repos.length}개 git 커밋 로그 기반`;
 
 // ==== 0. 요약: 통합 지표 ====
 (function () {
