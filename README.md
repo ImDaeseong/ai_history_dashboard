@@ -1,5 +1,18 @@
 # AI Agent Work-History Dashboard
 
+## 로컬 AI 사용·프롬프트 분석
+
+`scripts\analyze-private.bat`을 실행하면 최근 30일의 Claude Code/Codex 로컬 세션을 분석해 `private-dashboard.html`을 생성합니다.
+
+- AI별 세션·프롬프트·응답 수
+- 슬래시 명령어 사용 순위
+- 검증·구현·분석·설계 등 반복 작업 유형
+- 목표·대상·완료 조건·검증·출력 형태·제약의 포함률
+- 익명 근거 ID와 마스킹된 요청 표본
+- 응답 존재, 도구 사용, 검증 결과, 재지시 신호를 분리한 관측 지표
+
+이 보고서는 로컬 전용이며 GitHub Pages에 게시되지 않습니다. 근거 표본은 180자로 제한하고 경로·URL·이메일·비밀값 패턴을 마스킹합니다. 5,000자를 넘는 user 역할 레코드는 재주입 컨텍스트나 장문 자료일 가능성이 있어 평가 모집단에서 제외하며 제외 수를 보고합니다. 지표는 정답률이 아니라 로그에서 관찰 가능한 미교정 휴리스틱이므로, 인간 라벨 표본과 비교하기 전까지 검증 상태를 HOLD로 표시합니다.
+
 Claude Code / Codex 세션 활동과 Desktop 아래 모든 git 저장소의 커밋 활동을 한눈에 보는 정적 HTML 대시보드.
 
 **바로가기 →** [imdaeseong.github.io/ai_history_dashboard](https://imdaeseong.github.io/ai_history_dashboard/)
@@ -27,6 +40,7 @@ Claude Code / Codex 세션 활동과 Desktop 아래 모든 git 저장소의 커�
 |---|---|
 | `scripts\regenerate.bat` 더블클릭 | `index.html` 갱신 (git 조작 없음) |
 | `scripts\publish.bat` 더블클릭 | 갱신 + 변경 시 커밋·푸시 |
+| `scripts\update-dashboard.bat` 더블클릭 | `index.html` + `private-dashboard.html` 둘 다 갱신 (git 조작 없음) |
 
 터미널에서 직접 실행하려면 각각 `node scripts/regenerate.js`, `powershell -File scripts/regenerate.ps1`.
 
