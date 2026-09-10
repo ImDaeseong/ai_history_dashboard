@@ -62,7 +62,14 @@ function hasGit(dir) {
 function getRemoteUrl(dir) {
   try {
     return execFileSync('git', ['remote', 'get-url', 'origin'], { cwd: dir, encoding: 'utf8' }).trim();
-  } catch {
+  } catch (e) {
+    // git-for-windows writes this straight to the console (bypasses Node's
+    // stdio pipe), so it appears in the terminal even though we catch it
+    // here and treat it as harmless. Echo an inline explanation right next
+    // to it instead of leaving the user to wonder if something broke.
+    if (/No such remote 'origin'/.test(e.message)) {
+      console.log(`  (^ expected: ${path.basename(dir)} has no remote configured, not an error)`);
+    }
     return null; // no remote configured -- treated as "not a foreign clone", kept
   }
 }
@@ -168,6 +175,9 @@ function collectRepoCommits(repo) {
     // every other failure (bad path, ownership mismatch, corrupt repo, etc.)
     // still aborts via collectFailures below.
     if (isEmptyRepoError(e.message)) {
+      // Same console-bypass quirk as getRemoteUrl above -- explain it
+      // inline right where the raw "fatal:" line just appeared.
+      console.log(`  (^ expected: ${repo.key} has no commits yet, not an error)`);
       discoveryNotes.push(`0 commits for ${repo.key} (${repo.dir}): repo has no commits yet`);
       return [];
     }
