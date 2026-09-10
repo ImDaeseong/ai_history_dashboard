@@ -14,6 +14,7 @@ const fs = require('fs');
 const path = require('path');
 const os = require('os');
 const { execFileSync } = require('child_process');
+const { isEmptyRepoError } = require('./git-empty-repo');
 
 const WINDOW_DAYS = 30;
 const HOME = os.homedir();
@@ -160,6 +161,16 @@ function collectRepoCommits(repo) {
       '--pretty=format:COMMIT\t%H\t%ad\t%s', '--numstat',
     ], { cwd: repo.dir, encoding: 'utf8' });
   } catch (e) {
+    // A brand-new repo with zero commits ever (e.g. ai_agent/keyinfo, an
+    // isolated repo for keys.env with its own security boundary) is not a
+    // data-integrity failure -- git log legitimately has nothing to report.
+    // Only this specific, stable git message is treated as "0 commits";
+    // every other failure (bad path, ownership mismatch, corrupt repo, etc.)
+    // still aborts via collectFailures below.
+    if (isEmptyRepoError(e.message)) {
+      discoveryNotes.push(`0 commits for ${repo.key} (${repo.dir}): repo has no commits yet`);
+      return [];
+    }
     collectFailures.push(`git log failed for ${repo.key} (${repo.dir}): ${e.message.split('\n')[0]}`);
     return [];
   }
