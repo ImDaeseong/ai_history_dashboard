@@ -381,40 +381,6 @@ tbody td.num { text-align: right; font-variant-numeric: tabular-nums; white-spac
 const AGG = {
  "daily": [
   {
-   "date": "2026-08-12",
-   "ai_agent": 0,
-   "keyinfo": 0,
-   "ai_history_dashboard": 0,
-   "ai_test": 0,
-   "ai_test1": 0,
-   "ai_test2": 0,
-   "career": 0,
-   "hermes-agents": 0,
-   "ai-workspace": 0,
-   "ai_prompt": 0,
-   "llm-wiki": 0,
-   "qa_manager": 0,
-   "skills": 0,
-   "total": 0
-  },
-  {
-   "date": "2026-08-13",
-   "ai_agent": 0,
-   "keyinfo": 0,
-   "ai_history_dashboard": 0,
-   "ai_test": 0,
-   "ai_test1": 0,
-   "ai_test2": 0,
-   "career": 0,
-   "hermes-agents": 0,
-   "ai-workspace": 0,
-   "ai_prompt": 0,
-   "llm-wiki": 0,
-   "qa_manager": 0,
-   "skills": 0,
-   "total": 0
-  },
-  {
    "date": "2026-08-14",
    "ai_agent": 0,
    "keyinfo": 0,
@@ -875,20 +841,54 @@ const AGG = {
   },
   {
    "date": "2026-09-10",
-   "ai_agent": 1,
+   "ai_agent": 5,
    "keyinfo": 0,
-   "ai_history_dashboard": 6,
+   "ai_history_dashboard": 7,
    "ai_test": 0,
    "ai_test1": 0,
    "ai_test2": 0,
    "career": 0,
    "hermes-agents": 3,
-   "ai-workspace": 4,
+   "ai-workspace": 5,
    "ai_prompt": 0,
    "llm-wiki": 0,
    "qa_manager": 6,
    "skills": 0,
-   "total": 20
+   "total": 26
+  },
+  {
+   "date": "2026-09-11",
+   "ai_agent": 6,
+   "keyinfo": 0,
+   "ai_history_dashboard": 0,
+   "ai_test": 0,
+   "ai_test1": 0,
+   "ai_test2": 0,
+   "career": 0,
+   "hermes-agents": 2,
+   "ai-workspace": 0,
+   "ai_prompt": 0,
+   "llm-wiki": 0,
+   "qa_manager": 0,
+   "skills": 0,
+   "total": 8
+  },
+  {
+   "date": "2026-09-12",
+   "ai_agent": 25,
+   "keyinfo": 0,
+   "ai_history_dashboard": 0,
+   "ai_test": 0,
+   "ai_test1": 0,
+   "ai_test2": 0,
+   "career": 0,
+   "hermes-agents": 2,
+   "ai-workspace": 9,
+   "ai_prompt": 0,
+   "llm-wiki": 0,
+   "qa_manager": 0,
+   "skills": 0,
+   "total": 36
   }
  ],
  "repos": [
@@ -906,20 +906,20 @@ const AGG = {
   "qa_manager",
   "skills"
  ],
- "total_commits": 216,
- "total_ins": 42751,
- "total_del": 12568,
- "total_files": 1007,
+ "total_commits": 266,
+ "total_ins": 56205,
+ "total_del": 13155,
+ "total_files": 1327,
  "repo_totals": {
-  "ai_agent": 24,
+  "ai_agent": 59,
   "keyinfo": 0,
-  "ai_history_dashboard": 27,
+  "ai_history_dashboard": 28,
   "ai_test": 7,
   "ai_test1": 17,
   "ai_test2": 10,
   "career": 0,
-  "hermes-agents": 37,
-  "ai-workspace": 40,
+  "hermes-agents": 41,
+  "ai-workspace": 50,
   "ai_prompt": 11,
   "llm-wiki": 1,
   "qa_manager": 18,
@@ -929,9 +929,9 @@ const AGG = {
   65,
   37,
   26,
-  29,
-  8,
-  31,
+  35,
+  16,
+  67,
   20
  ],
  "dow_names": [
@@ -943,14 +943,398 @@ const AGG = {
   "토",
   "일"
  ],
- "busiest_date": "2026-09-08",
- "busiest_count": 35,
- "active_days": 21,
+ "busiest_date": "2026-09-12",
+ "busiest_count": 36,
+ "active_days": 23,
  "total_days": 30,
- "start_date": "2026-08-12",
- "end_date": "2026-09-10"
+ "start_date": "2026-08-14",
+ "end_date": "2026-09-12"
 };
 const COMMITS = [
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-12",
+  "subject": "Show per-question feedback and final prep points on mock-interview-agent's result screen",
+  "ins": 114,
+  "del": 3,
+  "files": 8
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-12",
+  "subject": "Address the 5 review findings on the llm_judge grader, in priority order",
+  "ins": 161,
+  "del": 27,
+  "files": 12
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-12",
+  "subject": "Implement the grader-priority 3단계 independent model grader (--grader llm_judge)",
+  "ins": 256,
+  "del": 10,
+  "files": 6
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-12",
+  "subject": "Fix mock-interview-agent's eval adapter to enforce the answer-evaluation schema in live mode",
+  "ins": 2,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-12",
+  "subject": "Add Windows batch file to start the evals dashboard",
+  "ins": 7,
+  "del": 0,
+  "files": 2
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-12",
+  "subject": "Audit and fix LLM judgment evidence for evals and mock-interview-agent",
+  "ins": 116,
+  "del": 6,
+  "files": 8
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-12",
+  "subject": "Require documented evidence for LLM judgment/analysis/verification across all projects",
+  "ins": 45,
+  "del": 0,
+  "files": 3
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-12",
+  "subject": "Add mock-interview-agent-architecture.html (matches personal-weather-agent's doc pattern)",
+  "ins": 78,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-12",
+  "subject": "Ground career_analysis.py's prompt rules and flag its verification gap",
+  "ins": 19,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-12",
+  "subject": "Replace CareerDiff JSON upload with direct company/resume input + own OpenAI analysis",
+  "ins": 649,
+  "del": 154,
+  "files": 15
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-12",
+  "subject": "Redesign the eval dashboard with a colorful Canva-template look",
+  "ins": 259,
+  "del": 140,
+  "files": 1
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-12",
+  "subject": "Add local-only MCP tool adapter V1 with a security baseline audit",
+  "ins": 454,
+  "del": 2,
+  "files": 15
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-12",
+  "subject": "Make the eval dashboard scale to more projects and larger case lists",
+  "ins": 85,
+  "del": 10,
+  "files": 1
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-12",
+  "subject": "Add a local HTML dashboard for evaluation results (evals/build_dashboard.py)",
+  "ins": 537,
+  "del": 1,
+  "files": 5
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-12",
+  "subject": "Ignore generated eval report snapshots",
+  "ins": 1,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-12",
+  "subject": "Address independent-review findings on the evaluation harness",
+  "ins": 31,
+  "del": 0,
+  "files": 4
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-12",
+  "subject": "Wire mock-interview-agent into the evaluation harness (3rd registered project)",
+  "ins": 107,
+  "del": 1,
+  "files": 6
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-12",
+  "subject": "Wire lyric-image-agent into the evaluation harness (2nd registered project)",
+  "ins": 83,
+  "del": 2,
+  "files": 6
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-12",
+  "subject": "Implement the evaluation harness against a real project (personal-weather-agent)",
+  "ins": 425,
+  "del": 1,
+  "files": 6
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-12",
+  "subject": "Clarify pass@k vs pass^k aggregation for repeated eval cases",
+  "ins": 24,
+  "del": 2,
+  "files": 3
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-12",
+  "subject": "Log LLM/API call failures instead of swallowing them silently",
+  "ins": 141,
+  "del": 11,
+  "files": 11
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-12",
+  "subject": "Add mock-interview-agent CLI + Flask web UI with operator-visible logging",
+  "ins": 1020,
+  "del": 14,
+  "files": 16
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-12",
+  "subject": "Add mock-interview-agent STAR prompting, budget guard, and LLM client",
+  "ins": 314,
+  "del": 0,
+  "files": 7
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-12",
+  "subject": "Add mock-interview-agent CareerDiff input loading slice",
+  "ins": 184,
+  "del": 0,
+  "files": 5
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-12",
+  "subject": "Add mock-interview-agent SPEC draft as third project",
+  "ins": 165,
+  "del": 1,
+  "files": 3
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-09-12",
+  "subject": "Record skill observation: transport controls should follow data classification",
+  "ins": 15,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-09-12",
+  "subject": "Add external-call failure logging rule to Debugging Discipline",
+  "ins": 3,
+  "del": 0,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-09-12",
+  "subject": "Record 2026-09-12 mock-interview-agent LLM-basis audit + architecture doc",
+  "ins": 2,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-09-12",
+  "subject": "Record 2026-09-12 eval dashboard + mock-interview-agent redesign",
+  "ins": 22,
+  "del": 8,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-09-12",
+  "subject": "Record 2026-09-12 MCP security work independent re-verification",
+  "ins": 20,
+  "del": 10,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-09-12",
+  "subject": "Record 2026-09-12 independent-review pass on the evaluation harness",
+  "ins": 2,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-09-12",
+  "subject": "Record 2026-09-12 mock-interview-agent evaluation-harness extension",
+  "ins": 22,
+  "del": 8,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-09-12",
+  "subject": "Record 2026-09-12 lyric-image-agent evaluation-harness extension",
+  "ins": 2,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-09-12",
+  "subject": "Record 2026-09-12 evaluation-harness implementation loop",
+  "ins": 32,
+  "del": 0,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-09-12",
+  "subject": "Add 5 missing 2026-09-11 daily-log detail files",
+  "ins": 50,
+  "del": 0,
+  "files": 5
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-09-12",
+  "subject": "Record 2026-09-12 loop: operator-visible logging + eval aggregation fix",
+  "ins": 75,
+  "del": 15,
+  "files": 3
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-11",
+  "subject": "Update README project list for second project (personal-weather-agent)",
+  "ins": 7,
+  "del": 2,
+  "files": 1
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-11",
+  "subject": "feat(weather): improve Kakao and Telegram responses",
+  "ins": 951,
+  "del": 48,
+  "files": 20
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-11",
+  "subject": "Restrict Telegram to one chat, add safety limits, and delivery-resolution CLI",
+  "ins": 250,
+  "del": 22,
+  "files": 14
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-11",
+  "subject": "Add personal-weather-agent as tracked project; fix Kakao/Telegram delivery bugs",
+  "ins": 4065,
+  "del": 0,
+  "files": 59
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-11",
+  "subject": "Add new-project API reuse preflight gate",
+  "ins": 48,
+  "del": 5,
+  "files": 4
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-11",
+  "subject": "Add usage dashboard (/budget) to lyric-image-agent web UI",
+  "ins": 445,
+  "del": 6,
+  "files": 11
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-09-11",
+  "subject": "Add Claude Code vs Codex CLI mapping table to README",
+  "ins": 60,
+  "del": 0,
+  "files": 2
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-09-11",
+  "subject": "Add project-start reuse-check rule, backed by MSR'26 duplication evidence",
+  "ins": 78,
+  "del": 53,
+  "files": 4
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-10",
+  "subject": "Exclude local-only docs from validation",
+  "ins": 71,
+  "del": 1,
+  "files": 2
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-10",
+  "subject": "Sync root docs with lyric-image-agent as the confirmed first project",
+  "ins": 9,
+  "del": 9,
+  "files": 5
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-10",
+  "subject": "Force CRLF checkout for .bat/.cmd files via .gitattributes",
+  "ins": 2,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-10",
+  "subject": "Add lyric-image-agent: first confirmed agent (CLI + web UI)",
+  "ins": 1869,
+  "del": 5,
+  "files": 25
+ },
  {
   "repo": "ai_agent",
   "date": "2026-09-10",
@@ -958,6 +1342,14 @@ const COMMITS = [
   "ins": 478,
   "del": 1,
   "files": 8
+ },
+ {
+  "repo": "ai_history_dashboard",
+  "date": "2026-09-10",
+  "subject": "Auto-update dashboard data (2026-09-10 12:05)",
+  "ins": 25,
+  "del": 9,
+  "files": 1
  },
  {
   "repo": "ai_history_dashboard",
@@ -1028,6 +1420,14 @@ const COMMITS = [
   "date": "2026-09-10",
   "subject": "Add Code Documentation rule: one-line role summary for public classes/functions",
   "ins": 9,
+  "del": 0,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-09-10",
+  "subject": "Record ai_agent first-project verification loops",
+  "ins": 52,
   "del": 0,
   "files": 2
  },
@@ -2683,18 +3083,6 @@ const COMMITS = [
 const SESS = {
  "daily": [
   {
-   "date": "2026-08-12",
-   "claude-code": 0,
-   "codex": 0,
-   "total": 0
-  },
-  {
-   "date": "2026-08-13",
-   "claude-code": 0,
-   "codex": 0,
-   "total": 0
-  },
-  {
    "date": "2026-08-14",
    "claude-code": 2,
    "codex": 0,
@@ -2858,9 +3246,21 @@ const SESS = {
   },
   {
    "date": "2026-09-10",
-   "claude-code": 2,
-   "codex": 0,
-   "total": 2
+   "claude-code": 5,
+   "codex": 3,
+   "total": 8
+  },
+  {
+   "date": "2026-09-11",
+   "claude-code": 3,
+   "codex": 1,
+   "total": 4
+  },
+  {
+   "date": "2026-09-12",
+   "claude-code": 0,
+   "codex": 1,
+   "total": 1
   }
  ],
  "tools": [
@@ -2868,8 +3268,8 @@ const SESS = {
   "codex"
  ],
  "tool_totals": {
-  "claude-code": 49,
-  "codex": 24
+  "claude-code": 55,
+  "codex": 29
  },
  "dow_names": [
   "월",
@@ -2885,8 +3285,8 @@ const SESS = {
    7,
    9,
    8,
-   5,
-   6,
+   8,
+   9,
    8,
    6
   ],
@@ -2894,31 +3294,97 @@ const SESS = {
    2,
    3,
    5,
+   6,
    3,
-   2,
-   4,
+   5,
    5
   ]
  },
  "busiest_date": "2026-09-09",
  "busiest_count": 9,
- "active_days": 21,
+ "active_days": 23,
  "total_days": 30,
- "start_date": "2026-08-12",
- "end_date": "2026-09-10",
- "total_sessions": 73,
+ "start_date": "2026-08-14",
+ "end_date": "2026-09-12",
+ "total_sessions": 84,
  "rows": [
+  {
+   "tool": "codex",
+   "date": "2026-09-12",
+   "label": "MCP 사용 가능 환경 확인",
+   "lines": 0
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-09-11",
+   "label": "hermes-agents",
+   "lines": 5396
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-09-11",
+   "label": "hermes-agents",
+   "lines": 1560
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-09-11",
+   "label": "hermes-agents",
+   "lines": 2209
+  },
+  {
+   "tool": "codex",
+   "date": "2026-09-11",
+   "label": "Fix weather agent test timeout",
+   "lines": 0
+  },
   {
    "tool": "claude-code",
    "date": "2026-09-10",
    "label": "hermes-agents",
-   "lines": 839
+   "lines": 1345
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-09-10",
+   "label": "hermes-agents",
+   "lines": 168
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-09-10",
+   "label": "hermes-agents",
+   "lines": 1809
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-09-10",
+   "label": "hermes-agents",
+   "lines": 850
   },
   {
    "tool": "claude-code",
    "date": "2026-09-10",
    "label": "hermes-agents",
    "lines": 118
+  },
+  {
+   "tool": "codex",
+   "date": "2026-09-10",
+   "label": "Run full ai_agent loop",
+   "lines": 0
+  },
+  {
+   "tool": "codex",
+   "date": "2026-09-10",
+   "label": "방금 만든 이미지 확인",
+   "lines": 0
+  },
+  {
+   "tool": "codex",
+   "date": "2026-09-10",
+   "label": "마지막 진행 내용 확인",
+   "lines": 0
   },
   {
    "tool": "claude-code",
