@@ -381,40 +381,6 @@ tbody td.num { text-align: right; font-variant-numeric: tabular-nums; white-spac
 const AGG = {
  "daily": [
   {
-   "date": "2026-08-14",
-   "ai_agent": 0,
-   "keyinfo": 0,
-   "ai_history_dashboard": 0,
-   "ai_test": 0,
-   "ai_test1": 0,
-   "ai_test2": 0,
-   "career": 0,
-   "hermes-agents": 0,
-   "ai-workspace": 0,
-   "ai_prompt": 0,
-   "llm-wiki": 0,
-   "qa_manager": 0,
-   "skills": 5,
-   "total": 5
-  },
-  {
-   "date": "2026-08-15",
-   "ai_agent": 0,
-   "keyinfo": 0,
-   "ai_history_dashboard": 1,
-   "ai_test": 0,
-   "ai_test1": 0,
-   "ai_test2": 0,
-   "career": 0,
-   "hermes-agents": 1,
-   "ai-workspace": 0,
-   "ai_prompt": 0,
-   "llm-wiki": 0,
-   "qa_manager": 0,
-   "skills": 0,
-   "total": 2
-  },
-  {
    "date": "2026-08-16",
    "ai_agent": 0,
    "keyinfo": 0,
@@ -877,7 +843,7 @@ const AGG = {
    "date": "2026-09-12",
    "ai_agent": 25,
    "keyinfo": 0,
-   "ai_history_dashboard": 0,
+   "ai_history_dashboard": 1,
    "ai_test": 0,
    "ai_test1": 0,
    "ai_test2": 0,
@@ -886,9 +852,43 @@ const AGG = {
    "ai-workspace": 9,
    "ai_prompt": 0,
    "llm-wiki": 0,
+   "qa_manager": 1,
+   "skills": 0,
+   "total": 38
+  },
+  {
+   "date": "2026-09-13",
+   "ai_agent": 12,
+   "keyinfo": 0,
+   "ai_history_dashboard": 0,
+   "ai_test": 0,
+   "ai_test1": 0,
+   "ai_test2": 0,
+   "career": 0,
+   "hermes-agents": 2,
+   "ai-workspace": 4,
+   "ai_prompt": 0,
+   "llm-wiki": 0,
    "qa_manager": 0,
    "skills": 0,
-   "total": 36
+   "total": 18
+  },
+  {
+   "date": "2026-09-14",
+   "ai_agent": 0,
+   "keyinfo": 0,
+   "ai_history_dashboard": 0,
+   "ai_test": 0,
+   "ai_test1": 0,
+   "ai_test2": 0,
+   "career": 0,
+   "hermes-agents": 0,
+   "ai-workspace": 0,
+   "ai_prompt": 0,
+   "llm-wiki": 0,
+   "qa_manager": 0,
+   "skills": 0,
+   "total": 0
   }
  ],
  "repos": [
@@ -906,33 +906,33 @@ const AGG = {
   "qa_manager",
   "skills"
  ],
- "total_commits": 266,
- "total_ins": 56205,
- "total_del": 13155,
- "total_files": 1327,
+ "total_commits": 279,
+ "total_ins": 63398,
+ "total_del": 12887,
+ "total_files": 1446,
  "repo_totals": {
-  "ai_agent": 59,
+  "ai_agent": 71,
   "keyinfo": 0,
   "ai_history_dashboard": 28,
   "ai_test": 7,
   "ai_test1": 17,
   "ai_test2": 10,
   "career": 0,
-  "hermes-agents": 41,
-  "ai-workspace": 50,
+  "hermes-agents": 42,
+  "ai-workspace": 54,
   "ai_prompt": 11,
   "llm-wiki": 1,
-  "qa_manager": 18,
-  "skills": 24
+  "qa_manager": 19,
+  "skills": 19
  },
  "dow_series": [
   65,
   37,
   26,
   35,
-  16,
+  11,
   67,
-  20
+  38
  ],
  "dow_names": [
   "월",
@@ -944,13 +944,157 @@ const AGG = {
   "일"
  ],
  "busiest_date": "2026-09-12",
- "busiest_count": 36,
- "active_days": 23,
+ "busiest_count": 38,
+ "active_days": 22,
  "total_days": 30,
- "start_date": "2026-08-14",
- "end_date": "2026-09-12"
+ "start_date": "2026-08-16",
+ "end_date": "2026-09-14"
 };
 const COMMITS = [
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-13",
+  "subject": "Fix dialogue-placement prompt to match the actual fixed-bottom renderer",
+  "ins": 38,
+  "del": 34,
+  "files": 3
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-13",
+  "subject": "Document story-generation and dialogue prompt architectures",
+  "ins": 507,
+  "del": 1,
+  "files": 3
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-13",
+  "subject": "Add cinematic_mv_mood style preset; document the full image-prompt architecture",
+  "ins": 235,
+  "del": 1,
+  "files": 6
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-13",
+  "subject": "Scope panel image reference-conditioning to the cut's actual subject",
+  "ins": 42,
+  "del": 4,
+  "files": 5
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-13",
+  "subject": "Add whole-episode consistency check that runs automatically on story edit",
+  "ins": 166,
+  "del": 5,
+  "files": 8
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-13",
+  "subject": "Let a human review and edit the story/dialogue before paid image generation",
+  "ins": 233,
+  "del": 4,
+  "files": 9
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-13",
+  "subject": "Add exaggeration/temperature-gap humor requirement to story prompts",
+  "ins": 34,
+  "del": 1,
+  "files": 2
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-13",
+  "subject": "Simplify speech_bubble: no box, no region search, overlap is fine",
+  "ins": 72,
+  "del": 108,
+  "files": 4
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-13",
+  "subject": "Fix invisible speech-bubble text and cramped episode-list layout",
+  "ins": 90,
+  "del": 43,
+  "files": 6
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-13",
+  "subject": "Deterministic 4:5 speech bubbles, two-pass dialogue, and story-bible cast lock",
+  "ins": 1176,
+  "del": 86,
+  "files": 18
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-13",
+  "subject": "Thread concept's hook into story generation; fix flaky doc-validator test",
+  "ins": 67,
+  "del": 14,
+  "files": 7
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-13",
+  "subject": "Add instagram-toon-agent as second Phase 2 MVP project",
+  "ins": 4215,
+  "del": 6,
+  "files": 44
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-09-13",
+  "subject": "Record Observation 20: declare LOOP-START before, not after, a multi-check verification pass",
+  "ins": 15,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-09-13",
+  "subject": "Record task-observer observations 13-19; ignore local .state/",
+  "ins": 112,
+  "del": 0,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-09-13",
+  "subject": "Record instagram-toon-agent prompt docs and dialogue-placement fix",
+  "ins": 2,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-09-13",
+  "subject": "Record instagram-toon-agent image-prompt audit and reference-scoping fix",
+  "ins": 1,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-09-13",
+  "subject": "Add ADR-003 (ACP not adopted) and archive HANDOFF 2026-09-12 entries",
+  "ins": 223,
+  "del": 4,
+  "files": 6
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-09-13",
+  "subject": "Add ADR-002: decide against Kakao PlayMCP for ai_agent Kakao integration",
+  "ins": 46,
+  "del": 0,
+  "files": 1
+ },
  {
   "repo": "ai_agent",
   "date": "2026-09-12",
@@ -1152,6 +1296,14 @@ const COMMITS = [
   "files": 3
  },
  {
+  "repo": "ai_history_dashboard",
+  "date": "2026-09-12",
+  "subject": "Auto-update dashboard data (2026-09-12 20:43)",
+  "ins": 546,
+  "del": 80,
+  "files": 1
+ },
+ {
   "repo": "hermes-agents",
   "date": "2026-09-12",
   "subject": "Record skill observation: transport controls should follow data classification",
@@ -1238,6 +1390,14 @@ const COMMITS = [
   "ins": 75,
   "del": 15,
   "files": 3
+ },
+ {
+  "repo": "qa_manager",
+  "date": "2026-09-12",
+  "subject": "Regenerate dashboards (2026-09-12)",
+  "ins": 9,
+  "del": 9,
+  "files": 9
  },
  {
   "repo": "ai_agent",
@@ -3022,78 +3182,10 @@ const COMMITS = [
   "ins": 326,
   "del": 1,
   "files": 8
- },
- {
-  "repo": "ai_history_dashboard",
-  "date": "2026-08-15",
-  "subject": "Auto-update dashboard data (2026-08-15)",
-  "ins": 444,
-  "del": 596,
-  "files": 1
- },
- {
-  "repo": "hermes-agents",
-  "date": "2026-08-15",
-  "subject": "AGENTS.md: add integration-scenario check to Test Scope Rule",
-  "ins": 7,
-  "del": 0,
-  "files": 2
- },
- {
-  "repo": "skills",
-  "date": "2026-08-14",
-  "subject": "docs(USAGE): fix skill-folder count 18 -> 19 (install step)",
-  "ins": 1,
-  "del": 1,
-  "files": 1
- },
- {
-  "repo": "skills",
-  "date": "2026-08-14",
-  "subject": "docs: tidy README (compact 70-line rewrite) + fix skill-count off-by-one",
-  "ins": 50,
-  "del": 58,
-  "files": 1
- },
- {
-  "repo": "skills",
-  "date": "2026-08-14",
-  "subject": "test: fence gitignored third-party clones out of root pytest collection",
-  "ins": 18,
-  "del": 0,
-  "files": 1
- },
- {
-  "repo": "skills",
-  "date": "2026-08-14",
-  "subject": "docs(web-project): reconcile skill count/list in Korean helper docs",
-  "ins": 14,
-  "del": 6,
-  "files": 4
- },
- {
-  "repo": "skills",
-  "date": "2026-08-14",
-  "subject": "book-distiller: add skill wrapping book-to-skill (runtime dependency)",
-  "ins": 102,
-  "del": 7,
-  "files": 8
  }
 ];
 const SESS = {
  "daily": [
-  {
-   "date": "2026-08-14",
-   "claude-code": 2,
-   "codex": 0,
-   "total": 2
-  },
-  {
-   "date": "2026-08-15",
-   "claude-code": 2,
-   "codex": 1,
-   "total": 3
-  },
   {
    "date": "2026-08-16",
    "claude-code": 3,
@@ -3258,9 +3350,21 @@ const SESS = {
   },
   {
    "date": "2026-09-12",
-   "claude-code": 0,
+   "claude-code": 2,
+   "codex": 2,
+   "total": 4
+  },
+  {
+   "date": "2026-09-13",
+   "claude-code": 3,
    "codex": 1,
-   "total": 1
+   "total": 4
+  },
+  {
+   "date": "2026-09-14",
+   "claude-code": 0,
+   "codex": 0,
+   "total": 0
   }
  ],
  "tools": [
@@ -3268,8 +3372,8 @@ const SESS = {
   "codex"
  ],
  "tool_totals": {
-  "claude-code": 55,
-  "codex": 29
+  "claude-code": 56,
+  "codex": 30
  },
  "dow_names": [
   "월",
@@ -3286,9 +3390,9 @@ const SESS = {
    9,
    8,
    8,
-   9,
+   7,
    8,
-   6
+   9
   ],
   "codex": [
    2,
@@ -3297,17 +3401,53 @@ const SESS = {
    6,
    3,
    5,
-   5
+   6
   ]
  },
  "busiest_date": "2026-09-09",
  "busiest_count": 9,
- "active_days": 23,
+ "active_days": 22,
  "total_days": 30,
- "start_date": "2026-08-14",
- "end_date": "2026-09-12",
- "total_sessions": 84,
+ "start_date": "2026-08-16",
+ "end_date": "2026-09-14",
+ "total_sessions": 86,
  "rows": [
+  {
+   "tool": "claude-code",
+   "date": "2026-09-13",
+   "label": "hermes-agents",
+   "lines": 1158
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-09-13",
+   "label": "hermes-agents",
+   "lines": 204
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-09-13",
+   "label": "hermes-agents",
+   "lines": 225
+  },
+  {
+   "tool": "codex",
+   "date": "2026-09-13",
+   "label": "인스타툰 스토리 품질 개선",
+   "lines": 0
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-09-12",
+   "label": "hermes-agents",
+   "lines": 2446
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-09-12",
+   "label": "hermes-agents",
+   "lines": 1660
+  },
   {
    "tool": "codex",
    "date": "2026-09-12",
@@ -3315,10 +3455,16 @@ const SESS = {
    "lines": 0
   },
   {
+   "tool": "codex",
+   "date": "2026-09-12",
+   "label": "instagram-toon-agent 전체 루프 점검",
+   "lines": 0
+  },
+  {
    "tool": "claude-code",
    "date": "2026-09-11",
    "label": "hermes-agents",
-   "lines": 5396
+   "lines": 5448
   },
   {
    "tool": "claude-code",
@@ -3781,36 +3927,6 @@ const SESS = {
    "date": "2026-08-16",
    "label": "AI 사업 프로젝트 검색",
    "lines": 0
-  },
-  {
-   "tool": "claude-code",
-   "date": "2026-08-15",
-   "label": "hermes-agents",
-   "lines": 131
-  },
-  {
-   "tool": "claude-code",
-   "date": "2026-08-15",
-   "label": "hermes-agents",
-   "lines": 276
-  },
-  {
-   "tool": "codex",
-   "date": "2026-08-15",
-   "label": "제거 대상 확인",
-   "lines": 0
-  },
-  {
-   "tool": "claude-code",
-   "date": "2026-08-14",
-   "label": "hermes-agents",
-   "lines": 427
-  },
-  {
-   "tool": "claude-code",
-   "date": "2026-08-14",
-   "label": "hermes-agents",
-   "lines": 598
   }
  ]
 };
