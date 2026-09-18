@@ -1,5 +1,7 @@
 # AI Agent Work-History Dashboard
 
+**🤔 [쉬운 설명 보기](ELI5.html)** — 비개발자를 위한 한 페이지 요약
+
 ## 로컬 AI 사용·프롬프트 분석
 
 `scripts\analyze-private.bat`을 실행하면 최근 30일의 Claude Code/Codex 로컬 세션을 분석해 `private-dashboard.html`을 생성합니다.
