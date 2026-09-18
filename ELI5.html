@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ai_history_dashboard — 쉬운 설명</title>
+<style>
+  :root{
+    --bg:#faf9f7; --card:#ffffff; --ink:#1c1917; --sub:#6b6863;
+    --accent:#7c5cff; --accent-soft:#efe9ff; --line:#eeece8;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#17151c; --card:#221f29; --ink:#f2f0f5; --sub:#a7a3af;
+      --accent:#a58bff; --accent-soft:#2c2740; --line:#332f3d; }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,"Segoe UI",Pretendard,sans-serif;
+    padding:32px 20px 56px}
+  .wrap{max-width:640px;margin:0 auto}
+  .hero{text-align:center;padding:36px 16px}
+  .emoji{font-size:88px;line-height:1}
+  h1{font-size:26px;margin:14px 0 6px}
+  .tag{color:var(--sub);font-size:15px}
+  .analogy{background:var(--accent-soft);border-radius:20px;padding:24px 22px;
+    margin:24px 0;font-size:17px;line-height:1.65}
+  .analogy b{color:var(--accent)}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:24px 0}
+  @media (max-width:480px){.grid{grid-template-columns:1fr}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;
+    padding:18px}
+  .card .ic{font-size:28px}
+  .card h3{font-size:14px;margin:8px 0 4px}
+  .card p{font-size:13px;color:var(--sub);margin:0;line-height:1.5}
+  .run{background:var(--card);border:1px solid var(--line);border-radius:16px;
+    padding:18px 20px;margin-top:24px}
+  .run h3{font-size:14px;margin:0 0 10px}
+  code{display:block;background:var(--accent-soft);color:var(--ink);
+    padding:12px 14px;border-radius:10px;font-size:13px;overflow-x:auto;
+    white-space:pre}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hero">
+    <div class="emoji">📊🤖</div>
+    <h1>ai_history_dashboard</h1>
+    <div class="tag">AI 코딩 도구 사용 기록 + 커밋 활동을 한눈에 보는 대시보드</div>
+  </div>
+
+  <div class="analogy">
+    매일 걸음 수를 재는 만보기를 생각해보세요. 이 대시보드는 당신이
+    <b>Claude Code·Codex로 하루에 얼마나 작업했는지</b>와
+    <b>어느 저장소에 얼마나 커밋했는지</b>를 자동으로 재서 그래프로 보여줍니다.
+    원본 로그는 이 컴퓨터에만 있어서, 공개되는 화면과 로컬 전용 화면을 나눠 둡니다.
+  </div>
+
+  <div class="grid">
+    <div class="card"><div class="ic">📈</div><h3>요약</h3>
+      <p>통합 KPI 카드, 일별 활동 히트맵, 요일별 활동 리듬</p></div>
+    <div class="card"><div class="ic">💬</div><h3>세션 활동</h3>
+      <p>Claude Code/Codex 도구별 일별 추이, 가장 긴 세션 TOP 5</p></div>
+    <div class="card"><div class="ic">💾</div><h3>커밋 결과물</h3>
+      <p>Desktop 아래 모든 git 저장소의 저장소별 일별 커밋 추이</p></div>
+    <div class="card"><div class="ic">🔒</div><h3>로컬 전용 분석</h3>
+      <p>프롬프트 품질 관측 지표(HOLD) — GitHub Pages에 게시 안 됨</p></div>
+  </div>
+
+  <div class="run">
+    <h3>🔍 갱신해보려면</h3>
+    <code>scripts/regenerate.bat 더블클릭 (index.html만 갱신, git 조작 없음)</code>
+  </div>
+</div>
+</body>
+</html>
