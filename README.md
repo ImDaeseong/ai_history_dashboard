@@ -1,6 +1,6 @@
 # AI Agent Work-History Dashboard
 
-**🤔 [쉬운 설명 보기](ELI5.html)** — 비개발자를 위한 한 페이지 요약
+**🤔 [쉬운 설명 보기](https://imdaeseong.github.io/ai_history_dashboard/ELI5.html)** — 비개발자를 위한 한 페이지 요약
 
 ## 로컬 AI 사용·프롬프트 분석
 
