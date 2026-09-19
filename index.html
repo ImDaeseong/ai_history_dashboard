@@ -875,9 +875,9 @@ const AGG = {
   },
   {
    "date": "2026-09-20",
-   "ai_agent": 2,
+   "ai_agent": 4,
    "keyinfo": 0,
-   "ai_history_dashboard": 0,
+   "ai_history_dashboard": 1,
    "ai_test": 0,
    "ai_test1": 0,
    "ai_test2": 0,
@@ -888,7 +888,7 @@ const AGG = {
    "llm-wiki": 0,
    "qa_manager": 0,
    "skills": 0,
-   "total": 2
+   "total": 5
   }
  ],
  "repos": [
@@ -906,14 +906,14 @@ const AGG = {
   "qa_manager",
   "skills"
  ],
- "total_commits": 346,
- "total_ins": 79979,
- "total_del": 24922,
- "total_files": 1955,
+ "total_commits": 349,
+ "total_ins": 81372,
+ "total_del": 25642,
+ "total_files": 1967,
  "repo_totals": {
-  "ai_agent": 105,
+  "ai_agent": 107,
   "keyinfo": 0,
-  "ai_history_dashboard": 29,
+  "ai_history_dashboard": 30,
   "ai_test": 7,
   "ai_test1": 8,
   "ai_test2": 11,
@@ -932,7 +932,7 @@ const AGG = {
   30,
   63,
   102,
-  36
+  39
  ],
  "dow_names": [
   "월",
@@ -954,6 +954,22 @@ const COMMITS = [
  {
   "repo": "ai_agent",
   "date": "2026-09-20",
+  "subject": "masters-panel-agent: acknowledge two security-hotspot-guard false positives",
+  "ins": 2,
+  "del": 2,
+  "files": 2
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-20",
+  "subject": "masters-panel-agent: add a history list of past sessions",
+  "ins": 225,
+  "del": 40,
+  "files": 9
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-20",
   "subject": "masters-panel-agent: add per-person profile so context isn't retyped every time",
   "ins": 262,
   "del": 16,
@@ -965,6 +981,14 @@ const COMMITS = [
   "subject": "masters-panel-agent: fix test isolation leak in /followup tests",
   "ins": 4,
   "del": 2,
+  "files": 1
+ },
+ {
+  "repo": "ai_history_dashboard",
+  "date": "2026-09-20",
+  "subject": "Auto-update dashboard data (2026-09-20 00:39)",
+  "ins": 1166,
+  "del": 678,
   "files": 1
  },
  {
@@ -3952,7 +3976,7 @@ const SESS = {
    "tool": "claude-code",
    "date": "2026-09-19",
    "label": "hermes-agents",
-   "lines": 2339
+   "lines": 2703
   },
   {
    "tool": "claude-code",
