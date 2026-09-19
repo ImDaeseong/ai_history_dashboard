@@ -875,20 +875,20 @@ const AGG = {
   },
   {
    "date": "2026-09-20",
-   "ai_agent": 4,
+   "ai_agent": 10,
    "keyinfo": 0,
-   "ai_history_dashboard": 1,
+   "ai_history_dashboard": 2,
    "ai_test": 0,
    "ai_test1": 0,
    "ai_test2": 0,
    "career": 0,
    "hermes-agents": 0,
-   "ai-workspace": 0,
+   "ai-workspace": 2,
    "ai_prompt": 0,
    "llm-wiki": 0,
-   "qa_manager": 0,
+   "qa_manager": 3,
    "skills": 0,
-   "total": 5
+   "total": 17
   }
  ],
  "repos": [
@@ -906,23 +906,23 @@ const AGG = {
   "qa_manager",
   "skills"
  ],
- "total_commits": 349,
- "total_ins": 81372,
- "total_del": 25642,
- "total_files": 1967,
+ "total_commits": 361,
+ "total_ins": 83031,
+ "total_del": 25791,
+ "total_files": 2048,
  "repo_totals": {
-  "ai_agent": 107,
+  "ai_agent": 113,
   "keyinfo": 0,
-  "ai_history_dashboard": 30,
+  "ai_history_dashboard": 31,
   "ai_test": 7,
   "ai_test1": 8,
   "ai_test2": 11,
   "career": 0,
   "hermes-agents": 50,
-  "ai-workspace": 59,
+  "ai-workspace": 61,
   "ai_prompt": 18,
   "llm-wiki": 0,
-  "qa_manager": 32,
+  "qa_manager": 35,
   "skills": 27
  },
  "dow_series": [
@@ -932,7 +932,7 @@ const AGG = {
   30,
   63,
   102,
-  39
+  51
  ],
  "dow_names": [
   "월",
@@ -951,6 +951,54 @@ const AGG = {
  "end_date": "2026-09-20"
 };
 const COMMITS = [
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-20",
+  "subject": "masters-panel-agent: ground new-question followups in real web search",
+  "ins": 211,
+  "del": 7,
+  "files": 7
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-20",
+  "subject": "masters-panel-agent: refresh UI to match Canva's actual current style",
+  "ins": 74,
+  "del": 40,
+  "files": 2
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-20",
+  "subject": "masters-panel-agent: fix followup ignoring new specific questions",
+  "ins": 93,
+  "del": 1,
+  "files": 2
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-20",
+  "subject": "masters-panel-agent: deterministic skew-flag + arithmetic self-check, live-verified",
+  "ins": 146,
+  "del": 9,
+  "files": 8
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-20",
+  "subject": "masters-panel-agent: fix persona-diversity and specificity content defects",
+  "ins": 284,
+  "del": 34,
+  "files": 14
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-20",
+  "subject": "Split masters-panel instructions by platform (ChatGPT vs Claude.ai Projects)",
+  "ins": 84,
+  "del": 17,
+  "files": 4
+ },
  {
   "repo": "ai_agent",
   "date": "2026-09-20",
@@ -986,10 +1034,58 @@ const COMMITS = [
  {
   "repo": "ai_history_dashboard",
   "date": "2026-09-20",
+  "subject": "Auto-update dashboard data (2026-09-20 00:58)",
+  "ins": 35,
+  "del": 11,
+  "files": 1
+ },
+ {
+  "repo": "ai_history_dashboard",
+  "date": "2026-09-20",
   "subject": "Auto-update dashboard data (2026-09-20 00:39)",
   "ins": 1166,
   "del": 678,
   "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-09-20",
+  "subject": "Record masters-panel-agent verification and push",
+  "ins": 10,
+  "del": 0,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-09-20",
+  "subject": "Close the 9-project verification loop: 100% pass in normal environment",
+  "ins": 45,
+  "del": 0,
+  "files": 2
+ },
+ {
+  "repo": "qa_manager",
+  "date": "2026-09-20",
+  "subject": "Fix cross-platform hang-kill fallback and its own false-positive comments",
+  "ins": 50,
+  "del": 7,
+  "files": 2
+ },
+ {
+  "repo": "qa_manager",
+  "date": "2026-09-20",
+  "subject": "Add commercial-release readiness verdict, tag all 9 projects",
+  "ins": 612,
+  "del": 8,
+  "files": 26
+ },
+ {
+  "repo": "qa_manager",
+  "date": "2026-09-20",
+  "subject": "Regenerate dashboards after re-verifying all 9 projects pass",
+  "ins": 15,
+  "del": 15,
+  "files": 11
  },
  {
   "repo": "ai_agent",
@@ -3916,9 +4012,9 @@ const SESS = {
   },
   {
    "date": "2026-09-19",
-   "claude-code": 2,
-   "codex": 0,
-   "total": 2
+   "claude-code": 3,
+   "codex": 2,
+   "total": 5
   },
   {
    "date": "2026-09-20",
@@ -3932,8 +4028,8 @@ const SESS = {
   "codex"
  ],
  "tool_totals": {
-  "claude-code": 51,
-  "codex": 27
+  "claude-code": 52,
+  "codex": 29
  },
  "dow_names": [
   "월",
@@ -3951,7 +4047,7 @@ const SESS = {
    5,
    9,
    9,
-   10,
+   11,
    6
   ],
   "codex": [
@@ -3960,7 +4056,7 @@ const SESS = {
    5,
    6,
    3,
-   5,
+   7,
    2
   ]
  },
@@ -3970,19 +4066,37 @@ const SESS = {
  "total_days": 30,
  "start_date": "2026-08-22",
  "end_date": "2026-09-20",
- "total_sessions": 78,
+ "total_sessions": 81,
  "rows": [
   {
    "tool": "claude-code",
    "date": "2026-09-19",
    "label": "hermes-agents",
-   "lines": 2703
+   "lines": 1548
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-09-19",
+   "label": "hermes-agents",
+   "lines": 3423
   },
   {
    "tool": "claude-code",
    "date": "2026-09-19",
    "label": "hermes-agents",
    "lines": 1642
+  },
+  {
+   "tool": "codex",
+   "date": "2026-09-19",
+   "label": "프로젝트 루프 점검",
+   "lines": 0
+  },
+  {
+   "tool": "codex",
+   "date": "2026-09-19",
+   "label": "masters-panel-agent 루프 진행",
+   "lines": 0
   },
   {
    "tool": "claude-code",
