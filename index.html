@@ -381,40 +381,6 @@ tbody td.num { text-align: right; font-variant-numeric: tabular-nums; white-spac
 const AGG = {
  "daily": [
   {
-   "date": "2026-08-22",
-   "ai_agent": 0,
-   "keyinfo": 0,
-   "ai_history_dashboard": 0,
-   "ai_test": 0,
-   "ai_test1": 0,
-   "ai_test2": 0,
-   "career": 0,
-   "hermes-agents": 1,
-   "ai-workspace": 1,
-   "ai_prompt": 0,
-   "llm-wiki": 0,
-   "qa_manager": 0,
-   "skills": 1,
-   "total": 3
-  },
-  {
-   "date": "2026-08-23",
-   "ai_agent": 0,
-   "keyinfo": 0,
-   "ai_history_dashboard": 0,
-   "ai_test": 0,
-   "ai_test1": 0,
-   "ai_test2": 0,
-   "career": 0,
-   "hermes-agents": 0,
-   "ai-workspace": 0,
-   "ai_prompt": 0,
-   "llm-wiki": 0,
-   "qa_manager": 0,
-   "skills": 0,
-   "total": 0
-  },
-  {
    "date": "2026-08-24",
    "ai_agent": 0,
    "keyinfo": 0,
@@ -877,18 +843,52 @@ const AGG = {
    "date": "2026-09-20",
    "ai_agent": 10,
    "keyinfo": 0,
-   "ai_history_dashboard": 2,
+   "ai_history_dashboard": 3,
    "ai_test": 0,
    "ai_test1": 0,
    "ai_test2": 0,
    "career": 0,
-   "hermes-agents": 0,
-   "ai-workspace": 2,
+   "hermes-agents": 1,
+   "ai-workspace": 11,
    "ai_prompt": 0,
    "llm-wiki": 0,
-   "qa_manager": 3,
+   "qa_manager": 16,
    "skills": 0,
-   "total": 17
+   "total": 41
+  },
+  {
+   "date": "2026-09-21",
+   "ai_agent": 2,
+   "keyinfo": 0,
+   "ai_history_dashboard": 0,
+   "ai_test": 6,
+   "ai_test1": 3,
+   "ai_test2": 3,
+   "career": 0,
+   "hermes-agents": 2,
+   "ai-workspace": 22,
+   "ai_prompt": 2,
+   "llm-wiki": 0,
+   "qa_manager": 26,
+   "skills": 0,
+   "total": 66
+  },
+  {
+   "date": "2026-09-22",
+   "ai_agent": 2,
+   "keyinfo": 0,
+   "ai_history_dashboard": 0,
+   "ai_test": 1,
+   "ai_test1": 1,
+   "ai_test2": 1,
+   "career": 0,
+   "hermes-agents": 1,
+   "ai-workspace": 3,
+   "ai_prompt": 0,
+   "llm-wiki": 0,
+   "qa_manager": 0,
+   "skills": 0,
+   "total": 9
   }
  ],
  "repos": [
@@ -906,33 +906,33 @@ const AGG = {
   "qa_manager",
   "skills"
  ],
- "total_commits": 361,
- "total_ins": 83031,
- "total_del": 25791,
- "total_files": 2048,
+ "total_commits": 457,
+ "total_ins": 95145,
+ "total_del": 61887,
+ "total_files": 3318,
  "repo_totals": {
-  "ai_agent": 113,
+  "ai_agent": 117,
   "keyinfo": 0,
-  "ai_history_dashboard": 31,
-  "ai_test": 7,
-  "ai_test1": 8,
-  "ai_test2": 11,
+  "ai_history_dashboard": 32,
+  "ai_test": 14,
+  "ai_test1": 12,
+  "ai_test2": 15,
   "career": 0,
-  "hermes-agents": 50,
-  "ai-workspace": 61,
-  "ai_prompt": 18,
+  "hermes-agents": 53,
+  "ai-workspace": 94,
+  "ai_prompt": 20,
   "llm-wiki": 0,
-  "qa_manager": 35,
-  "skills": 27
+  "qa_manager": 74,
+  "skills": 26
  },
  "dow_series": [
-  48,
-  44,
+  114,
+  53,
   23,
   30,
   63,
-  102,
-  51
+  99,
+  75
  ],
  "dow_names": [
   "월",
@@ -943,14 +943,614 @@ const AGG = {
   "토",
   "일"
  ],
- "busiest_date": "2026-09-18",
- "busiest_count": 54,
- "active_days": 21,
+ "busiest_date": "2026-09-21",
+ "busiest_count": 66,
+ "active_days": 22,
  "total_days": 30,
- "start_date": "2026-08-22",
- "end_date": "2026-09-20"
+ "start_date": "2026-08-24",
+ "end_date": "2026-09-22"
 };
 const COMMITS = [
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-22",
+  "subject": "Improve research assistant recovery and evidence workflows",
+  "ins": 859,
+  "del": 271,
+  "files": 27
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-22",
+  "subject": "Add evidence-led research assistants and source inspection",
+  "ins": 6145,
+  "del": 512,
+  "files": 122
+ },
+ {
+  "repo": "ai_test",
+  "date": "2026-09-22",
+  "subject": "feat(ai-webtoon): connect OpenAI image generation",
+  "ins": 452,
+  "del": 49,
+  "files": 13
+ },
+ {
+  "repo": "ai_test1",
+  "date": "2026-09-22",
+  "subject": "feat(ai-story): restore OpenAI auto completion",
+  "ins": 189,
+  "del": 32,
+  "files": 12
+ },
+ {
+  "repo": "ai_test2",
+  "date": "2026-09-22",
+  "subject": "feat(careerdiff): enable shared OpenAI credentials",
+  "ins": 103,
+  "del": 11,
+  "files": 8
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-09-22",
+  "subject": "Add task-scoped evidence research skill and protocol",
+  "ins": 61,
+  "del": 0,
+  "files": 7
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-09-22",
+  "subject": "Record research assistant and evidence skill handoffs",
+  "ins": 388,
+  "del": 21,
+  "files": 21
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-09-22",
+  "subject": "docs: record OpenAI integration commits",
+  "ins": 2,
+  "del": 1,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-09-22",
+  "subject": "docs: record OpenAI integration verification",
+  "ins": 35,
+  "del": 0,
+  "files": 3
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-21",
+  "subject": "Remove local home paths from public agent files",
+  "ins": 71,
+  "del": 50,
+  "files": 35
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-21",
+  "subject": "Keep runtime logs out of tracked source",
+  "ins": 13,
+  "del": 1,
+  "files": 4
+ },
+ {
+  "repo": "ai_test",
+  "date": "2026-09-21",
+  "subject": "Make license CRLF test checkout-independent",
+  "ins": 2,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "ai_test",
+  "date": "2026-09-21",
+  "subject": "Add dependency inventory release guard",
+  "ins": 221,
+  "del": 1,
+  "files": 5
+ },
+ {
+  "repo": "ai_test",
+  "date": "2026-09-21",
+  "subject": "License original source under MIT",
+  "ins": 177,
+  "del": 0,
+  "files": 5
+ },
+ {
+  "repo": "ai_test",
+  "date": "2026-09-21",
+  "subject": "Restore JsonCpp 1.7.2 license notice",
+  "ins": 94,
+  "del": 0,
+  "files": 2
+ },
+ {
+  "repo": "ai_test",
+  "date": "2026-09-21",
+  "subject": "Exclude remaining media and build artifacts",
+  "ins": 13,
+  "del": 12,
+  "files": 5
+ },
+ {
+  "repo": "ai_test",
+  "date": "2026-09-21",
+  "subject": "Distribute source without media or executables",
+  "ins": 45,
+  "del": 0,
+  "files": 3
+ },
+ {
+  "repo": "ai_test1",
+  "date": "2026-09-21",
+  "subject": "Expand source-only media guard",
+  "ins": 13,
+  "del": 1,
+  "files": 2
+ },
+ {
+  "repo": "ai_test1",
+  "date": "2026-09-21",
+  "subject": "Distribute source without media or executables",
+  "ins": 44,
+  "del": 0,
+  "files": 147
+ },
+ {
+  "repo": "ai_test1",
+  "date": "2026-09-21",
+  "subject": "fix: keep production history local and remove home paths",
+  "ins": 31,
+  "del": 29,
+  "files": 10
+ },
+ {
+  "repo": "ai_test2",
+  "date": "2026-09-21",
+  "subject": "Exclude remaining media assets",
+  "ins": 13,
+  "del": 6,
+  "files": 9
+ },
+ {
+  "repo": "ai_test2",
+  "date": "2026-09-21",
+  "subject": "Distribute source without media or executables",
+  "ins": 45,
+  "del": 0,
+  "files": 41
+ },
+ {
+  "repo": "ai_test2",
+  "date": "2026-09-21",
+  "subject": "fix: keep creative inputs local and remove home paths",
+  "ins": 60,
+  "del": 34052,
+  "files": 505
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-09-21",
+  "subject": "fix: keep session logs out of public source",
+  "ins": 16,
+  "del": 595,
+  "files": 7
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-09-21",
+  "subject": "Scale /spec confirmation depth by change size, tighten /plan task discipline",
+  "ins": 14,
+  "del": 0,
+  "files": 4
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-09-21",
+  "subject": "Record nine-project verification loop",
+  "ins": 24,
+  "del": 3,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-09-21",
+  "subject": "Correct ai_test fork and pull request state",
+  "ins": 12,
+  "del": 6,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-09-21",
+  "subject": "Record completed ai_test history rewrite",
+  "ins": 8,
+  "del": 1,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-09-21",
+  "subject": "Record refreshed ai_test rewrite evidence",
+  "ins": 16,
+  "del": 2,
+  "files": 3
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-09-21",
+  "subject": "Record dependency inventory completion",
+  "ins": 10,
+  "del": 2,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-09-21",
+  "subject": "Record completed normal pushes",
+  "ins": 2,
+  "del": 1,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-09-21",
+  "subject": "Record ai_test force-push hold",
+  "ins": 2,
+  "del": 1,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-09-21",
+  "subject": "Record ai_test recovery backup",
+  "ins": 2,
+  "del": 1,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-09-21",
+  "subject": "Record ai_test public remote hold",
+  "ins": 2,
+  "del": 1,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-09-21",
+  "subject": "Record ai_test rewrite dry run",
+  "ins": 9,
+  "del": 1,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-09-21",
+  "subject": "Record ai_test Git history audit",
+  "ins": 8,
+  "del": 1,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-09-21",
+  "subject": "Record ai_test MIT license application",
+  "ins": 7,
+  "del": 1,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-09-21",
+  "subject": "Record ai_test license scope audit",
+  "ins": 8,
+  "del": 1,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-09-21",
+  "subject": "Record JsonCpp notice verification handoff",
+  "ins": 7,
+  "del": 1,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-09-21",
+  "subject": "Record extended source-only audit handoff",
+  "ins": 5,
+  "del": 1,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-09-21",
+  "subject": "Record source-only release review handoff",
+  "ins": 5,
+  "del": 1,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-09-21",
+  "subject": "docs: hand off full public source audit",
+  "ins": 7,
+  "del": 1,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-09-21",
+  "subject": "docs: hand off ai_test1 release review",
+  "ins": 3,
+  "del": 1,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-09-21",
+  "subject": "docs: hand off ai_test source audit",
+  "ins": 3,
+  "del": 1,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-09-21",
+  "subject": "docs: hand off advisor notice review",
+  "ins": 3,
+  "del": 1,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-09-21",
+  "subject": "docs: hand off ai_prompt license review progress",
+  "ins": 8,
+  "del": 2,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-09-21",
+  "subject": "Record public source release triage handoff",
+  "ins": 10,
+  "del": 0,
+  "files": 2
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-09-21",
+  "subject": "fix: preserve advisor notices and remove local home paths",
+  "ins": 107,
+  "del": 15,
+  "files": 20
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-09-21",
+  "subject": "fix: bundle Anthropic skill license text and guard references",
+  "ins": 214,
+  "del": 3,
+  "files": 4
+ },
+ {
+  "repo": "qa_manager",
+  "date": "2026-09-21",
+  "subject": "Fix release review baseline drift",
+  "ins": 4,
+  "del": 2,
+  "files": 3
+ },
+ {
+  "repo": "qa_manager",
+  "date": "2026-09-21",
+  "subject": "Correct ai_test pull request risk record",
+  "ins": 10,
+  "del": 6,
+  "files": 2
+ },
+ {
+  "repo": "qa_manager",
+  "date": "2026-09-21",
+  "subject": "Record approved ai_test history replacement",
+  "ins": 13,
+  "del": 2,
+  "files": 3
+ },
+ {
+  "repo": "qa_manager",
+  "date": "2026-09-21",
+  "subject": "Refresh ai_test history rewrite evidence",
+  "ins": 17,
+  "del": 3,
+  "files": 3
+ },
+ {
+  "repo": "qa_manager",
+  "date": "2026-09-21",
+  "subject": "Track ai_test dependency inventory evidence",
+  "ins": 76,
+  "del": 8,
+  "files": 4
+ },
+ {
+  "repo": "qa_manager",
+  "date": "2026-09-21",
+  "subject": "Record completed ai_test normal push",
+  "ins": 2,
+  "del": 2,
+  "files": 2
+ },
+ {
+  "repo": "qa_manager",
+  "date": "2026-09-21",
+  "subject": "Record ai_test force-push hold",
+  "ins": 5,
+  "del": 1,
+  "files": 2
+ },
+ {
+  "repo": "qa_manager",
+  "date": "2026-09-21",
+  "subject": "Record ai_test recovery bundle",
+  "ins": 5,
+  "del": 1,
+  "files": 2
+ },
+ {
+  "repo": "qa_manager",
+  "date": "2026-09-21",
+  "subject": "Record ai_test public remote state",
+  "ins": 5,
+  "del": 1,
+  "files": 2
+ },
+ {
+  "repo": "qa_manager",
+  "date": "2026-09-21",
+  "subject": "Record ai_test history rewrite dry run",
+  "ins": 16,
+  "del": 3,
+  "files": 2
+ },
+ {
+  "repo": "qa_manager",
+  "date": "2026-09-21",
+  "subject": "Audit ai_test Git history exposure",
+  "ins": 47,
+  "del": 2,
+  "files": 2
+ },
+ {
+  "repo": "qa_manager",
+  "date": "2026-09-21",
+  "subject": "Record ai_test MIT release boundary",
+  "ins": 176,
+  "del": 20,
+  "files": 5
+ },
+ {
+  "repo": "qa_manager",
+  "date": "2026-09-21",
+  "subject": "Audit ai_test license scope",
+  "ins": 74,
+  "del": 6,
+  "files": 4
+ },
+ {
+  "repo": "qa_manager",
+  "date": "2026-09-21",
+  "subject": "Record JsonCpp vendor notice closure",
+  "ins": 28,
+  "del": 5,
+  "files": 2
+ },
+ {
+  "repo": "qa_manager",
+  "date": "2026-09-21",
+  "subject": "Record extended source-only and vendor license audit",
+  "ins": 16,
+  "del": 0,
+  "files": 3
+ },
+ {
+  "repo": "qa_manager",
+  "date": "2026-09-21",
+  "subject": "Record source-only media exclusion review",
+  "ins": 21,
+  "del": 0,
+  "files": 3
+ },
+ {
+  "repo": "qa_manager",
+  "date": "2026-09-21",
+  "subject": "docs: record skills provenance release hold",
+  "ins": 6,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "qa_manager",
+  "date": "2026-09-21",
+  "subject": "docs: record hermes session log release hold",
+  "ins": 8,
+  "del": 2,
+  "files": 2
+ },
+ {
+  "repo": "qa_manager",
+  "date": "2026-09-21",
+  "subject": "docs: record ai_test2 input removal and media hold",
+  "ins": 9,
+  "del": 2,
+  "files": 2
+ },
+ {
+  "repo": "qa_manager",
+  "date": "2026-09-21",
+  "subject": "docs: record ai_test1 production history and media hold",
+  "ins": 9,
+  "del": 2,
+  "files": 2
+ },
+ {
+  "repo": "qa_manager",
+  "date": "2026-09-21",
+  "subject": "docs: record ai_test tracked media release hold",
+  "ins": 7,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "qa_manager",
+  "date": "2026-09-21",
+  "subject": "docs: record advisor notices and remaining skill rights hold",
+  "ins": 6,
+  "del": 2,
+  "files": 2
+ },
+ {
+  "repo": "qa_manager",
+  "date": "2026-09-21",
+  "subject": "docs: update ai_prompt license review after guard",
+  "ins": 5,
+  "del": 5,
+  "files": 2
+ },
+ {
+  "repo": "qa_manager",
+  "date": "2026-09-21",
+  "subject": "docs: record ai_prompt third-party license hold",
+  "ins": 7,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "qa_manager",
+  "date": "2026-09-21",
+  "subject": "Record ai_agent public source hygiene evidence",
+  "ins": 6,
+  "del": 6,
+  "files": 2
+ },
+ {
+  "repo": "qa_manager",
+  "date": "2026-09-21",
+  "subject": "Record seven public source release reviews and exclude ai-workspace",
+  "ins": 626,
+  "del": 53,
+  "files": 34
+ },
  {
   "repo": "ai_agent",
   "date": "2026-09-20",
@@ -1034,6 +1634,14 @@ const COMMITS = [
  {
   "repo": "ai_history_dashboard",
   "date": "2026-09-20",
+  "subject": "Auto-update dashboard data (2026-09-20 06:51)",
+  "ins": 137,
+  "del": 23,
+  "files": 1
+ },
+ {
+  "repo": "ai_history_dashboard",
+  "date": "2026-09-20",
   "subject": "Auto-update dashboard data (2026-09-20 00:58)",
   "ins": 35,
   "del": 11,
@@ -1046,6 +1654,86 @@ const COMMITS = [
   "ins": 1166,
   "del": 678,
   "files": 1
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-09-20",
+  "subject": "Correct commercial baseline source claims",
+  "ins": 3,
+  "del": 3,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-09-20",
+  "subject": "Record authorship audit and remaining rights review",
+  "ins": 2,
+  "del": 1,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-09-20",
+  "subject": "Record English quick start verification",
+  "ins": 5,
+  "del": 1,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-09-20",
+  "subject": "Record support route and keyboard focus verification",
+  "ins": 6,
+  "del": 1,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-09-20",
+  "subject": "Record pinned CI dependency review",
+  "ins": 6,
+  "del": 1,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-09-20",
+  "subject": "Record Pages and dependency monitoring review",
+  "ins": 6,
+  "del": 1,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-09-20",
+  "subject": "Record qa_manager CI repair and deployed review status",
+  "ins": 7,
+  "del": 1,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-09-20",
+  "subject": "Record qa_manager public release review and HOLD state",
+  "ins": 41,
+  "del": 3,
+  "files": 4
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-09-20",
+  "subject": "Record qa_manager release review hold",
+  "ins": 1,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-09-20",
+  "subject": "Record commercial release review framework verification",
+  "ins": 11,
+  "del": 0,
+  "files": 2
  },
  {
   "repo": "ai-workspace",
@@ -1062,6 +1750,110 @@ const COMMITS = [
   "ins": 45,
   "del": 0,
   "files": 2
+ },
+ {
+  "repo": "qa_manager",
+  "date": "2026-09-20",
+  "subject": "Record commit authorship evidence and rights limit",
+  "ins": 1,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "qa_manager",
+  "date": "2026-09-20",
+  "subject": "Add English standalone quick start and language scope",
+  "ins": 15,
+  "del": 2,
+  "files": 2
+ },
+ {
+  "repo": "qa_manager",
+  "date": "2026-09-20",
+  "subject": "Show visible keyboard focus on public dashboards",
+  "ins": 38,
+  "del": 1,
+  "files": 13
+ },
+ {
+  "repo": "qa_manager",
+  "date": "2026-09-20",
+  "subject": "Document public issue route for free distribution",
+  "ins": 6,
+  "del": 5,
+  "files": 3
+ },
+ {
+  "repo": "qa_manager",
+  "date": "2026-09-20",
+  "subject": "Pin CI actions to reviewed commits",
+  "ins": 26,
+  "del": 4,
+  "files": 3
+ },
+ {
+  "repo": "qa_manager",
+  "date": "2026-09-20",
+  "subject": "Record repository dependency monitoring status",
+  "ins": 2,
+  "del": 2,
+  "files": 1
+ },
+ {
+  "repo": "qa_manager",
+  "date": "2026-09-20",
+  "subject": "Record Pages configuration and keyboard review evidence",
+  "ins": 4,
+  "del": 4,
+  "files": 1
+ },
+ {
+  "repo": "qa_manager",
+  "date": "2026-09-20",
+  "subject": "Record successful CI and deployed dashboard verification",
+  "ins": 4,
+  "del": 4,
+  "files": 1
+ },
+ {
+  "repo": "qa_manager",
+  "date": "2026-09-20",
+  "subject": "Kill POSIX check process groups on timeout",
+  "ins": 22,
+  "del": 31,
+  "files": 3
+ },
+ {
+  "repo": "qa_manager",
+  "date": "2026-09-20",
+  "subject": "Prepare public free release review with verified HOLD reports",
+  "ins": 467,
+  "del": 78,
+  "files": 30
+ },
+ {
+  "repo": "qa_manager",
+  "date": "2026-09-20",
+  "subject": "Harden public QA reports and verify end-to-end rendering",
+  "ins": 374,
+  "del": 20,
+  "files": 9
+ },
+ {
+  "repo": "qa_manager",
+  "date": "2026-09-20",
+  "subject": "Document qa_manager release review gaps across all areas",
+  "ins": 135,
+  "del": 3,
+  "files": 8
+ },
+ {
+  "repo": "qa_manager",
+  "date": "2026-09-20",
+  "subject": "Require evidence for commercial release review",
+  "ins": 279,
+  "del": 143,
+  "files": 22
  },
  {
   "repo": "qa_manager",
@@ -3814,46 +4606,10 @@ const COMMITS = [
   "ins": 2,
   "del": 0,
   "files": 2
- },
- {
-  "repo": "hermes-agents",
-  "date": "2026-08-22",
-  "subject": "README: sync public skills repo count (19->21) and add 2026-08-22 changelog entry",
-  "ins": 7,
-  "del": 1,
-  "files": 1
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-08-22",
-  "subject": "HANDOFF: record 2026-08-22 full-loop verification and skills-repo completion",
-  "ins": 1,
-  "del": 0,
-  "files": 1
- },
- {
-  "repo": "skills",
-  "date": "2026-08-22",
-  "subject": "Add video-watcher and shorts-clipper skills (runtime-dependency wrappers)",
-  "ins": 268,
-  "del": 65,
-  "files": 9
  }
 ];
 const SESS = {
  "daily": [
-  {
-   "date": "2026-08-22",
-   "claude-code": 2,
-   "codex": 0,
-   "total": 2
-  },
-  {
-   "date": "2026-08-23",
-   "claude-code": 0,
-   "codex": 0,
-   "total": 0
-  },
   {
    "date": "2026-08-24",
    "claude-code": 0,
@@ -4018,6 +4774,18 @@ const SESS = {
   },
   {
    "date": "2026-09-20",
+   "claude-code": 1,
+   "codex": 1,
+   "total": 2
+  },
+  {
+   "date": "2026-09-21",
+   "claude-code": 0,
+   "codex": 2,
+   "total": 2
+  },
+  {
+   "date": "2026-09-22",
    "claude-code": 0,
    "codex": 0,
    "total": 0
@@ -4028,8 +4796,8 @@ const SESS = {
   "codex"
  ],
  "tool_totals": {
-  "claude-code": 52,
-  "codex": 29
+  "claude-code": 51,
+  "codex": 32
  },
  "dow_names": [
   "월",
@@ -4047,32 +4815,56 @@ const SESS = {
    5,
    9,
    9,
-   11,
-   6
+   9,
+   7
   ],
   "codex": [
-   2,
+   4,
    4,
    5,
    6,
    3,
    7,
-   2
+   3
   ]
  },
  "busiest_date": "2026-09-09",
  "busiest_count": 9,
- "active_days": 22,
+ "active_days": 23,
  "total_days": 30,
- "start_date": "2026-08-22",
- "end_date": "2026-09-20",
- "total_sessions": 81,
+ "start_date": "2026-08-24",
+ "end_date": "2026-09-22",
+ "total_sessions": 83,
  "rows": [
+  {
+   "tool": "codex",
+   "date": "2026-09-21",
+   "label": "이전 진행 내용 확인 후 계속",
+   "lines": 0
+  },
+  {
+   "tool": "codex",
+   "date": "2026-09-21",
+   "label": "마지막 진행 내용 확인 후 계속",
+   "lines": 0
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-09-20",
+   "label": "hermes-agents",
+   "lines": 204
+  },
+  {
+   "tool": "codex",
+   "date": "2026-09-20",
+   "label": "마지막 내용 확인 후 진행",
+   "lines": 0
+  },
   {
    "tool": "claude-code",
    "date": "2026-09-19",
    "label": "hermes-agents",
-   "lines": 1548
+   "lines": 1549
   },
   {
    "tool": "claude-code",
@@ -4541,18 +5333,6 @@ const SESS = {
    "date": "2026-08-26",
    "label": "hermes-agents",
    "lines": 220
-  },
-  {
-   "tool": "claude-code",
-   "date": "2026-08-22",
-   "label": "hermes-agents",
-   "lines": 412
-  },
-  {
-   "tool": "claude-code",
-   "date": "2026-08-22",
-   "label": "hermes-agents",
-   "lines": 30
   }
  ]
 };
