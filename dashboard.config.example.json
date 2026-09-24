@@ -1,0 +1,9 @@
+{
+  "timeZone": "Asia/Seoul",
+  "retentionDays": 30,
+  "evidenceExcerptChars": 180,
+  "includeEvidenceExcerpts": false,
+  "qaStateFiles": [],
+  "humanLabelsFile": null,
+  "devexPulseFile": null
+}

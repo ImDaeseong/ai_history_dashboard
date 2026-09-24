@@ -5,12 +5,17 @@ const fs = require('fs');
 const crypto = require('crypto');
 const os = require('os');
 const path = require('path');
+const { loadConfig } = require('./dashboard-metrics');
+const { calibrate } = require('./calibration');
+const { summarizePulse } = require('./devex-pulse');
 
-const DAYS = Number(process.env.AI_HISTORY_DAYS || 30);
 const HOME = os.homedir();
+const REPO_ROOT = path.resolve(__dirname, '..');
+const CONFIG = loadConfig(REPO_ROOT);
+const DAYS = Number(process.env.AI_HISTORY_DAYS || CONFIG.retentionDays);
 const CLAUDE_DIR = process.env.AI_HISTORY_CLAUDE_DIR || path.join(HOME, '.claude', 'projects');
 const CODEX_DIR = process.env.AI_HISTORY_CODEX_DIR || path.join(HOME, '.codex', 'sessions');
-const OUTPUT = process.env.AI_HISTORY_PRIVATE_OUTPUT || path.resolve(__dirname, '..', 'private-dashboard.html');
+const OUTPUT = process.env.AI_HISTORY_PRIVATE_OUTPUT || path.join(REPO_ROOT, 'private-dashboard.html');
 const CUTOFF = Date.now() - DAYS * 86400000;
 
 const INTENTS = [
@@ -178,7 +183,8 @@ function analyzeTool(tool, files) {
   return stats;
 }
 
-function redactExcerpt(text) {
+function redactExcerpt(text, maxChars = CONFIG.includeEvidenceExcerpts ? CONFIG.evidenceExcerptChars : 0) {
+  if (maxChars === 0) return '';
   return text
     .replace(/[A-Za-z]:\\[^\s"'<>]+/g, '[LOCAL_PATH]')
     .replace(/https?:\/\/\S+/gi, '[URL]')
@@ -187,7 +193,7 @@ function redactExcerpt(text) {
     .replace(/\b[A-Za-z0-9_-]{32,}\b/g, '[LONG_TOKEN]')
     .replace(/\s+/g, ' ')
     .trim()
-    .slice(0, 180);
+    .slice(0, maxChars);
 }
 
 function ranked(obj) { return Object.entries(obj).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])); }
@@ -225,6 +231,9 @@ function renderEvidenceBase(report) {
 
 function renderEvidence(report) {
   const excluded = report.tools.reduce((sum, tool) => sum + tool.excludedBootstrap, 0);
+  const privacyNotice = report.includeEvidenceExcerpts
+    ? '요청 표본은 설정된 길이 이하로 잘리고 경로·URL·이메일·비밀값 패턴이 마스킹됩니다.'
+    : '요청 표본 본문은 설정에 따라 저장하지 않으며 익명 근거 ID만 표시합니다.';
   const canvaStyle = `<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap"><style>
 :root{--bg:#f4f6fb;--surface:#fff;--surface-2:#f4f2ff;--text:#20232b;--muted:#666c7a;--border:#e3e7f0;--shadow:0 2px 6px rgba(30,35,60,.05),0 14px 32px -18px rgba(30,35,60,.18);--blue:#3a5afe;--blue-bg:#e9edff;--orange:#ff7f11;--orange-bg:#fff1e2;--purple:#8b5cf6;--purple-bg:#f1ebff;--cyan:#06b6d4;--cyan-bg:#e3f8fc;--red:#e63946;--red-bg:#fdeaec;--green:#10b981;--green-bg:#e4f8f1}
 *{box-sizing:border-box}body{font-family:"Noto Sans KR",-apple-system,sans-serif;background:radial-gradient(circle at 12% 0,var(--purple-bg),transparent 30rem),var(--bg);color:var(--text);line-height:1.65;padding:36px 24px}.wrap{max-width:1240px}h1,h2,h3{font-family:"Jua",sans-serif;font-weight:400;letter-spacing:.01em}h1{font-size:clamp(32px,5vw,48px);margin-bottom:18px}h2{font-size:25px}.notice,.hold,.card,section{background:var(--surface);border:1px solid var(--border);box-shadow:var(--shadow)}.notice,.hold{border-radius:18px;padding:17px 20px}.notice{background:var(--blue-bg);border-color:#ccd5ff}.hold{background:var(--orange-bg);border-color:#ffd8ad}.grid{gap:16px}.card,section{border-radius:20px}.card{position:relative;overflow:hidden;padding:20px}.card::before{content:"";position:absolute;left:0;right:0;top:0;height:5px;background:var(--blue)}.card:nth-child(2)::before{background:var(--purple)}.card:nth-child(3)::before{background:var(--cyan)}.card:nth-child(4)::before{background:var(--green)}.card:nth-child(5)::before{background:var(--red)}strong.big{font-family:"Jua",sans-serif;font-weight:400;color:var(--blue);margin-top:5px}section{padding:24px;margin:18px 0}.scroll{max-height:520px;overflow:auto;border:1px solid var(--border);border-radius:14px;scrollbar-gutter:stable}.scroll table{min-width:840px}.scroll th{position:sticky;top:0;z-index:2;background:var(--surface-2);box-shadow:0 1px 0 var(--border)}table{background:var(--surface)}th{background:var(--surface-2);font-weight:700}th,td{padding:11px 12px;border-color:var(--border)}tbody tr:nth-child(even),tr:nth-child(even){background:#fafbfe}code{background:var(--purple-bg);color:var(--purple);padding:3px 7px;border-radius:6px}.muted,small{color:var(--muted)}a{color:var(--blue)}ul{padding-left:22px}@media(max-width:700px){body{padding:22px 12px}section{padding:17px}.scroll{max-height:420px}}
@@ -280,7 +289,17 @@ function renderEvidence(report) {
   <tr><td><a href="https://arxiv.org/abs/2210.03629">Yao et al. (ICLR 2023), ReAct</a></td><td>언어적 추론과 환경 행동을 교차시켜 여러 과업에서 상호작용 성능과 해석 가능성을 연구했습니다.</td><td>도구 사용을 별도 관측하되 성공 판정과 분리</td></tr>
   <tr><td><a href="https://doi.org/10.1145/3728922">Qian et al. (PACMSE 2025), ExecutionAgent</a></td><td>다양한 프로젝트에서 테스트 스위트 실행을 자동화하고 이를 변경 검증 피드백으로 사용했습니다.</td><td>코딩 응답에 실제 테스트 명령·종료 결과를 요구</td></tr>
   <tr><td><a href="https://arxiv.org/abs/2306.05685">Zheng et al. (2023), LLM-as-a-Judge</a></td><td>LLM 심판의 인간 선호 일치 가능성과 위치·장황성·자기선호 편향을 함께 보고했습니다.</td><td>응답 길이나 자동 점수만으로 품질을 결론내리지 않음</td></tr></table></div></section>`;
+  const calibration = report.calibration || { status: 'HOLD', reason: 'no_human_labels', sample_size: 0 };
+  const calibrationHtml = calibration.status === 'MEASURED'
+    ? `<section><h2>인간 교정 결과</h2><p>표본 ${calibration.sample_size}개 · 평가자 일치 ${Math.round(calibration.raw_agreement*100)}% · Cohen’s κ ${calibration.cohens_kappa} · 휴리스틱 정밀도 ${calibration.heuristic_precision ?? '계산 불가'} · 재현율 ${calibration.heuristic_recall ?? '계산 불가'}</p><p class="muted">이 값은 등록된 표본에만 적용되며 실제 과업 성공률을 뜻하지 않습니다.</p></section>`
+    : '<section><h2>인간 교정 결과</h2><p class="hold">HOLD — 독립 인간 라벨 파일이 연결되지 않았습니다.</p></section>';
+  const pulse = report.devexPulse || { status: 'HOLD', reason: 'no_devex_pulse', samples: 0 };
+  const pulseHtml = pulse.status === 'MEASURED'
+    ? `<section><h2>주간 DevEx 펄스</h2><p>표본 ${pulse.samples}주 · 피드백 루프 ${pulse.averages.feedbackLoops}/5 · 인지부하 ${pulse.averages.cognitiveLoad}/5 · 몰입 ${pulse.averages.flow}/5 · 만족도 ${pulse.averages.satisfaction}/5</p><p class="muted">자기보고 지표이며 자동 활동량 또는 과업 성공률과 분리해 해석합니다.</p></section>`
+    : '<section><h2>주간 DevEx 펄스</h2><p class="hold">HOLD — 로컬 주간 펄스가 아직 기록되지 않았습니다.</p></section>';
   return renderEvidenceBase(report)
+    .replace('아래 근거 문장은 180자 이하로 잘리고 경로·URL·이메일·비밀값 패턴이 마스킹됩니다.', privacyNotice)
+    .replace('<p class="notice">로컬 전용', `${calibrationHtml}${pulseHtml}<p class="notice">로컬 전용`)
     .replace('개 사용자 턴</p>', `개 사용자 턴 · 제외된 대용량 컨텍스트 레코드 ${excluded}개</p>`)
     .replace('짧은 후속 지시에는 불리하므로 품질 점수가 아닙니다.</p>', '짧은 후속 지시에는 불리하므로 품질 점수가 아닙니다. 5,000자를 넘는 user 역할 레코드는 재주입 컨텍스트 또는 장문 자료일 가능성이 있어 평가 모집단에서 제외하고 위에 제외 수를 공개합니다.</p>')
     .replace(/<h3>형식 검증 결론<\/h3>[\s\S]*?<\/ul><\/section>/, `${researchHtml}</section>`)
@@ -289,7 +308,17 @@ function renderEvidence(report) {
 }
 
 function main() {
-  const report = { days: DAYS, generatedAt: new Date().toISOString(), tools: [analyzeTool('claude', walkJsonl(CLAUDE_DIR)), analyzeTool('codex', walkJsonl(CODEX_DIR))] };
+  let calibration = { status: 'HOLD', reason: 'no_human_labels', sample_size: 0 };
+  if (CONFIG.humanLabelsFile) {
+    const labelPath = path.resolve(REPO_ROOT, CONFIG.humanLabelsFile);
+    calibration = calibrate(JSON.parse(fs.readFileSync(labelPath, 'utf8')));
+  }
+  let devexPulse = { status: 'HOLD', reason: 'no_devex_pulse', samples: 0 };
+  if (CONFIG.devexPulseFile) {
+    const pulsePath = path.resolve(REPO_ROOT, CONFIG.devexPulseFile);
+    devexPulse = summarizePulse(JSON.parse(fs.readFileSync(pulsePath, 'utf8')));
+  }
+  const report = { days: DAYS, generatedAt: new Date().toISOString(), includeEvidenceExcerpts: CONFIG.includeEvidenceExcerpts, calibration, devexPulse, tools: [analyzeTool('claude', walkJsonl(CLAUDE_DIR)), analyzeTool('codex', walkJsonl(CODEX_DIR))] };
   fs.mkdirSync(path.dirname(OUTPUT), { recursive: true });
   fs.writeFileSync(OUTPUT, renderEvidence(report), 'utf8');
   console.log(`OK: wrote local-only report ${OUTPUT}`);

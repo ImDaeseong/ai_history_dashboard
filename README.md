@@ -17,6 +17,8 @@
 
 Claude Code / Codex 세션 활동과 Desktop 아래 모든 git 저장소의 커밋 활동을 한눈에 보는 정적 HTML 대시보드.
 
+핵심 목적은 활동량 순위가 아니라 AI 작업의 검증 완료·첫 시도 PASS·재시도·사람 검토 HOLD를 함께 보는 것입니다. 세션·커밋·변경 라인은 작업 맥락을 보여 주는 활동 지표일 뿐 생산성 점수가 아닙니다.
+
 **바로가기 →** [imdaeseong.github.io/ai_history_dashboard](https://imdaeseong.github.io/ai_history_dashboard/)
 
 ## 데이터 출처
@@ -25,8 +27,36 @@ Claude Code / Codex 세션 활동과 Desktop 아래 모든 git 저장소의 커�
 |---|---|
 | 세션 활동 | `~/.claude/projects/*/*.jsonl`(Claude Code), `~/.codex/session_index.jsonl`(Codex) |
 | 커밋 | `Desktop/*`와 그 한 단계 아래(`hermes-agents/ai-workspace` 등)에서 자동 발견한 모든 git 저장소, 최근 30일 `git log`. 새 프로젝트를 추가해도 다음 갱신 때 자동으로 잡힙니다. 원격이 `github.com/ImDaeseong/*`가 아닌 저장소(설치한 서드파티 플러그인 클론 등)와 부모와 원격이 같은 중복 `.git`은 제외합니다. |
+| 검증 결과 | 로컬 설정의 `qaStateFiles`에 명시한 `qa_manager` 제한형 검증 상태 JSON. 읽기만 하며 대상 프로젝트나 상태 파일을 수정하지 않습니다. |
 
 두 도구는 로그 스키마가 달라(Codex는 세션 제목만, Claude Code는 라인 수도 기록) 완전히 대칭 비교는 아닙니다.
+
+## 로컬 설정과 개인정보
+
+`dashboard.config.example.json`을 `private-data/dashboard.config.json`으로 복사해 사용합니다. `private-data/`는 Git에서 제외됩니다.
+
+- `timeZone`: 커밋과 세션을 같은 지역 날짜로 묶습니다.
+- `retentionDays`: 분석 기간이며 1~365일만 허용합니다.
+- `qaStateFiles`: 대시보드 저장소 기준 상대경로로 명시한 검증 상태 파일만 읽습니다.
+- `humanLabelsFile`: 두 독립 평가자의 로컬 라벨 JSON입니다. 원시 일치율, Cohen’s κ, 자동 휴리스틱의 정밀도·재현율을 계산합니다.
+- `devexPulseFile`: 피드백 루프·인지부하·몰입·만족도를 주 1회 1~5점으로 기록한 로컬 JSON입니다.
+- `includeEvidenceExcerpts`: 기본값 `false`; 비공개 보고서의 요청 표본 표시 허용 여부입니다.
+- `evidenceExcerptChars`: 표본을 허용해도 최대 180자입니다.
+
+경로를 자동 탐색하지 않고 명시적 파일 목록만 읽으며, 설정 오류나 잘못된 상태 파일은 조용히 누락하지 않고 생성을 실패시킵니다.
+
+`human-labels.example.json`은 형식 예시일 뿐 평가 데이터가 아닙니다. 실제 파일은 `private-data/`에 두고 `humanLabelsFile`에 연결합니다. 라벨이 없으면 평가 타당도는 계속 HOLD입니다.
+
+`devex-pulse.example.json` 역시 형식 예시이며 실제 응답이 아닙니다. DORA 지표는 배포 사건이 존재하는 개별 애플리케이션에만 적용해야 하므로, 현재처럼 여러 저장소의 커밋을 합친 화면에는 임의의 DORA 점수를 만들지 않습니다.
+
+## 측정 원칙
+
+- [SPACE 프레임워크](https://www.microsoft.com/en-us/research/publication/the-space-of-developer-productivity-theres-more-to-it-than-you-think/): 생산성을 개인 활동량이나 단일 숫자로 축소하지 않고 만족도·성과·활동·협업·효율을 함께 봅니다.
+- [DORA 지표](https://dora.dev/guides/dora-metrics/): 배포 처리량과 불안정성을 개별 애플리케이션 맥락에서 함께 측정합니다.
+- [HEDS](https://aclanthology.org/2022.humeval-1.6/): 인간 평가의 표본·기준·평가 절차를 기록해 비교와 재현이 가능하게 합니다.
+- [NIST Privacy Framework](https://www.nist.gov/privacy-framework): 데이터 생명주기와 개인정보 위험을 함께 관리합니다.
+
+이 원칙에 따라 활동량은 설명 지표, qa_manager 상태는 실행 근거, 인간 라벨은 휴리스틱 교정, DevEx 펄스는 자기보고 경험으로 분리합니다. 서로 다른 측정값을 하나의 생산성 점수로 합치지 않습니다.
 
 ## 화면 구성
 

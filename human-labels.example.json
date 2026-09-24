@@ -1,0 +1,5 @@
+[
+  { "id": "sample-1", "heuristic": true, "raterA": true, "raterB": true },
+  { "id": "sample-2", "heuristic": true, "raterA": false, "raterB": false },
+  { "id": "sample-3", "heuristic": false, "raterA": true, "raterB": false }
+]

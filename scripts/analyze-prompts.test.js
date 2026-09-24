@@ -8,7 +8,8 @@ assert(quality('C:\\repo 프로젝트의 테스트를 실행하고 PASS 결과�
 assert(isInjected('<system-reminder>hidden</system-reminder>'));
 assert.strictEqual(cleanUserText('<recommended_plugins>private</recommended_plugins>실제 요청'), '실제 요청');
 assert.strictEqual(cleanUserText('<INSTRUCTIONS>rules</INSTRUCTIONS><environment_context>ctx</environment_context>실제 최종 요청'), '실제 최종 요청');
-const redacted = redactExcerpt('C:\\Users\\person\\secret.txt https://private.example user@example.com sk-abcdefghijklmnop');
+assert.strictEqual(redactExcerpt('private request'), '');
+const redacted = redactExcerpt('C:\\Users\\person\\secret.txt https://private.example user@example.com sk-abcdefghijklmnop', 180);
 assert(!redacted.includes('person'));
 assert(!redacted.includes('private.example'));
 assert(!redacted.includes('user@example.com'));
@@ -30,6 +31,7 @@ assert(reportHtml.includes('준거타당도'));
 assert(reportHtml.includes('Cohen’s κ'));
 assert(reportHtml.includes('현재 최종 판정'));
 assert(reportHtml.includes('현재 데이터에 근거한 개선 의견'));
+assert(reportHtml.includes('요청 표본 본문은 설정에 따라 저장하지 않으며'));
 assert(reportHtml.includes('재사용 가능한 요청 형식'));
 assert(reportHtml.includes('AI 최종 응답에 요구할 증거 형식'));
 assert(reportHtml.includes('2311.07911'));
