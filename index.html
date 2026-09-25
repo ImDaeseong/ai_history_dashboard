@@ -382,24 +382,6 @@ tbody td.num { text-align: right; font-variant-numeric: tabular-nums; white-spac
 const AGG = {
  "daily": [
   {
-   "date": "2026-08-27",
-   "ai_agent": 0,
-   "keyinfo": 0,
-   "ai_history_dashboard": 0,
-   "ai_test": 0,
-   "ai_test1": 1,
-   "ai_test2": 0,
-   "career": 0,
-   "ebook": 0,
-   "hermes-agents": 0,
-   "ai-workspace": 1,
-   "ai_prompt": 0,
-   "llm-wiki": 0,
-   "qa_manager": 0,
-   "skills": 2,
-   "total": 4
-  },
-  {
    "date": "2026-08-28",
    "ai_agent": 0,
    "keyinfo": 0,
@@ -905,21 +887,39 @@ const AGG = {
   },
   {
    "date": "2026-09-25",
-   "ai_agent": 0,
+   "ai_agent": 12,
+   "keyinfo": 0,
+   "ai_history_dashboard": 1,
+   "ai_test": 1,
+   "ai_test1": 1,
+   "ai_test2": 2,
+   "career": 0,
+   "ebook": 4,
+   "hermes-agents": 2,
+   "ai-workspace": 2,
+   "ai_prompt": 7,
+   "llm-wiki": 0,
+   "qa_manager": 1,
+   "skills": 0,
+   "total": 33
+  },
+  {
+   "date": "2026-09-26",
+   "ai_agent": 8,
    "keyinfo": 0,
    "ai_history_dashboard": 0,
-   "ai_test": 1,
+   "ai_test": 0,
    "ai_test1": 0,
-   "ai_test2": 1,
+   "ai_test2": 0,
    "career": 0,
-   "ebook": 1,
-   "hermes-agents": 1,
-   "ai-workspace": 1,
-   "ai_prompt": 1,
+   "ebook": 0,
+   "hermes-agents": 0,
+   "ai-workspace": 0,
+   "ai_prompt": 0,
    "llm-wiki": 0,
    "qa_manager": 0,
    "skills": 0,
-   "total": 6
+   "total": 8
   }
  ],
  "repos": [
@@ -938,33 +938,33 @@ const AGG = {
   "qa_manager",
   "skills"
  ],
- "total_commits": 522,
- "total_ins": 117951,
- "total_del": 78575,
- "total_files": 4077,
+ "total_commits": 553,
+ "total_ins": 122420,
+ "total_del": 80795,
+ "total_files": 4600,
  "repo_totals": {
-  "ai_agent": 122,
+  "ai_agent": 142,
   "keyinfo": 0,
-  "ai_history_dashboard": 36,
+  "ai_history_dashboard": 37,
   "ai_test": 17,
   "ai_test1": 14,
-  "ai_test2": 18,
+  "ai_test2": 19,
   "career": 2,
-  "ebook": 1,
-  "hermes-agents": 62,
+  "ebook": 4,
+  "hermes-agents": 63,
   "ai-workspace": 109,
-  "ai_prompt": 23,
+  "ai_prompt": 29,
   "llm-wiki": 3,
-  "qa_manager": 79,
-  "skills": 36
+  "qa_manager": 80,
+  "skills": 34
  },
  "dow_series": [
   114,
   66,
   25,
-  74,
-  69,
-  99,
+  70,
+  96,
+  107,
   75
  ],
  "dow_names": [
@@ -980,10 +980,178 @@ const AGG = {
  "busiest_count": 66,
  "active_days": 25,
  "total_days": 30,
- "start_date": "2026-08-27",
- "end_date": "2026-09-25"
+ "start_date": "2026-08-28",
+ "end_date": "2026-09-26"
 };
 const COMMITS = [
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-26",
+  "subject": "docs(project-recipe-writer): explain artifact-dir source-code heuristic in ELI5",
+  "ins": 4,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-26",
+  "subject": "fix(project-recipe-writer): only exclude artifact dir names when they hold no source code (Task 14 follow-up)",
+  "ins": 57,
+  "del": 22,
+  "files": 5
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-26",
+  "subject": "fix(project-recipe-writer): exclude artifact dirs and binary files from scan (Task 14)",
+  "ins": 44,
+  "del": 5,
+  "files": 5
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-26",
+  "subject": "fix(project-recipe-writer): cap prompt size to avoid OpenAI TPM rate limit (Task 13)",
+  "ins": 64,
+  "del": 1,
+  "files": 6
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-26",
+  "subject": "docs(project-recipe-writer): finish README/ELI5, sync SPEC and root docs (Tasks 8-12)",
+  "ins": 189,
+  "del": 20,
+  "files": 7
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-26",
+  "subject": "feat(project-recipe-writer): add loopback web UI with Canva-style design (Task 12)",
+  "ins": 338,
+  "del": 11,
+  "files": 8
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-26",
+  "subject": "refactor(project-recipe-writer): switch LLM provider to OpenAI-only (Tasks 10-11)",
+  "ins": 27,
+  "del": 68,
+  "files": 3
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-26",
+  "subject": "fix(project-recipe-writer): exclude pytest temp dirs, add class-structure diagram (Tasks 8-9)",
+  "ins": 223,
+  "del": 1,
+  "files": 7
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-25",
+  "subject": "feat(project-recipe-writer): RECIPE.md two-section assembly (Task 7)",
+  "ins": 66,
+  "del": 7,
+  "files": 5
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-25",
+  "subject": "feat(project-recipe-writer): LLM provider security boundary (Task 6)",
+  "ins": 157,
+  "del": 3,
+  "files": 4
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-25",
+  "subject": "feat(project-recipe-writer): facts.json schema round-trip + CLI wiring (Task 5)",
+  "ins": 34,
+  "del": 2,
+  "files": 4
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-25",
+  "subject": "feat(project-recipe-writer): verbatim excerpt extraction (Task 4)",
+  "ins": 99,
+  "del": 1,
+  "files": 3
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-25",
+  "subject": "feat(project-recipe-writer): structural fact extraction (Task 3)",
+  "ins": 104,
+  "del": 1,
+  "files": 3
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-25",
+  "subject": "feat(project-recipe-writer): secret/boundary exclusion (Task 2)",
+  "ins": 96,
+  "del": 4,
+  "files": 3
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-25",
+  "subject": "feat(project-recipe-writer): SPEC + tracer-bullet CLI (Task 1)",
+  "ins": 391,
+  "del": 0,
+  "files": 12
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-25",
+  "subject": "docs: update architecture.html snapshots to reflect configurable model defaults",
+  "ins": 7,
+  "del": 7,
+  "files": 3
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-25",
+  "subject": "chore: stop tracking .pytest_tmp/ scratch directories, fix gitignore pattern gap",
+  "ins": 2,
+  "del": 1783,
+  "files": 177
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-25",
+  "subject": "chore: replace gpt-image-2 with gpt-image-2.5-sunburst in lyric-image-agent and instagram-toon-agent",
+  "ins": 56,
+  "del": 50,
+  "files": 23
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-25",
+  "subject": "chore: replace gpt-4o-mini defaults with configurable, current model across 8 sub-projects",
+  "ins": 1840,
+  "del": 40,
+  "files": 199
+ },
+ {
+  "repo": "ai_agent",
+  "date": "2026-09-25",
+  "subject": "fix: remove hardcoded local home paths flagged by security-hotspot guard",
+  "ins": 5,
+  "del": 5,
+  "files": 3
+ },
+ {
+  "repo": "ai_history_dashboard",
+  "date": "2026-09-25",
+  "subject": "Auto-update dashboard data",
+  "ins": 159,
+  "del": 101,
+  "files": 1
+ },
  {
   "repo": "ai_test",
   "date": "2026-09-25",
@@ -991,6 +1159,22 @@ const COMMITS = [
   "ins": 12,
   "del": 0,
   "files": 2
+ },
+ {
+  "repo": "ai_test1",
+  "date": "2026-09-25",
+  "subject": "chore(ai_story): update default OpenAI model from gpt-4o-mini to gpt-6-luna",
+  "ins": 2,
+  "del": 2,
+  "files": 2
+ },
+ {
+  "repo": "ai_test2",
+  "date": "2026-09-25",
+  "subject": "chore(CareerDiff): update default OpenAI model from gpt-4o-mini to gpt-6-luna",
+  "ins": 3,
+  "del": 3,
+  "files": 3
  },
  {
   "repo": "ai_test2",
@@ -1003,10 +1187,42 @@ const COMMITS = [
  {
   "repo": "ebook",
   "date": "2026-09-25",
+  "subject": "feat: reflect the 2026-09-25 AI model boundary-fixing loop into chapter 2",
+  "ins": 21,
+  "del": 1,
+  "files": 5
+ },
+ {
+  "repo": "ebook",
+  "date": "2026-09-25",
+  "subject": "feat: replace three explanatory ASCII diagrams with real SVG structure diagrams",
+  "ins": 263,
+  "del": 56,
+  "files": 11
+ },
+ {
+  "repo": "ebook",
+  "date": "2026-09-25",
+  "subject": "feat: reflect the 2026-09-25 13-repo audit loop into chapters 4 and 5",
+  "ins": 35,
+  "del": 4,
+  "files": 6
+ },
+ {
+  "repo": "ebook",
+  "date": "2026-09-25",
   "subject": "chore: initialize local version control for ebook manuscript",
   "ins": 5576,
   "del": 0,
   "files": 68
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-09-25",
+  "subject": "docs: strengthen loop/harness-engineering citations from verified primary sources",
+  "ins": 3,
+  "del": 1,
+  "files": 1
  },
  {
   "repo": "hermes-agents",
@@ -1019,6 +1235,14 @@ const COMMITS = [
  {
   "repo": "ai-workspace",
   "date": "2026-09-25",
+  "subject": "docs: record 13-project post-audit re-verification in HANDOFF.md",
+  "ins": 2,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-09-25",
   "subject": "chore: trim HANDOFF.md Current State to restore hygiene threshold",
   "ins": 114,
   "del": 79,
@@ -1027,10 +1251,66 @@ const COMMITS = [
  {
   "repo": "ai_prompt",
   "date": "2026-09-25",
+  "subject": "fix: remove fabricated AGENTS.md citation from two new skills, add low-evidence framing",
+  "ins": 6,
+  "del": 4,
+  "files": 3
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-09-25",
+  "subject": "feat: add webtoon-scroll-pacing skill from verified practitioner/research sources",
+  "ins": 74,
+  "del": 1,
+  "files": 2
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-09-25",
+  "subject": "fix: correct dangling cross-reference and harden trading-agent safety guidance",
+  "ins": 8,
+  "del": 5,
+  "files": 2
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-09-25",
+  "subject": "feat: add autonomous-trading-agent-engineering skill",
+  "ins": 85,
+  "del": 1,
+  "files": 2
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-09-25",
+  "subject": "feat: add video-content-triage skill",
+  "ins": 72,
+  "del": 1,
+  "files": 2
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-09-25",
+  "subject": "feat: add path-vs-query-param and API versioning guidance to api-interface-design",
+  "ins": 25,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-09-25",
   "subject": "docs: bring antigravity_test/README.md skill index up to full coverage",
   "ins": 11,
   "del": 0,
   "files": 1
+ },
+ {
+  "repo": "qa_manager",
+  "date": "2026-09-25",
+  "subject": "chore: regenerate system index and per-project dashboards (all 13 PASS)",
+  "ins": 44,
+  "del": 17,
+  "files": 14
  },
  {
   "repo": "ai_agent",
@@ -5127,38 +5407,6 @@ const COMMITS = [
   "ins": 124,
   "del": 7,
   "files": 4
- },
- {
-  "repo": "ai_test1",
-  "date": "2026-08-27",
-  "subject": "Suno 허밍/랜덤 코러스/랩 진입전 소음 억제 원칙 추가 (music_skills/unpredictable/lyric/codes)",
-  "ins": 42,
-  "del": 8,
-  "files": 9
- },
- {
-  "repo": "ai-workspace",
-  "date": "2026-08-27",
-  "subject": "Record ai_test1 Suno-Exclude verification loop (2026-08-27)",
-  "ins": 90,
-  "del": 0,
-  "files": 2
- },
- {
-  "repo": "skills",
-  "date": "2026-08-27",
-  "subject": "vibe-coder: add unlazy depth-tree effort-budget note (LOW-EVIDENCE)",
-  "ins": 2,
-  "del": 0,
-  "files": 1
- },
- {
-  "repo": "skills",
-  "date": "2026-08-27",
-  "subject": "game-dev: note AetherAI as one implementation of the existing anchor-pose sprite technique",
-  "ins": 2,
-  "del": 0,
-  "files": 2
  }
 ];
 const OUTCOMES = {
@@ -5174,12 +5422,6 @@ const OUTCOMES = {
 };
 const SESS = {
  "daily": [
-  {
-   "date": "2026-08-27",
-   "claude-code": 3,
-   "codex": 1,
-   "total": 4
-  },
   {
    "date": "2026-08-28",
    "claude-code": 3,
@@ -5350,9 +5592,15 @@ const SESS = {
   },
   {
    "date": "2026-09-25",
-   "claude-code": 1,
+   "claude-code": 2,
+   "codex": 1,
+   "total": 3
+  },
+  {
+   "date": "2026-09-26",
+   "claude-code": 2,
    "codex": 0,
-   "total": 1
+   "total": 2
   }
  ],
  "tools": [
@@ -5377,17 +5625,17 @@ const SESS = {
    6,
    8,
    5,
-   8,
-   11,
-   8,
+   5,
+   12,
+   10,
    7
   ],
   "codex": [
    4,
    5,
    5,
-   9,
-   5,
+   8,
+   6,
    4,
    6
   ]
@@ -5396,15 +5644,39 @@ const SESS = {
  "busiest_count": 9,
  "active_days": 26,
  "total_days": 30,
- "start_date": "2026-08-27",
- "end_date": "2026-09-25",
+ "start_date": "2026-08-28",
+ "end_date": "2026-09-26",
  "total_sessions": 91,
  "rows": [
   {
    "tool": "claude-code",
+   "date": "2026-09-26",
+   "label": "hermes-agents",
+   "lines": 1895
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-09-26",
+   "label": "hermes-agents",
+   "lines": 289
+  },
+  {
+   "tool": "claude-code",
    "date": "2026-09-25",
    "label": "hermes-agents",
-   "lines": 628
+   "lines": 81
+  },
+  {
+   "tool": "claude-code",
+   "date": "2026-09-25",
+   "label": "hermes-agents",
+   "lines": 4534
+  },
+  {
+   "tool": "codex",
+   "date": "2026-09-25",
+   "label": "감사 수정 검증 루프 진행",
+   "lines": 0
   },
   {
    "tool": "codex",
@@ -5920,30 +6192,6 @@ const SESS = {
    "tool": "codex",
    "date": "2026-08-28",
    "label": "전체 루프 검증",
-   "lines": 0
-  },
-  {
-   "tool": "claude-code",
-   "date": "2026-08-27",
-   "label": "hermes-agents",
-   "lines": 570
-  },
-  {
-   "tool": "claude-code",
-   "date": "2026-08-27",
-   "label": "hermes-agents",
-   "lines": 220
-  },
-  {
-   "tool": "claude-code",
-   "date": "2026-08-27",
-   "label": "hermes-agents",
-   "lines": 259
-  },
-  {
-   "tool": "codex",
-   "date": "2026-08-27",
-   "label": "전체 프로젝트 루프 점검",
    "lines": 0
   }
  ]
