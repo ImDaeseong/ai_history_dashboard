@@ -16,6 +16,7 @@ const os = require('os');
 const { execFileSync } = require('child_process');
 const { isEmptyRepoError } = require('./git-empty-repo');
 const { loadConfig, zonedDate, loadOutcomeStates, summarizeOutcomes } = require('./dashboard-metrics');
+const { escapeForScriptEmbed } = require('./safe-embed');
 
 const HOME = os.homedir();
 const REPO_ROOT = path.resolve(__dirname, '..');
@@ -338,7 +339,12 @@ if (collectFailures.length > 0) {
 function replaceConst(html, name, value) {
   const closeChar = Array.isArray(value) ? '\\]' : '\\}';
   const re = new RegExp(`const ${name} = [\\s\\S]*?\\r?\\n${closeChar};\\r?\\n`);
-  const json = JSON.stringify(value, null, 1);
+  // JSON.stringify never escapes "</script>" -- a commit subject or Codex
+  // session title containing that literal sequence would close the <script>
+  // block this JSON is spliced into, turning whatever follows into live,
+  // unescaped HTML on the published GitHub Pages site (2026-09-26 independent
+  // review). See safe-embed.js for why the escape is safe.
+  const json = escapeForScriptEmbed(JSON.stringify(value, null, 1));
   if (!re.test(html)) throw new Error(`could not find "const ${name} = ...;" block in index.html`);
   return html.replace(re, `const ${name} = ${json};\r\n`);
 }

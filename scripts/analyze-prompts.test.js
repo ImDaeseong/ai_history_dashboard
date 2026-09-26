@@ -14,6 +14,10 @@ assert(!redacted.includes('person'));
 assert(!redacted.includes('private.example'));
 assert(!redacted.includes('user@example.com'));
 assert(!redacted.includes('sk-abcdefghijklmnop'));
+// 2026-09-26 독립 리뷰 발견: 백슬래시 전용 패턴이라 Git Bash/WSL류 도구가
+// 정규화하는 슬래시 경로(C:/Users/...)는 그대로 새어나갔다.
+const redactedSlash = redactExcerpt('open C:/Users/person/secret.txt now', 180);
+assert(!redactedSlash.includes('person'), `forward-slash path leaked: ${redactedSlash}`);
 const secret = 'PRIVATE_PROMPT_SHOULD_NOT_APPEAR';
 const html = render({ days: 30, generatedAt: '2026-09-07', tools: [{tool:'claude',sessions:1,prompts:1,responses:1,avgPromptChars:10,avgQuality:80,answerRate:100,evidenceRate:100,correctionSignals:0,intents:{'검증·재확인':1},commands:{'/verify':1},qualityChecks:{'목표 명확성':1},qualitySum:80}] });
 assert(!html.includes(secret));

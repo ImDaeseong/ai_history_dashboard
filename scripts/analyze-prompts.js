@@ -186,7 +186,11 @@ function analyzeTool(tool, files) {
 function redactExcerpt(text, maxChars = CONFIG.includeEvidenceExcerpts ? CONFIG.evidenceExcerptChars : 0) {
   if (maxChars === 0) return '';
   return text
-    .replace(/[A-Za-z]:\\[^\s"'<>]+/g, '[LOCAL_PATH]')
+    // Windows path with either separator -- many tools (Git Bash, WSL-style
+    // CLIs) normalize the drive-letter path to forward slashes, and the
+    // backslash-only pattern let that shape through unmasked (2026-09-26
+    // independent review).
+    .replace(/[A-Za-z]:[\\/][^\s"'<>]+/g, '[LOCAL_PATH]')
     .replace(/https?:\/\/\S+/gi, '[URL]')
     .replace(/[\w.+-]+@[\w.-]+\.[A-Za-z]{2,}/g, '[EMAIL]')
     .replace(/\b(?:sk-|ghp_|github_pat_|xox[baprs]-)[A-Za-z0-9_-]{8,}\b/g, '[SECRET]')

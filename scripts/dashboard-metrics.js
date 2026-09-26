@@ -26,6 +26,14 @@ function validateConfig(config) {
   if (!Array.isArray(config.qaStateFiles) || config.qaStateFiles.some(x => typeof x !== 'string' || !x.trim())) {
     throw new Error('qaStateFiles must be a list of non-empty paths');
   }
+  // README promises these are read as repo-relative paths only. path.resolve
+  // silently discards repoRoot when a segment is absolute, so an absolute
+  // entry here would read that exact file instead -- enforce the documented
+  // contract rather than relying on qaStateFiles always coming from a
+  // trusted local config (2026-09-26 independent review).
+  if (config.qaStateFiles.some(x => path.isAbsolute(x))) {
+    throw new Error('qaStateFiles entries must be relative to the dashboard repo, not absolute paths');
+  }
   if (config.humanLabelsFile !== null && (typeof config.humanLabelsFile !== 'string' || !config.humanLabelsFile.trim())) {
     throw new Error('humanLabelsFile must be null or a non-empty path');
   }
