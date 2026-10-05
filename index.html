@@ -907,19 +907,19 @@ const AGG = {
    "date": "2026-10-05",
    "ai_agent": 0,
    "keyinfo": 0,
-   "ai_history_dashboard": 0,
+   "ai_history_dashboard": 1,
    "ai_test": 0,
    "ai_test1": 0,
    "ai_test2": 0,
-   "career": 0,
-   "ebook_source": 0,
-   "hermes-agents": 0,
-   "ai-workspace": 1,
-   "ai_prompt": 0,
+   "career": 2,
+   "ebook_source": 2,
+   "hermes-agents": 6,
+   "ai-workspace": 16,
+   "ai_prompt": 8,
    "llm-wiki": 0,
    "qa_manager": 0,
-   "skills": 0,
-   "total": 1
+   "skills": 2,
+   "total": 37
   }
  ],
  "repos": [
@@ -938,28 +938,28 @@ const AGG = {
   "qa_manager",
   "skills"
  ],
- "total_commits": 663,
- "total_ins": 166528,
- "total_del": 80348,
- "total_files": 5503,
+ "total_commits": 699,
+ "total_ins": 171414,
+ "total_del": 84218,
+ "total_files": 5578,
  "repo_totals": {
   "ai_agent": 156,
   "keyinfo": 0,
-  "ai_history_dashboard": 42,
+  "ai_history_dashboard": 43,
   "ai_test": 25,
   "ai_test1": 23,
   "ai_test2": 27,
-  "career": 6,
-  "ebook_source": 8,
-  "hermes-agents": 70,
-  "ai-workspace": 146,
-  "ai_prompt": 27,
+  "career": 8,
+  "ebook_source": 10,
+  "hermes-agents": 76,
+  "ai-workspace": 161,
+  "ai_prompt": 35,
   "llm-wiki": 7,
   "qa_manager": 86,
-  "skills": 40
+  "skills": 42
  },
  "dow_series": [
-  118,
+  154,
   66,
   25,
   73,
@@ -985,11 +985,299 @@ const AGG = {
 };
 const COMMITS = [
  {
+  "repo": "ai_history_dashboard",
+  "date": "2026-10-05",
+  "subject": "Auto-update dashboard data (2026-10-05)",
+  "ins": 4213,
+  "del": 3751,
+  "files": 1
+ },
+ {
+  "repo": "career",
+  "date": "2026-10-05",
+  "subject": "docs(career): SHRM 27% now confirmed on shrm.org (share of organizations using AI in recruiting)",
+  "ins": 2,
+  "del": 2,
+  "files": 1
+ },
+ {
+  "repo": "career",
+  "date": "2026-10-05",
+  "subject": "docs: correct or qualify unverified citations (2026-10-05 independent review)",
+  "ins": 3,
+  "del": 2,
+  "files": 1
+ },
+ {
+  "repo": "ebook_source",
+  "date": "2026-10-05",
+  "subject": "fix(sample_project): stop attaching unrelated saved knowledge to idea goals",
+  "ins": 47,
+  "del": 10,
+  "files": 2
+ },
+ {
+  "repo": "ebook_source",
+  "date": "2026-10-05",
+  "subject": "feat(sample_project): fine-tuning readiness boundaries, evaluation set, and tests",
+  "ins": 196,
+  "del": 27,
+  "files": 14
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-10-05",
+  "subject": "docs(agents): document the independent-verification field the LOOP-END guard requires",
+  "ins": 1,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-10-05",
+  "subject": "docs(agents): surface hallucination, reproduce-then-fix, and small-slice reminders at the top",
+  "ins": 11,
+  "del": 1,
+  "files": 2
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-10-05",
+  "subject": "docs(sources): S28 DORA 2019 figures now read from the report PDF",
+  "ins": 1,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-10-05",
+  "subject": "feat(guard): add on-demand arXiv citation title/author check; fix S21 Lightrun figures",
+  "ins": 115,
+  "del": 1,
+  "files": 4
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-10-05",
+  "subject": "docs(agents): fix citations flagged by independent review (S8,S13,S17,S21,S24,S30,S33,S35,S43,S47)",
+  "ins": 15,
+  "del": 15,
+  "files": 2
+ },
+ {
+  "repo": "hermes-agents",
+  "date": "2026-10-05",
+  "subject": "docs(agents): correct source citations re-read against primary pages",
+  "ins": 9,
+  "del": 9,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-10-05",
+  "subject": "docs(handoff): 37 recommended proposals after regeneration (need 27, spare 10)",
+  "ins": 1,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-10-05",
+  "subject": "docs(handoff): record evidence-selection fix (e1d89cd) and revised approval plan",
+  "ins": 1,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-10-05",
+  "subject": "docs(handoff): warn against bulk-approving proposals with weak evidence relevance",
+  "ins": 1,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-10-05",
+  "subject": "docs(handoff): fine-tuning gate after second batch (53 approvable, 30 awaiting human review)",
+  "ins": 1,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-10-05",
+  "subject": "docs(handoff): fine-tuning gate after generating 18 proposals (45 approvable, 5 short of 50)",
+  "ins": 1,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-10-05",
+  "subject": "docs(handoff): correct fine-tuning gate with measured counts (36 proposals, 23 approved, 50 needed)",
+  "ins": 1,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-10-05",
+  "subject": "docs(handoff): record ebook_source WIP push (204c094) and remaining human-review gate",
+  "ins": 1,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-10-05",
+  "subject": "test(loop): enforce independent verification records",
+  "ins": 143,
+  "del": 2,
+  "files": 7
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-10-05",
+  "subject": "docs(daily-log): record AGENTS.md Priority Reminders baseline and ablation procedure",
+  "ins": 27,
+  "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-10-05",
+  "subject": "docs(loop): preserve advisor pass count",
+  "ins": 1,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-10-05",
+  "subject": "docs(handoff): record advisor evidence loop",
+  "ins": 24,
+  "del": 0,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-10-05",
+  "subject": "docs(handoff): mark 2026-10-05 citation-audit commits as pushed",
+  "ins": 1,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-10-05",
+  "subject": "docs: qualify unsupported BCG inference; record 2026-10-05 citation audit in HANDOFF",
+  "ins": 5,
+  "del": 3,
+  "files": 2
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-10-05",
+  "subject": "docs(dev): cite Kumaran paper by its arXiv title",
+  "ins": 1,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "ai-workspace",
+  "date": "2026-10-05",
+  "subject": "docs(dev): correct citation authors/titles and unsupported claims in AI_VERIFICATION_CHECKLIST",
+  "ins": 17,
+  "del": 17,
+  "files": 1
+ },
+ {
   "repo": "ai-workspace",
   "date": "2026-10-05",
   "subject": "docs(handoff): record 2026-10-05 decisions and hook OPEN-count fix",
   "ins": 1,
   "del": 0,
+  "files": 1
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-10-05",
+  "subject": "docs(chro_advisor): match CIPD wording ('probably enough evidence') instead of a stronger conclusion",
+  "ins": 1,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-10-05",
+  "subject": "docs(advisors): correct DORA targets and reject forced rating quotas",
+  "ins": 12,
+  "del": 8,
+  "files": 2
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-10-05",
+  "subject": "docs(advisors): record Skok-verified LTV:CAC, flag looser CAC payback target, note 2024 DORA change",
+  "ins": 3,
+  "del": 1,
+  "files": 2
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-10-05",
+  "subject": "docs(vpe_advisor): align all four DORA bands with the 2019 report table",
+  "ins": 4,
+  "del": 4,
+  "files": 1
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-10-05",
+  "subject": "docs(vpe_advisor): fix overlapping DORA change-failure-rate bands",
+  "ins": 3,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-10-05",
+  "subject": "docs(advisors): flag imported C-level thresholds as unverified rules of thumb",
+  "ins": 20,
+  "del": 0,
+  "files": 10
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-10-05",
+  "subject": "docs: smooth hedged eye-tracking sentence",
+  "ins": 1,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "ai_prompt",
+  "date": "2026-10-05",
+  "subject": "docs: correct or qualify unverified citations (2026-10-05 independent review)",
+  "ins": 1,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "skills",
+  "date": "2026-10-05",
+  "subject": "docs(judgment-on-request): correct CHI 2026 finding (format had no significant effect)",
+  "ins": 1,
+  "del": 1,
+  "files": 1
+ },
+ {
+  "repo": "skills",
+  "date": "2026-10-05",
+  "subject": "docs: correct or qualify unverified citations (2026-10-05 independent review)",
+  "ins": 1,
+  "del": 1,
   "files": 1
  },
  {
@@ -6479,8 +6767,8 @@ const SESS = {
   {
    "date": "2026-10-05",
    "claude-code": 1,
-   "codex": 0,
-   "total": 1
+   "codex": 1,
+   "total": 2
   }
  ],
  "tools": [
@@ -6489,7 +6777,7 @@ const SESS = {
  ],
  "tool_totals": {
   "claude-code": 44,
-  "codex": 78
+  "codex": 79
  },
  "dow_names": [
   "월",
@@ -6511,7 +6799,7 @@ const SESS = {
    7
   ],
   "codex": [
-   6,
+   7,
    4,
    6,
    32,
@@ -6526,13 +6814,19 @@ const SESS = {
  "total_days": 30,
  "start_date": "2026-09-06",
  "end_date": "2026-10-05",
- "total_sessions": 122,
+ "total_sessions": 123,
  "rows": [
   {
    "tool": "claude-code",
    "date": "2026-10-05",
    "label": "hermes-agents",
-   "lines": 268
+   "lines": 1926
+  },
+  {
+   "tool": "codex",
+   "date": "2026-10-05",
+   "label": "Continue threshold verification loop",
+   "lines": 0
   },
   {
    "tool": "claude-code",
