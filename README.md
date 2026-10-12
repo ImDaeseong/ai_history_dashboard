@@ -1,8 +1,8 @@
 # AI Agent Work-History Dashboard
 
-**설계 문서:** [DESIGN.md](DESIGN.md) — 데이터 흐름, 공개 경계, 검증 및 사람 검토 조건
+> **핵심:** 로컬 AI 작업 기록과 Git 활동을 공개 가능한 집계와 비공개 원본으로 분리해 시각화합니다.
 
-**🤔 [쉬운 설명 보기](https://imdaeseong.github.io/ai_history_dashboard/ELI5.html)** — 비개발자를 위한 한 페이지 요약
+[쉬운 설명](ELI5.html) · [구조와 설계](DESIGN.md)
 
 ## 로컬 AI 사용·프롬프트 분석
 
